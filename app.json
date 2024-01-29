@@ -14,14 +14,29 @@
     "assetBundlePatterns": [
       "**/*"
     ],
+    "scheme": [
+      "HarmonyTracker",
+      "com.googleusercontent.apps.510593510774-r1dr6fgpg9ec50rk377kta6g9rh8ujlg"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.HarmonyTracker",
+      "GIDClientID": "510593510774-r1dr6fgpg9ec50rk377kta6g9rh8ujlg.apps.googleusercontent.com",
+      "CFBundleURLTypes": [
+        {
+          "CFBundleURLSchemes": [
+            "com.googleusercontent.apps.510593510774-r1dr6fgpg9ec50rk377kta6g9rh8ujlg"
+          ]
+        }
+      ],
+      "usesAppleSignIn": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.HarmonyTracker"
     },
     "web": {
       "favicon": "./assets/favicon.png"

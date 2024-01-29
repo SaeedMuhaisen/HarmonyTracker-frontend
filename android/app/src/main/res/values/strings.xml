@@ -1,0 +1,8 @@
+<resources>
+  <string name="app_name">temp</string>
+  <string name="expo_splash_screen_resize_mode" translatable="false">contain</string>
+  <string name="expo_splash_screen_status_bar_translucent" translatable="false">false</string>
+  <string name="server_client_id">510593510774-ibf17d76uea6f73bppdjdpb6lg7er3rq.apps.googleusercontent.com</string>
+  <string name="facebook_app_id">402103549044920</string>
+  <string name="facebook_client_token">42bb0a945c51c18c8714b2d87fd50b57</string>
+</resources>
