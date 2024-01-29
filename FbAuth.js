@@ -16,7 +16,7 @@ export default function () {
     const [rtoken, setRToken] = useState('')
     const [fbAccessToken, setFbAccessToken] = useState('')
 
-    Settings.setAppID('1735582486931803');
+    Settings.setAppID('402103549044920');
     Settings.initializeSDK();
     useEffect(() => {
         console.log('token: ', token);

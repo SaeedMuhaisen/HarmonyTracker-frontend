@@ -1,16 +1,11 @@
 {
   "expo": {
-    "name": "temp",
-    "slug": "temp",
+    "name": "HarmonyTracker-FE",
+    "slug": "harmonytracker-fe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -29,17 +24,61 @@
           ]
         }
       ],
-      "usesAppleSignIn": true
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you.",
+        "SKAdNetworkItems": [
+          {
+            "SKAdNetworkIdentifier": "v9wttpbfk9.skadnetwork"
+          },
+          {
+            "SKAdNetworkIdentifier": "n38lu8286q.skadnetwork"
+          }
+        ]
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.HarmonyTracker"
+      "package": "com.HarmonyTracker",
+      "permissions": [
+        "android.permission.INTERNET",
+        "com.google.android.gms.permission.AD_ID"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-apple-authentication",
+      "@react-native-google-signin/google-signin",
+      [
+        "react-native-fbsdk-next",
+        {
+          "appID": "402103549044920",
+          "clientToken": "42bb0a945c51c18c8714b2d87fd50b57",
+          "displayName": "Harmony Tracker",
+          "scheme": "fb402103549044920",
+          "advertiserIDCollectionEnabled": false,
+          "autoLogAppEventsEnabled": false,
+          "isAutoInitEnabled": true,
+          "iosUserTrackingPermission": "This identifier will be used to deliver personalized ads to you."
+        }
+      ],
+      "expo-tracking-transparency"
+    ],
+    "owner": "saeedmuhaisen",
+    "extra": {
+      "eas": {
+        "projectId": "cbf59278-0ee5-403d-8591-0b3451bde6a6"
+      }
+    }
+  },
+  "extra": {
+    "eas": {
+      "projectId": "cbf59278-0ee5-403d-8591-0b3451bde6a6"
     }
   }
 }
