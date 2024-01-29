@@ -1,4 +1,4 @@
-rootProject.name = 'temp'
+rootProject.name = 'HarmonyTracker'
 
 dependencyResolutionManagement {
   versionCatalogs {
