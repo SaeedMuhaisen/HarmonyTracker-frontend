@@ -8,8 +8,9 @@ import {
     LoginManager,
 
 } from "react-native-fbsdk-next";
-
-import { StyleSheet, Text, View, Button } from 'react-native';
+import facebook from '../../assets/facebook.png'
+import { logoStyles } from "../../Styles/LogoStyles";
+import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
 export default function () {
     const [loggedIn, setLoggedIn] = useState(false);
     const [token, setToken] = useState('')
@@ -57,11 +58,18 @@ export default function () {
 
 
     return (
+        <>
+            <TouchableOpacity
+                style={logoStyles.facebookSSO}
+            >
+                <LoginButton
+                    onLogoutFinished={() => { console.log(AccessToken.getCurrentAccessToken) }}
+                    onLoginFinished={() => handleLogin()}
+                    style={{ width: 210, height: 50 }}
 
-            <LoginButton
-                onLogoutFinished={() => { console.log(AccessToken.getCurrentAccessToken) }}
-                onLoginFinished={() => handleLogin()}
-            />
+                />
+            </TouchableOpacity >
 
+        </>
     );
 }
