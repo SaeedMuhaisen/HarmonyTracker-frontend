@@ -38,9 +38,7 @@ export default function () {
                         <AppleSSO/>
                         <GoogleSSO />
                         <FacebookSSO/>
-                    </View>
-                    <Text>temp: {userState.access_token}</Text>
-                    
+                    </View>        
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Text fontSize={20} fontWeight={'600'} color={'$color.dark7'}>Everything you need in a </Text>

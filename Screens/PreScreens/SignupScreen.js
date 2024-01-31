@@ -1,16 +1,9 @@
 import React from "react";
-import { XStack, YStack, Stack, Image, Text, Input } from "tamagui";
-import CustomHeader from "../../Components/CustomHeader";
-import LabeledInput from "../../Components/Inputs/LabeledInput";
-import LabeledSeparator from "../../Components/Seperators/LabeledSeparator";
-import AppleSignInButton from "../../Components/LoginOptions/AppleSignInButton";
-import GmailSingInButton from "../../Components/LoginOptions/GmailSingInButton";
-import ButtonVar1 from "../../Components/Buttons/ButtonVar1";
-import * as AppleAuthentication from 'expo-apple-authentication';
+
 export default function () {
     return (
         <>
-            <CustomHeader title={'Create Account'} />
+            {/* <CustomHeader title={'Create Account'} />
             <YStack flex={1} gap={7} padding={10} >
                 <LabeledInput label={'Name'} placeHolder={"What's your first name?"} />
                 <LabeledInput label={'Surname'} placeHolder={'last name?'} />
@@ -29,7 +22,7 @@ export default function () {
 
                 </Stack>
 
-            </YStack>
+            </YStack> */}
         </>
     )
 }
