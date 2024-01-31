@@ -3,19 +3,17 @@ import {
     GoogleSignin,
     statusCodes,
 } from '@react-native-google-signin/google-signin';
-import { View, Text, TouchableOpacity,Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { logoStyles } from '../../Styles/LogoStyles';
 import google from '../../assets/google.png'
-
+import store from '../../redux/store';
+import { updateUserTokens } from '../../redux/userSlice';
 export default function () {
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [token, setToken] = useState('')
-    const [rtoken, setRToken] = useState('')
     GoogleSignin.configure({
         iosClientId: '510593510774-r1dr6fgpg9ec50rk377kta6g9rh8ujlg.apps.googleusercontent.com',
         webClientId: '510593510774-o6att94shbis8pubmtcc6u5q60b9ug2d.apps.googleusercontent.com',
     });
-    
+
     return (
         <TouchableOpacity
             style={logoStyles.googleSSO}
@@ -34,10 +32,13 @@ export default function () {
                     });
                     if (response.ok) {
                         const responseData = await response.json();
-                        setLoggedIn(true);
-                        setToken(responseData.access_token);
-                        setRToken(responseData.refresh_token);
-                        console.log(responseData)
+                        const userData = {
+                            refreshToken: responseData.access_token,
+                            token: responseData.refresh_token,
+                        };
+                        store.dispatch(updateUserTokens(userData));
+                        
+                        
                     }
                 } catch (error) {
                     if (error.code === statusCodes.SIGN_IN_CANCELLED) {
@@ -52,7 +53,7 @@ export default function () {
                 }
             }}
         >
-            <Image source={google} style={{ height: 18, width: 18}} />
+            <Image source={google} style={{ height: 18, width: 18 }} />
             <Text style={{ fontSize: 15, fontWeight: 700, color: 'black' }}>Continue with Google</Text>
 
         </TouchableOpacity>

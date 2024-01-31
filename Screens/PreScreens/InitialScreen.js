@@ -1,20 +1,19 @@
-import React from 'react';
+import React, { useEffect ,useState} from 'react';
 import { View, Text, ScrollView, ViewComponent, Image, Button, TouchableOpacity } from 'react-native';
-import CustomHeader from '../../Components/CustomHeader';
-import { Platform } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from '../../Navigation/ROUTES';
 import harmony from '../../assets/adaptive-icon.png'
-import { LinearGradient } from 'react-native-svg';
-import Background from '../../Background';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { globalStyles } from '../../GlobalStyles';
 import GoogleSSO from '../../Components/SSOButtons/GoogleSSO';
 import FacebookSSO from '../../Components/SSOButtons/FacebookSSO';
 import AppleSSO from '../../Components/SSOButtons/AppleSSO';
-
+import store from '../../redux/store';
+import { useSelector } from 'react-redux';
 export default function () {
     const navigation = useNavigation();
+    const userState=useSelector((state)=> state.user);
+    console.log(userState.access_token)
 
     return (
         <SafeAreaView flex={1} >
@@ -40,6 +39,8 @@ export default function () {
                         <GoogleSSO />
                         <FacebookSSO/>
                     </View>
+                    <Text>temp: {userState.access_token}</Text>
+                    
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <Text fontSize={20} fontWeight={'600'} color={'$color.dark7'}>Everything you need in a </Text>

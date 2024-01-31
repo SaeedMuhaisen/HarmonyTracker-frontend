@@ -1,43 +1,22 @@
-import { requestTrackingPermissionsAsync } from "expo-tracking-transparency";
-import React, { useEffect, useState } from "react";
-import {
-    AccessToken,
-    LoginButton,
-    Settings,
-    ShareDialog,
-    LoginManager,
-
-} from "react-native-fbsdk-next";
-import facebook from '../../assets/facebook.png'
+import React from "react";
+import {AccessToken,LoginButton,Settings} from "react-native-fbsdk-next";
 import { logoStyles } from "../../Styles/LogoStyles";
-import { StyleSheet, Text, View, Button, TouchableOpacity, Image } from 'react-native';
+import { TouchableOpacity} from 'react-native';
+import store from '../../redux/store';
+import { updateUserTokens } from '../../redux/userSlice';
 export default function () {
-    const [loggedIn, setLoggedIn] = useState(false);
-    const [token, setToken] = useState('')
-    const [rtoken, setRToken] = useState('')
-    const [fbAccessToken, setFbAccessToken] = useState('')
-
     Settings.setAppID('402103549044920');
     Settings.initializeSDK();
-    useEffect(() => {
-        console.log('token: ', token);
-        console.log('refresh token: ', rtoken);
-    }, [token, rtoken]);
 
     const handleLogin = async () => {
         try {
             const fbt = await AccessToken.getCurrentAccessToken();
-            console.log('retrieved data from facebook: ', fbt);
-            setFbAccessToken(fbt);
-            console.log('saved data retrieved in fbAccessToken: ', fbt);
             getTrt(fbt);
         } catch (error) {
             console.log('caught error', error);
         }
     };
-
     const getTrt = async (fbtoken) => {
-        console.log(fbtoken);
         const response = await fetch('http://192.168.1.102:8080/api/register/2', {
             method: 'POST',
             headers: {
@@ -48,9 +27,11 @@ export default function () {
 
         if (response.ok) {
             const responseData = await response.json();
-            setToken(responseData.access_token);
-            setRToken(responseData.refresh_token);
-
+            const userData = {
+                refreshToken: responseData.access_token,
+                token: responseData.refresh_token,
+            };
+            store.dispatch(updateUserTokens(userData));
         } else {
             console.log('different response: not okay:', response);
         }
@@ -66,10 +47,8 @@ export default function () {
                     onLogoutFinished={() => { console.log(AccessToken.getCurrentAccessToken) }}
                     onLoginFinished={() => handleLogin()}
                     style={{ width: 210, height: 50 }}
-
                 />
             </TouchableOpacity >
-
         </>
     );
 }
