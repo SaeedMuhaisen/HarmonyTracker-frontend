@@ -5,10 +5,12 @@ import apple from '../../assets/apple.png'
 import * as AppleAuthentication from 'expo-apple-authentication'
 import store from '../../redux/store';
 import { updateUserTokens } from '../../redux/userSlice';
-
+import { useNavigation } from '@react-navigation/native';
+import ROUTES from '../../Navigation/ROUTES';
 export default function () {
     const [appleAuthAvailable, setAppleAuthAvailable] = useState(true);
     const [userToken, setUserToken] = useState();
+    const navigation=useNavigation();
 
     const login = async () => {
         try {
@@ -42,6 +44,8 @@ export default function () {
               };
               store.dispatch(updateUserTokens(userData));
               console.log(responseData)
+              navigation.navigate(ROUTES.InnerApp)
+              
         } else {
             console.log('different response: not okay:', response);
         }

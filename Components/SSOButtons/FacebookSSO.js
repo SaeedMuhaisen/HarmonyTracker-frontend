@@ -1,15 +1,18 @@
 import React from "react";
-import {AccessToken,LoginButton,Settings} from "react-native-fbsdk-next";
+import { AccessToken, LoginButton, LoginManager, Settings } from "react-native-fbsdk-next";
 import { logoStyles } from "../../Styles/LogoStyles";
-import { TouchableOpacity} from 'react-native';
+import { TouchableOpacity,Image,Text } from 'react-native';
 import store from '../../redux/store';
 import { updateUserTokens } from '../../redux/userSlice';
+import facebook from '../../assets/facebook.png'
+
 export default function () {
     Settings.setAppID('402103549044920');
     Settings.initializeSDK();
 
     const handleLogin = async () => {
         try {
+            await LoginManager.logInWithPermissions()
             const fbt = await AccessToken.getCurrentAccessToken();
             getTrt(fbt);
         } catch (error) {
@@ -42,12 +45,13 @@ export default function () {
         <>
             <TouchableOpacity
                 style={logoStyles.facebookSSO}
+                onPress={async () => {
+                    handleLogin();
+                }}
             >
-                <LoginButton
-                    onLogoutFinished={() => { console.log(AccessToken.getCurrentAccessToken) }}
-                    onLoginFinished={() => handleLogin()}
-                    style={{ width: 210, height: 50 }}
-                />
+                <Image source={facebook} style={{ height: 20, width: 20 }} />
+                <Text style={{ fontSize: 15, fontWeight: 700, color: 'white' }}>Continue with Facebook</Text>
+        
             </TouchableOpacity >
         </>
     );

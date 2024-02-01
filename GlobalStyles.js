@@ -10,4 +10,8 @@ export const globalStyles = StyleSheet.create({
       fontWeight:'900',
       color:'black'
     },
+    Card:{
+      backgroundColor:'blue',
+
+    }
   });

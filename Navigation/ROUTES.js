@@ -1,10 +1,14 @@
 export default {
     InitialScreen: "InitialScreen",
-    ChoiceScreen: "ChoiceScreen",
-
+    
     SignupScreen: "SignupScreen",
-
-
     SignInScreen: "SignInScreen",
+    
+    InnerApp: "InnerApp",
+    
+    
     HomeScreen: "HomeScreen",
+    SettingsScreen:"SettingsScreen",
+    MacroScreen:"MacroScreen",
+    
 };
