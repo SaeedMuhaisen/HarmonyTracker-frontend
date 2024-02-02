@@ -4,10 +4,10 @@ import { View, Text, SafeAreaView } from "react-native";
 export default function () {
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={{flex:1}}>
             <View>
                 <Text>
-                    Settings screen
+                    Settings screens
                 </Text>
             </View>
         </SafeAreaView>
