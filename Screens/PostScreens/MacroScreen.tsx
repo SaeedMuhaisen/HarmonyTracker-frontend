@@ -4,6 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { globalStyles } from "../../GlobalStyles";
 import { VictoryContainer, VictoryPie } from 'victory-native'
 import { EvilIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 
 import Svg, { Circle } from 'react-native-svg';
@@ -15,6 +16,7 @@ import LabeledSeparator from "../../Components/Seperators/LabeledSeparator";
 import Card from "../../Components/Cards/Card";
 import { AppColors } from "../../Styles/AppColors"
 import FoodItem from "../../Components/Cards/MacroScreenCards/FoodItem";
+import AddMealModal from "../../Components/Modals/AddMealModal";
 
 const renderLeftActions = (progress, dragX, onDelete) => {
     const trans = dragX.interpolate({
@@ -45,19 +47,15 @@ const renderLeftActions = (progress, dragX, onDelete) => {
 
 export default function () {
     const [isModalVisible, setModalVisible] = useState(false);
+    const openModal = () => { setModalVisible(true) };
+    const closeModal = () => { setModalVisible(false) };
 
-    const openModal = () => {
-        setModalVisible(true);
-    };
-
-    const closeModal = () => {
-        setModalVisible(false);
-    };
-
-    const handleTextInput = (text) => {
-        // Handle your text input logic here
-        console.log(text);
-    };
+    const textInputRef = useRef(null);
+    useEffect(() => {
+        if (textInputRef.current) {
+            textInputRef.current.focus();
+        }
+    }, []);
     const getCurrentDate = () => {
         const monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
@@ -72,13 +70,8 @@ export default function () {
         // Implement your logic to delete the item
         console.log('Item deleted');
     };
-    const textInputRef = useRef(null);
 
-    useEffect(() => {
-        if (textInputRef.current) {
-            textInputRef.current.focus();
-        }
-    }, []);
+
 
     return (
         <>
@@ -121,55 +114,59 @@ export default function () {
                         <Card>
                             <FoodItem />
                         </Card>
+                        <Card>
+                            <FoodItem />
+                        </Card>
+                        <Card>
+                            <FoodItem />
+                        </Card>
+                        <Card>
+                            <FoodItem />
+                        </Card>
+                        <Card>
+                            <FoodItem />
+                        </Card>
+                        <Card>
+                            <FoodItem />
+                        </Card>
+
+                        <Card>
+                            <FoodItem />
+                        </Card>
+                        <View style={{height:100}}/>
+
+                        
+                    
                     </View>
+
                 </ScrollView>
-                <TouchableOpacity
-                    style={{ flex: 0.25, flexDirection: 'row', backgroundColor: 'yellow' }}
-                    onPress={openModal}
-                />
+
+
+
+                <View>
+                    <View style={{
+                        position: 'absolute',
+                        bottom: 55,
+                        right: 5,
+                        height: 50,
+                        width: 50
+                    }}>
+                        <TouchableOpacity style={{
+                            flex: 1,
+                            borderRadius: 1000,
+                        }}
+                            onPress={openModal} >
+                            <AntDesign name="pluscircle" size={45} color={AppColors.primaryYellow} />
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
             </SafeAreaView >
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={isModalVisible}
-                onRequestClose={() => setModalVisible(false)}
-            >
-                <TouchableOpacity
-                    style={{flex: 1}}
-                    onPress={() => setModalVisible(false)} />
-                    <KeyboardAvoidingView
-                        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                    >
-                        <View style={{ justifyContent: 'flex-end', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
-                            <View style={{ height: 100, backgroundColor: 'blue' }}>
 
-                                <TextInput
-                                    autoFocus
-                                    placeholder="Type something..."
-                                    style={{ height: 40, borderColor: 'gray', borderWidth: 1, color: 'white' }}
-                                />
-                            </View>
-                        </View>
-                    </KeyboardAvoidingView>
-                
-
-            </Modal>
+            <AddMealModal closeModal={closeModal} isModalVisible={isModalVisible} />
 
         </>
 
 
     )
 }
-const styles = StyleSheet.create({
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'purple'
-    },
-    modal: {
-        height: 100,
-        flexDirection: 'row'
-    },
-});
