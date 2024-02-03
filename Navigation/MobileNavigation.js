@@ -11,6 +11,8 @@ import SettingsScreen from '../Screens/PostScreens/SettingsScreen';
 import MacroScreen from '../Screens/PostScreens/MacroScreen';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { Ionicons, Feather } from '@expo/vector-icons';
+import { AppColors } from '../Styles/AppColors';
+import { SafeAreaView } from 'react-native-safe-area-context';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
@@ -38,20 +40,34 @@ const MobileNavigation = () => {
 
 function InnerApp() {
     return (
+
+
+
         <Tab.Navigator
-            initialRouteName={ROUTES.HomeScreen}
+            initialRouteName={ROUTES.MacroScreen}
             options={{ headerShown: false }}
             screenOptions={{
                 tabBarActiveTintColor: 'white',
                 tabBarShowLabel: false,
                 tabBarStyle: {
                     position: 'absolute',
-                    backgroundColor: '#DE4835',
+                    backgroundColor: AppColors.primaryYellow,
+
 
                 }
             }}
 
         >
+            <Tab.Screen
+                name={ROUTES.MacroScreen}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons name="scale-outline" size={size} color={color} />
+                    ),
+                }}
+                component={MacroScreen}
+            />
             <Tab.Screen
                 name={ROUTES.HomeScreen}
                 options={{
@@ -63,16 +79,7 @@ function InnerApp() {
                 component={HomeScreen}
 
             />
-            <Tab.Screen
-                name={ROUTES.MacroScreen}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="scale-outline" size={size} color={color} />
-                    ),
-                }}
-                component={MacroScreen}
-            />
+
             <Tab.Screen
 
                 name={ROUTES.SettingsScreen}
@@ -85,6 +92,7 @@ function InnerApp() {
                 component={SettingsScreen}
             />
         </Tab.Navigator>
+
     )
 }
 
