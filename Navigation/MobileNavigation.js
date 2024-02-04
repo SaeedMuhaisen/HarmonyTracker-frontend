@@ -18,7 +18,7 @@ const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={ROUTES.InnerApp} >
+            <Stack.Navigator initialRouteName={ROUTES.InitialScreen} >
                 <Stack.Screen name={ROUTES.InitialScreen} options={{ headerShown: false }}>
                     {(props) =>
                         <InitialScreen />

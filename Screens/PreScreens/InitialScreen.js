@@ -15,6 +15,7 @@ import facebook from '../../assets/facebook.png'
 
 import { AccessToken, LoginButton, LoginManager, Settings } from "react-native-fbsdk-next";
 import { updateUserTokens } from '../../redux/userSlice';
+import { AppColors } from '../../Styles/AppColors';
 
 export default function () {
     Settings.setAppID('402103549044920');
@@ -67,8 +68,8 @@ export default function () {
     console.log(userState.access_token)
 
     return (
-        <SafeAreaView flex={1} >
-            <View style={globalStyles.outerContainer}>
+        <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground}>
+            <View  flex={1} >
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'center',
