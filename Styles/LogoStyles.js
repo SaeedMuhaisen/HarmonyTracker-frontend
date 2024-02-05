@@ -8,7 +8,7 @@ export const logoStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        width: 250,
+        width: '100%',
         paddingHorizontal: 15,
         gap: 5,
         borderRadius: 7,
@@ -29,7 +29,7 @@ export const logoStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 50,
-        width: 250,
+        width: '100%',
         
         gap: 5,
         borderRadius: 7,

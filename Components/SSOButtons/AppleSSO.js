@@ -56,37 +56,18 @@ export default function () {
     };
 
 
-    const getAppleAuthContent = () => {
-        if (!userToken) {
-            return <AppleAuthentication.AppleAuthenticationButton
-                buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-                cornerRadius={5}
-                style={styles.button}
-                onPress={login}
-            />
-        } else {
-            return (
-                <Button style={styles.button} title="Sign Out" onPress={logout}>
-
-                </Button>
-            )
-
-        }
-    };
-
     return (
 
         <AppleAuthentication.AppleAuthenticationButton
             buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
+            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
             cornerRadius={5}
             style={{
                 flexDirection: 'row',
                 justifyContent: 'center',
                 alignItems: 'center',
                 height: 50,
-                width: 250,
+                width: '100%',
                 paddingHorizontal: 15,
                 gap: 5,
                 borderRadius: 7,

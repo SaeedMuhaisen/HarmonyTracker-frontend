@@ -13,15 +13,30 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { Ionicons, Feather } from '@expo/vector-icons';
 import { AppColors } from '../Styles/AppColors';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import SignInScreen from '../Screens/PreScreens/SignInScreen';
+import EntranceScreen from '../Screens/PreScreens/EntranceScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={ROUTES.InitialScreen} >
+            <Stack.Navigator initialRouteName={ROUTES.EntranceScreen}>
                 <Stack.Screen name={ROUTES.InitialScreen} options={{ headerShown: false }}>
                     {(props) =>
-                        <InitialScreen />
+                        
+                            <InitialScreen />
+                        
+
+                    }
+                </Stack.Screen>
+                <Stack.Screen name={ROUTES.SignInScreen} options={{ headerShown: false }}>
+                    {(props) =>
+                        <SignInScreen />
+                    }
+                </Stack.Screen>
+                <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
+                    {(props) =>
+                        <EntranceScreen />
                     }
                 </Stack.Screen>
                 <Stack.Screen
@@ -33,8 +48,6 @@ const MobileNavigation = () => {
 
             </Stack.Navigator>
         </NavigationContainer>
-
-
     );
 };
 

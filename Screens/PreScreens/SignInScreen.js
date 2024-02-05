@@ -70,114 +70,94 @@ export default function () {
     console.log(userState.access_token)
 
     return (
-        <SafeAreaView style={{
-            flex: 1,
-            flexDirection: 'column',
-            alignItems: 'stretch',
-            backgroundColor: AppColors.stackBackground,
-
-        }}>
-            <View style={{ flex: 1 }}>
+        <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground}>
+            <View style={{ flex: 1, paddingHorizontal: 10, gap: 10 }}>
                 <View style={{
                     flexDirection: 'row',
                     justifyContent: 'center',
                     alignItems: 'center',
                     gap: 10,
-
+                    paddingHorizontal: 10,
                 }}>
                     <Image source={harmony} style={{ height: 50, width: 50 }} />
-                    <Text style={globalStyles.H4}>
+                    <Text style={{
+                        fontSize: 25,
+                        fontWeight: '900',
+                        color: 'black'
+                    }}>
                         TITLE
                     </Text>
                 </View>
-                <View style={{ flex: 1, justifyContent: 'flex-end', }}>
+                {/** Login with email + SSO */}
+                <View style={{
+                    ...globalStyles.card,
+                    flexDirection: 'column',
+
+                    alignItems: 'stretch'
 
 
-
-                    <View style={{ alignItems: 'center', gap: 10, paddingBottom: 50 }}>
-                        {
-                            Platform.OS === 'ios' ? (
-                                <>
-                                    <AppleSSO />
-                                    <GoogleSSO />
-                                    <ContextMenu
-                                        actions={[
-                                            { title: "Login With Facebook", systemIcon: Icons.person },
-                                            { title: "Continue with Email", systemIcon: Icons.envelop },
-                                            { title: "Sign up with Email", systemIcon: Icons.pencil }]}
-                                        dropdownMenuMode
-                                        onPress={(event) => {
-                                            const { index, indexPath, name } = event.nativeEvent;
-                                            if (name === "Login With Facebook") {
-                                                handleLogin();
+                }}>
+                    <View style={{
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        alignItems: 'stretch',
+                        gap: 10,
+                        paddingBottom: 5,
+                    }}>
 
 
-                                            }
-                                            else if (name === "Sign up with Email") {
-                                                console.log('sign up with email')
-                                            }
-                                            else if (name === "Continue with Email") {
-                                                navigation.navigate(ROUTES.SignInScreen)
-                                            }
-                                        }}
+                        <View >
+                            <Text style={globalStyles.H4} >Sign in</Text>
+                        </View>
+                        <View style={{ gap: 10 }}>
+                            <TextInput style={{ fontSize: 18, borderRadius: 10, backgroundColor: AppColors.stackBackground, padding: 7, color: 'white' }} placeholder='Email' placeholderTextColor={'gray'} />
+                            <TextInput style={{ fontSize: 18, borderRadius: 10, backgroundColor: AppColors.stackBackground, padding: 7 }} placeholder='Password' placeholderTextColor={'gray'} />
+                        </View>
+                        <View>
+                            <TouchableOpacity style={{ backgroundColor: AppColors.primaryYellow, height: 35, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ color: AppColors.backgroundColor }}>Login</Text>
+                            </TouchableOpacity>
+                        </View>
 
-                                    >
-                                        <Text style={{ fontSize: 12, textDecorationLine: 'underline', alignItems: 'center',color:AppColors.grayTextColor }} onPress={() => { setMenuVisible(true); console.log(menuVisible) }}>More Sign in options</Text>
-                                    </ContextMenu>
-                                </>
-
-                            ) : (
-                                <>
-                                    <GoogleSSO />
-                                    <FacebookSSO />
-                                    <ContextMenu
-                                        actions={[
-                                            { title: "Continue with Email", systemIcon: Icons.envelop },
-                                            { title: "Sign up with Email", systemIcon: Icons.pencil }]}
-                                        dropdownMenuMode
-                                        onPress={(event) => {
-                                            const { index, indexPath, name } = event.nativeEvent;
-                                            if (name === "Continue with Email") {
-                                                navigation.navigate(ROUTES.SignInScreen)
-                                            }
-                                            else if (name === "Sign up with Email") {
-                                                console.log('sign up with email')
-                                            }
-                                        }}
-                                    >
-                                        <Text style={{ fontSize: 12, textDecorationLine: 'underline', alignItems: 'center',color:AppColors.grayTextColor }} onPress={() => { setMenuVisible(true); console.log(menuVisible) }} >More Sign in options</Text>
-                                    </ContextMenu>
-                                </>
-                            )
-                        }
                     </View>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 5 }}>
+                        <View style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: AppColors.SecondaryYellow, flex: 1 }} />
 
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={{ textAlign: 'center', color: 'gray', fontSize: 12, paddingHorizontal: 40, paddingBottom: 10 }}>By continuing, you agree with Harmony tracker's <Text style={{ textDecorationLine: 'underline', color: 'rgb(0, 122, 255)' }}>terms of Use</Text> and <Text style={{ textDecorationLine: 'underline', color: 'rgb(0, 122, 255)' }}>Privacy Policy</Text>. Please review them before continuing</Text>
+                        <Text style={{ color: 'white', }}>
+                            Or
+                        </Text>
+                        <View style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: AppColors.SecondaryYellow, flex: 1 }} />
                     </View>
+                    <View>
+                        <TouchableOpacity style={{ backgroundColor: AppColors.SecondaryYellow, height: 35, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ color: AppColors.backgroundColor }}>Register Now!</Text>
+                        </TouchableOpacity>
+                    </View>
+                    {/**email */}
                 </View>
-
-
 
 
             </View>
 
-        </SafeAreaView>
-        // <SafeAreaView style={{flex:1}} backgroundColor={AppColors.stackBackground}>
-        //     <View style={{
-        //         flexDirection: 'row',
-        //         justifyContent: 'center',
-        //         alignItems: 'center',
-        //         gap: 10
-        //     }}>
-        //         <Image source={harmony} style={{ height: 50, width: 50 }} />
-        //         <Text style={globalStyles.H4}>
-        //             TITLE
-        //         </Text>
-        //     </View>
-        //     <View  style={{flex:1,alignContent:'flex-end'}}>
+        </SafeAreaView >
 
 
+
+
+        // <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground}>
+        //     <View flex={1} >
+
+        //         <View style={{
+        //             flexDirection: 'row',
+        //             justifyContent: 'center',
+        //             alignItems: 'center',
+        //             gap: 10
+        //         }}>
+        //             <Image source={harmony} style={{ height: 50, width: 50 }} />
+        //             <Text style={globalStyles.H4}>
+        //                 TITLE
+        //             </Text>
+        //         </View>
 
         //         <View style={{ flex: 1 }} >
         //             <View>
@@ -191,12 +171,12 @@ export default function () {
         //                             <GoogleSSO />
         //                             <ContextMenu
         //                                 actions={[
-        //                                     { title: "Login With Facebook", systemIcon: Icons.person },
-        //                                     { title: "Continue with Email", systemIcon: Icons.envelop },
-        //                                     { title: "Sign up with Email", systemIcon: Icons.pencil }]}
+        //                                     {title: "Login With Facebook", systemIcon: Icons.person },
+        //                                     {title: "Continue with Email", systemIcon: Icons.envelop },
+        //                                     {title: "Sign up with Email", systemIcon: Icons.pencil }]}
         //                                 dropdownMenuMode
         //                                 onPress={(event) => {
-        //                                     const { index, indexPath, name } = event.nativeEvent;
+        //                                     const {index, indexPath, name} = event.nativeEvent;
         //                                     if (name === "Login With Facebook") {
         //                                         handleLogin();
 
@@ -206,7 +186,7 @@ export default function () {
         //                                         console.log('sign up with email')
         //                                     }
         //                                     else if (name === "Continue with Email") {
-        //                                         navigation.navigate(ROUTES.SignInScreen)
+        //                                         console.log('login with email')
         //                                     }
         //                                 }}
 
@@ -221,13 +201,13 @@ export default function () {
         //                             <FacebookSSO />
         //                             <ContextMenu
         //                                 actions={[
-        //                                     { title: "Continue with Email", systemIcon: Icons.envelop },
-        //                                     { title: "Sign up with Email", systemIcon: Icons.pencil }]}
+        //                                     {title: "Continue with Email", systemIcon: Icons.envelop },
+        //                                     {title: "Sign up with Email", systemIcon: Icons.pencil }]}
         //                                 dropdownMenuMode
         //                                 onPress={(event) => {
-        //                                     const { index, indexPath, name } = event.nativeEvent;
+        //                                     const {index, indexPath, name} = event.nativeEvent;
         //                                     if (name === "Continue with Email") {
-        //                                         navigation.navigate(ROUTES.SignInScreen)
+        //                                         console.log('login with Email')
         //                                     }
         //                                     else if (name === "Sign up with Email") {
         //                                         console.log('sign up with email')

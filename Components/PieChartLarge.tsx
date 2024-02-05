@@ -2,7 +2,9 @@ import React from "react";
 import { View, Text } from "react-native";
 import { VictoryPie, VictoryLabel } from "victory-native";
 import { Svg } from "react-native-svg";
+
 export default function PieChartLarge({ y, baseColor, secondaryColor }) {
+    
     return (
         <Svg width={150} height={150}>
             <VictoryPie

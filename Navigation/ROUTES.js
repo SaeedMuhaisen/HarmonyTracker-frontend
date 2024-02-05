@@ -3,7 +3,7 @@ export default {
     
     SignupScreen: "SignupScreen",
     SignInScreen: "SignInScreen",
-    
+    EntranceScreen:"EntranceScreen",
     InnerApp: "InnerApp",
     
     

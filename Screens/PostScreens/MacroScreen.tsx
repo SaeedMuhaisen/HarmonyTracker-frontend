@@ -78,7 +78,7 @@ export default function () {
             <SafeAreaView style={{ flex: 1, gap: 10, backgroundColor: AppColors.stackBackground }}>
                 <View style={{ paddingHorizontal: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
                     <View>
-                        <Text style={{ fontSize: 30, fontWeight: '800', color: AppColors.textColor }}>Today</Text>
+                        <Text style={globalStyles.H4}>Today</Text>
                         <Text style={{ fontSize: 12, fontWeight: '500', color: AppColors.textColor }}>{' ' + getCurrentDate()}</Text>
                     </View>
                     <TouchableWithoutFeedback >
