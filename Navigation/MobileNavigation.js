@@ -21,13 +21,19 @@ const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={ROUTES.EntranceScreen}>
-                <Stack.Screen name={ROUTES.InitialScreen} options={{ headerShown: false }} >
+            <Stack.Navigator initialRouteName={ROUTES.InitialScreen}>
+                <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
                     {(props) =>
 
+
+
+                        <EntranceScreen />
+
+                    }
+                </Stack.Screen>
+                <Stack.Screen name={ROUTES.InitialScreen} options={{ headerShown: false }} >
+                    {(props) =>
                         <InitialScreen />
-
-
                     }
                 </Stack.Screen>
                 <Stack.Screen name={ROUTES.SignInScreen} options={{ headerShown: false }}>
@@ -35,13 +41,9 @@ const MobileNavigation = () => {
                         <SignInScreen />
                     }
                 </Stack.Screen>
-                <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
+                <Stack.Screen name={ROUTES.SignupScreen} options={{ headerShown: false }}>
                     {(props) =>
-                        
-
-
-                            <EntranceScreen />
-                        
+                        <SignupScreen />
                     }
                 </Stack.Screen>
                 <Stack.Screen
@@ -50,7 +52,6 @@ const MobileNavigation = () => {
                         headerShown: false,
                     }}
                     component={InnerApp} />
-
             </Stack.Navigator>
         </NavigationContainer>
     );

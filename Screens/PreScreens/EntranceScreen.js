@@ -74,7 +74,7 @@ export default function () {
             <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
                 <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground}>
 
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 5 }}>
                         <View style={{
                             ...globalStyles.card,
                             flexDirection: 'column',
@@ -113,30 +113,6 @@ export default function () {
                                                 <AppleSSO />
                                                 <GoogleSSO />
                                                 <FacebookSSO />
-                                                <ContextMenu
-                                                    actions={[
-                                                        { title: "Login With Facebook", systemIcon: Icons.person },
-                                                        { title: "Continue with Email", systemIcon: Icons.envelop },
-                                                        { title: "Sign up with Email", systemIcon: Icons.pencil }]}
-                                                    dropdownMenuMode
-                                                    onPress={(event) => {
-                                                        const { index, indexPath, name } = event.nativeEvent;
-                                                        if (name === "Login With Facebook") {
-                                                            handleLogin();
-
-
-                                                        }
-                                                        else if (name === "Sign up with Email") {
-                                                            console.log('sign up with email')
-                                                        }
-                                                        else if (name === "Continue with Email") {
-                                                            console.log('login with email')
-                                                        }
-                                                    }}
-
-                                                >
-                                                    <Text style={{ fontSize: 12, textDecorationLine: 'underline', alignItems: 'center' }} onPress={() => { setMenuVisible(true); console.log(menuVisible) }}>More Sign in options</Text>
-                                                </ContextMenu>
                                             </>
 
                                         ) : (
@@ -186,18 +162,21 @@ export default function () {
                                         Forgot password?
                                     </Text>
                                 </View>
-                                <View>
+                                <View style={{ gap: 5 }}>
                                     <TouchableOpacity style={{ backgroundColor: AppColors.primaryYellow, height: 35, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
                                         <Text style={{ color: AppColors.backgroundColor }}>Login</Text>
                                     </TouchableOpacity>
+
                                 </View>
 
                             </View>
 
-                            {/**email */}
+
                         </View>
+                        <TouchableOpacity onPress={()=>{navigation.navigate(ROUTES.SignupScreen)}}>
+                            <Text style={{ fontSize: 14, color: 'gray', textDecorationLine: 'underline' }}>Create new account with Email</Text>
 
-
+                        </TouchableOpacity>
                     </View>
                 </SafeAreaView >
             </TouchableWithoutFeedback >
