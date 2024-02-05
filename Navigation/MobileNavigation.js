@@ -15,17 +15,18 @@ import { AppColors } from '../Styles/AppColors';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SignInScreen from '../Screens/PreScreens/SignInScreen';
 import EntranceScreen from '../Screens/PreScreens/EntranceScreen';
+import { View } from 'react-native';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer >
             <Stack.Navigator initialRouteName={ROUTES.EntranceScreen}>
-                <Stack.Screen name={ROUTES.InitialScreen} options={{ headerShown: false }}>
+                <Stack.Screen name={ROUTES.InitialScreen} options={{ headerShown: false }} >
                     {(props) =>
-                        
-                            <InitialScreen />
-                        
+
+                        <InitialScreen />
+
 
                     }
                 </Stack.Screen>
@@ -36,7 +37,11 @@ const MobileNavigation = () => {
                 </Stack.Screen>
                 <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
                     {(props) =>
-                        <EntranceScreen />
+                        
+
+
+                            <EntranceScreen />
+                        
                     }
                 </Stack.Screen>
                 <Stack.Screen
