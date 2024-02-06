@@ -51,7 +51,10 @@
     "victory-native": "^36.8.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@react-native-community/datetimepicker": "^7.6.2",
+    "@react-native-picker/picker": "^2.6.1",
+    "react-native-wheel-pick": "^1.2.2"
   },
   "private": true
 }

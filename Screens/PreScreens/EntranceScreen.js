@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, ViewComponent, Image, Button, TouchableOpacity, Platform, Modal, StyleSheet, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, TextInput } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from '../../Navigation/ROUTES';
-import harmony from '../../assets/adaptive-icon.png'
+import harmony from '../../assets/Logo.png'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { globalStyles } from '../../GlobalStyles';
 import GoogleSSO from '../../Components/SSOButtons/GoogleSSO';
@@ -96,7 +96,7 @@ export default function () {
                                     gap: 10,
                                     paddingHorizontal: 10,
                                 }}>
-                                    <Image source={harmony} style={{ height: 50, width: 50 }} />
+                                    <Image source={harmony} style={{ height: 80, width: 80,borderRadius:20 }} />
                                 </View>
                                 <View >
                                     <Text style={{

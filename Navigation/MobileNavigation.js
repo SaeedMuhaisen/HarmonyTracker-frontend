@@ -16,19 +16,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import SignInScreen from '../Screens/PreScreens/SignInScreen';
 import EntranceScreen from '../Screens/PreScreens/EntranceScreen';
 import { View } from 'react-native';
+import SuveryScreen from '../Screens/PreScreens/SuveryScreen';
+import Test from '../Screens/TestScreen/TestScreen';
+import TestScreen from '../Screens/TestScreen/TestScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={ROUTES.InitialScreen}>
+            <Stack.Navigator initialRouteName={'test'}>
                 <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
                     {(props) =>
-
-
-
                         <EntranceScreen />
-
                     }
                 </Stack.Screen>
                 <Stack.Screen name={ROUTES.InitialScreen} options={{ headerShown: false }} >
@@ -41,9 +40,19 @@ const MobileNavigation = () => {
                         <SignInScreen />
                     }
                 </Stack.Screen>
+                <Stack.Screen name={ROUTES.SurveyScreen} options={{ headerShown: false }}>
+                    {(props) =>
+                        <SuveryScreen />
+                    }
+                </Stack.Screen>
                 <Stack.Screen name={ROUTES.SignupScreen} options={{ headerShown: false }}>
                     {(props) =>
                         <SignupScreen />
+                    }
+                </Stack.Screen>
+                <Stack.Screen name={"test"} options={{ headerShown: false }}>
+                    {(props) =>
+                        <TestScreen />
                     }
                 </Stack.Screen>
                 <Stack.Screen

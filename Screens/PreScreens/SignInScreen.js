@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, ScrollView, ViewComponent, Image, Button, TouchableOpacity, Platform, Modal, StyleSheet } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from '../../Navigation/ROUTES';
-import harmony from '../../assets/adaptive-icon.png'
+import harmony from '../../assets/Logo.png'
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { globalStyles } from '../../GlobalStyles';
 import GoogleSSO from '../../Components/SSOButtons/GoogleSSO';
