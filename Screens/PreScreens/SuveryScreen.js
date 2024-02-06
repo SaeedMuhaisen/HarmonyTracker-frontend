@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView, View, Keyboard, TextInput, Platform, Text, TouchableHighlight, TouchableOpacity, SafeAreaViewBase } from "react-native"
+import { KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView, View, Keyboard, TextInput, Platform, Text, TouchableHighlight, TouchableOpacity, SafeAreaViewBase, StatusBar } from "react-native"
 import { AppColors } from "../../Styles/AppColors"
 import Card from "../../Components/Cards/Card"
 import AnswerCard from "../../Components/Cards/AnswerCard"
@@ -106,12 +106,16 @@ export default function Quiz() {
 
         if (currentQuestion.type === 0) {
             return (
-                <>
+
+                <View style={{ flex: 1, paddingHorizontal: 10 }}>
                     <View style={{ flex: 1 }}>
                         <MultipleQuestions answers={questionsArray[currentQuestionIndex].answers} handleAnswerSelection={handleAnswerSelection} pressedItem={pressedItem} />
                     </View>
-                    <NextQuestion goNext={handleNextQuestion} />
-                </>
+                    <SafeAreaView style={{ paddingBottom: 5 }}>
+                        <NextQuestion goNext={handleNextQuestion} />
+                    </SafeAreaView>
+                </View>
+
             );
 
         } else if (currentQuestion.type === 6) {
@@ -121,27 +125,24 @@ export default function Quiz() {
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
                         <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'gray' }}>{monthNames[birthDay.getMonth()]} {birthDay.getDate()},{birthDay.getFullYear()}</Text>
                     </View>
-                    <NextQuestion goNext={handleNextQuestion} />
+                    <NextQuestion goNext={handleNextQuestion} noRadius={true} />
                     {
                         Platform.OS === 'ios' ?
-                            <View style={{ backgroundColor: 'blue', padding: 0, marginLeft: 0, }}>
-
+                            <View style={{ padding: 0, marginLeft: 0, }}>
                                 <DateTimePicker
-
                                     display={'spinner'}
                                     value={birthDay}
                                     dateFormat='day month year'
                                     onChange={handleDate}
                                     textColor='white'
-                                    width='100%'
                                     maximumDate={new Date('2020-01-01')}
                                 />
                             </View>
                             :
-
-
-
-                            <DatePicker style={{ width: '100%' }}
+                            <DatePicker
+                                style={{ backgroundColor: 'transparent'}}
+                                textColor='white'
+                                
                                 minimumDate={new Date('1960-01-01')}
                                 maximumDate={new Date('2020-01-01')}
                                 onDateChange={(date) => {
@@ -154,11 +155,7 @@ export default function Quiz() {
                                     setBirthDay(extractedDate);
 
                                 }}
-
-
                             />
-
-
                     }
 
 
@@ -175,12 +172,33 @@ export default function Quiz() {
             style={{ flex: 1 }}
         >
             <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
-                <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground}>
+                <View style={{ flex: 1, backgroundColor: AppColors.stackBackground, justifyContent: 'flex-start' }} >
 
-                    <View style={{ flex: 1, justifyContent: 'flex-start', gap: 5, padding: 10 }}>
+                    <View>
+                        <SafeAreaView style={{ paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0 }} >
 
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <TouchableOpacity style={{ flex: 1 }} onPress={handlePreviousQuestion}>
+                                    <Ionicons name="chevron-back" size={30} color='white' />
+                                </TouchableOpacity>
+                                <View style={{ flex: 2 }}>
+                                    <ProgressBar style={{ backgroundColor: AppColors.SecondaryYellow }} progress={currentQuestionIndex / 3} color={AppColors.primaryYellow} />
+                                </View>
+                                <View style={{ flex: 1 }}></View>
+
+                            </View>
+                        </SafeAreaView>
+                    </View>
+                    <View style={{ flex: 1, justifyContent: 'flex-start', }}>
+                        <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={{ ...globalStyles.H4 }}>{currentQuestion.question}</Text>
+                        </View>
+                        <View style={{ flex: 1 }}>
+                            {renderAnswers()}
+                        </View>
+                    </View>
+                    {/* <SafeAreaView backgroundColor={AppColors.stackBackground}>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
                             <TouchableOpacity style={{ flex: 1 }} onPress={handlePreviousQuestion}>
                                 <Ionicons name="chevron-back" size={30} color='white' />
                             </TouchableOpacity>
@@ -188,14 +206,17 @@ export default function Quiz() {
                                 <ProgressBar style={{ backgroundColor: AppColors.SecondaryYellow }} progress={currentQuestionIndex / 3} color={AppColors.primaryYellow} />
                             </View>
                             <View style={{ flex: 1 }}></View>
+
                         </View>
+                    </SafeAreaView> */}
+                    {/* <View style={{ flex: 1, justifyContent: 'flex-start', gap: 5, padding: 10 }}>
                         <View style={{}}>
                             <Text style={{ ...globalStyles.H4, alignSelf: 'flex-start' }}>{currentQuestion.question}</Text>
                         </View>
                         {renderAnswers()}
-                    </View>
-                </SafeAreaView>
+                    </View> */}
+                </View>
             </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingView >
     )
 }
