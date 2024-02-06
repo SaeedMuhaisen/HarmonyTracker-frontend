@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView, View, Keyboard, TextInput, Platform, Text, TouchableHighlight, TouchableOpacity } from "react-native"
+import { KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView, View, Keyboard, TextInput, Platform, Text, TouchableHighlight, TouchableOpacity, SafeAreaViewBase } from "react-native"
 import { AppColors } from "../../Styles/AppColors"
 import Card from "../../Components/Cards/Card"
 import AnswerCard from "../../Components/Cards/AnswerCard"
@@ -8,34 +8,65 @@ import CustomHeader from "../../Components/Bars/CustomHeader"
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { globalStyles } from "../../GlobalStyles"
 import { ProgressBar, Colors } from 'react-native-paper';
+import { Picker } from 'react-native-wheel-pick'
+import { DatePicker } from 'react-native-wheel-pick';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import NextQuestion from "../../Components/Buttons/NextQuestion"
+import MultipleQuestions from "../../Components/MultipleQuestions"
+
+{/**
+Type 0 : single choice with no icon
+Type 1: Multiple choice
+type 6: date question
+
+
+*/}
 const questionsArray = [
     {
         key: 0,
-        question: 'Whats your Gender?',
-        answers: ['Male', 'Female'],
         type: 0,
-        
-
+        question: 'Whats your Gender?',
+        answers: [
+            { name: 'Male', icon: 'male', iconProvider: 'Ionicons' },
+            { name: 'Female', icon: 'female', iconProvider: 'Ionicons' }
+        ],
     },
     {
         key: 1,
-        question: 'Whats your Weight',
-        type: 1,
-        
-    },
-    {
-        key: 2,
-        question: 'How tall are you?',
-        type: 1,
-        
+        type: 0,
+        question: 'Whats 1 + 1 ',
+        answers: [
+            { name: '2' },
+            { name: '3' }
+        ],
     },
 
-    // Add more questions as needed
+    {
+        key: 2,
+        type: 6,
+        question: 'When is your birthday?',
+    }
+
 ];
 
 export default function Quiz() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [progress, setProgress] = useState(0);
+    const [birthDay, setBirthDay] = useState(new Date());
+
+    const handleDate = (date) => {
+        const timestamp = date.nativeEvent.timestamp;
+        const selectedDate = new Date(timestamp);
+        const year = selectedDate.getFullYear();
+        const month = selectedDate.getMonth() + 1; // Month is zero-indexed, so add 1
+        const day = selectedDate.getDate();
+        const extractedDate = new Date(year, month - 1, day);
+        setBirthDay(extractedDate);
+    };
+
+    const monthNames = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [textInputData, setTextInputData] = useState({});
 
@@ -75,44 +106,63 @@ export default function Quiz() {
 
         if (currentQuestion.type === 0) {
             return (
-                <FlatList
-                    scrollEnabled={false}
-                    contentContainerStyle={{ paddingTop: 30, justifyContent: 'center', gap: 10 }}
-                    data={currentQuestion.answers}
-                    keyExtractor={(item) => item}
-                    renderItem={({ item }) => (
-                        <TouchableWithoutFeedback
-
-                            onPress={() => handleAnswerSelection(item)}
-                        >
-                            <View style={{
-                                backgroundColor: pressedItem === item ? AppColors.primaryYellow : AppColors.cardBackground,
-                                padding: 15,
-                                gap: 5,
-                                borderRadius: 7,
-                                shadowColor: "#000",
-                                shadowOffset: {
-                                    width: 0,
-                                    height: 3,
-                                },
-                                shadowOpacity: 0.27,
-                                shadowRadius: 4.65,
-                                elevation: 6,
-                            }}>
-                                <Text style={{ color: pressedItem === item ? 'black' : 'white', fontWeight: '700' }}>{item}</Text>
-                            </View>
-
-                        </TouchableWithoutFeedback>
-                    )}
-                />
+                <>
+                    <View style={{ flex: 1 }}>
+                        <MultipleQuestions answers={questionsArray[currentQuestionIndex].answers} handleAnswerSelection={handleAnswerSelection} pressedItem={pressedItem} />
+                    </View>
+                    <NextQuestion goNext={handleNextQuestion} />
+                </>
             );
-        } else if (currentQuestion.type === 1) {
+
+        } else if (currentQuestion.type === 6) {
             return (
-                <TextInput
-                    placeholder="Type your answer here"
-                    value={textInputData[currentQuestion.key] || ''}
-                    onChangeText={handleTextChange}
-                />
+
+                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
+                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+                        <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'gray' }}>{monthNames[birthDay.getMonth()]} {birthDay.getDate()},{birthDay.getFullYear()}</Text>
+                    </View>
+                    <NextQuestion goNext={handleNextQuestion} />
+                    {
+                        Platform.OS === 'ios' ?
+                            <View style={{ backgroundColor: 'blue', padding: 0, marginLeft: 0, }}>
+
+                                <DateTimePicker
+
+                                    display={'spinner'}
+                                    value={birthDay}
+                                    dateFormat='day month year'
+                                    onChange={handleDate}
+                                    textColor='white'
+                                    width='100%'
+                                    maximumDate={new Date('2020-01-01')}
+                                />
+                            </View>
+                            :
+
+
+
+                            <DatePicker style={{ width: '100%' }}
+                                minimumDate={new Date('1960-01-01')}
+                                maximumDate={new Date('2020-01-01')}
+                                onDateChange={(date) => {
+                                    const timestamp = new Date(date).getTime(); // Convert date to timestamp
+                                    const selectedDate = new Date(timestamp);
+                                    const year = selectedDate.getFullYear();
+                                    const month = selectedDate.getMonth() + 1; // Month is zero-indexed, so add 1
+                                    const day = selectedDate.getDate();
+                                    const extractedDate = new Date(year, month - 1, day);
+                                    setBirthDay(extractedDate);
+
+                                }}
+
+
+                            />
+
+
+                    }
+
+
+                </View >
             );
         }
     };
@@ -134,24 +184,15 @@ export default function Quiz() {
                             <TouchableOpacity style={{ flex: 1 }} onPress={handlePreviousQuestion}>
                                 <Ionicons name="chevron-back" size={30} color='white' />
                             </TouchableOpacity>
-                            <View style={{ flex: 2}}>
-                                <ProgressBar style={{ backgroundColor: AppColors.SecondaryYellow }} progress={currentQuestionIndex/3} color={AppColors.primaryYellow} />
+                            <View style={{ flex: 2 }}>
+                                <ProgressBar style={{ backgroundColor: AppColors.SecondaryYellow }} progress={currentQuestionIndex / 3} color={AppColors.primaryYellow} />
                             </View>
                             <View style={{ flex: 1 }}></View>
                         </View>
                         <View style={{}}>
-                            <Text style={{ ...globalStyles.H4, alignSelf: 'flex:start' }}>{currentQuestion.question}</Text>
+                            <Text style={{ ...globalStyles.H4, alignSelf: 'flex-start' }}>{currentQuestion.question}</Text>
                         </View>
-                        <View style={{ flex: 1 }}>
-                            {renderAnswers()}
-                        </View>
-                
-                        <TouchableWithoutFeedback onPress={handleNextQuestion}>
-                            <View style={{ ...globalStyles.card }}>
-                                <Text style={{ color: 'white', fontWeight: '700' }}>Continue</Text>
-                            </View>
-                        </TouchableWithoutFeedback>
-
+                        {renderAnswers()}
                     </View>
                 </SafeAreaView>
             </TouchableWithoutFeedback>

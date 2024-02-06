@@ -29,7 +29,7 @@ export default function () {
                     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', gap: 5 }}>
 
 
-                        {/* <View style={{ flexDirection: 'row', padding: 40 }}>
+                        <View style={{ flexDirection: 'row', padding: 40 }}>
                             <Picker
                                 style={{ backgroundColor: AppColors.stackBackground, width: '80%', height: 215 }}
                                 textColor='white'
@@ -58,7 +58,7 @@ export default function () {
                                 onValueChange={value => { setSelectedWeight(value); }}
                             />
 
-                        </View> */}
+                        </View>
 
 
                         {Platform.OS === 'ios' ?
