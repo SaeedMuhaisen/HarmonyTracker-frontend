@@ -15,7 +15,8 @@ import NextQuestion from "../../Components/Buttons/NextQuestion"
 import MultipleQuestions from "../../Components/MultipleQuestions"
 import WeightQuestion from "./Questions/WeightQuestion"
 import AgeQuestion from "./Questions/AgeQuestion"
-
+import { updateGender } from "../../redux/userDetailsSlice"
+import HeightQuestion from "./Questions/HeightQuestion"
 {/**
 Type 0 : single choice with no icon
 Type 1: Multiple choice
@@ -24,18 +25,6 @@ type 7: weight question
 type 8: height question
 */}
 const questionsArray = [
-
-    {
-        key: 2,
-        type: 6,
-        question: 'When is your birthday?',
-    },
-
-    {
-        key: 3,
-        type: 7,
-        question: 'What is your weight?',
-    },
     {
         key: 4,
         type: 8,
@@ -49,6 +38,8 @@ const questionsArray = [
             { name: 'Male', icon: 'male', iconProvider: 'Ionicons' },
             { name: 'Female', icon: 'female', iconProvider: 'Ionicons' }
         ],
+        update: (val)=>updateGender(val),
+        
     },
     {
         key: 1,
@@ -58,32 +49,28 @@ const questionsArray = [
             { name: '2' },
             { name: '3' }
         ],
+        update: (val)=>updateGender(val),
     },
+
+    {
+        key: 2,
+        type: 6,
+        question: 'When is your birthday?',
+    },
+
+    {
+        key: 3,
+        type: 7,
+        question: 'What is your weight?',
+    },
+
 
 
 ];
 
-const answers = {
-    weight: '',
-    height: '',
-    age: '',
-}
-
 export default function Quiz() {
 
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-    const [birthDay, setBirthDay] = useState(new Date());
-
-    const [selectedHeight, setSelectedHeight] = useState('cm')
-    const cmArray = Array.from({ length: 321 }, (_, index) => index + 30);
-    const inchArray = Array.from({ length: 650 }, (_, index) => index + 70);
-    const [userHeightInitial, setUserHeightInitial] = useState(70);
-    const [userHeightFinal, setUserHeightFinal] = useState(0);
-
-   
-
-    
-
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [textInputData, setTextInputData] = useState({});
 
@@ -119,7 +106,7 @@ export default function Quiz() {
 
                 <View style={{ flex: 1, paddingHorizontal: 10 }}>
                     <View style={{ flex: 1 }}>
-                        <MultipleQuestions answers={questionsArray[currentQuestionIndex].answers} handleAnswerSelection={handleAnswerSelection} pressedItem={pressedItem} />
+                        <MultipleQuestions answers={questionsArray[currentQuestionIndex].answers} updateState={questionsArray[currentQuestionIndex].update }handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
                     </View>
                     <SafeAreaView style={{ paddingBottom: 5 }}>
                         <NextQuestion goNext={handleNextQuestion} />
@@ -143,9 +130,7 @@ export default function Quiz() {
         }
         else if (currentQuestion.type === 8) {
             return (
-
-                <>
-                </>
+                    <HeightQuestion handleNextQuestion={handleNextQuestion}/>
             );
         }
     };

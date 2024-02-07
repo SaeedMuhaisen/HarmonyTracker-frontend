@@ -30,6 +30,7 @@ export default function ({ handleNextQuestion }) {
             <NextQuestion goNext={handleNextQuestion} noRadius={true} />
             <View style={{ flexDirection: 'row' }}>
                 <Picker
+                    key={1}
                     style={{ flex: 2, backgroundColor: AppColors.stackBackground, }}
                     textColor={Platform.OS === 'android' ? 'gray' : 'white'}
                     selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
@@ -45,6 +46,7 @@ export default function ({ handleNextQuestion }) {
                     <Text style={{ fontSize: 30, color: 'white', paddingBottom: 5 }}>.</Text>
                 </View>
                 <Picker
+                    key={2}
                     style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
                     textColor={Platform.OS === 'android' ? 'gray' : 'white'}
                     selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
@@ -57,6 +59,7 @@ export default function ({ handleNextQuestion }) {
                     onValueChange={value => dispatch(updateWeightF({weightF:value}))}
                 />
                 <Picker
+                    key={3}
                     style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
                     textColor={Platform.OS === 'android' ? 'gray' : 'white'}
                     selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}

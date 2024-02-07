@@ -1,18 +1,23 @@
-import React from "react";
-import { View,Text,TouchableWithoutFeedback,FlatList} from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, TouchableWithoutFeedback, FlatList } from "react-native";
 import { AppColors } from "../Styles/AppColors";
-
+import { useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import Ionicons from '@expo/vector-icons/Ionicons'
-export default function ({answers,handleAnswerSelection,pressedItem}) {
+export default function ({ answers, handleAnswerSelection, pressedItem, updateState }) {
+    const dispatch = useDispatch();
     return (
         <FlatList
             scrollEnabled={false}
             contentContainerStyle={{ paddingTop: 30, justifyContent: 'center', gap: 10 }}
             data={answers}
-            keyExtractor={(item) => item.name} 
+            keyExtractor={(item) => item.name}
             renderItem={({ item }) => (
-                <TouchableWithoutFeedback 
-                    onPress={() => handleAnswerSelection(item)}
+                <TouchableWithoutFeedback
+                    onPress={() => { 
+                        dispatch(updateState(item.name))
+                        handleAnswerSelection(item)
+                    }}
                 >
                     <View style={{
                         backgroundColor: pressedItem === item ? AppColors.primaryYellow : AppColors.cardBackground, // Changed to simpler color
