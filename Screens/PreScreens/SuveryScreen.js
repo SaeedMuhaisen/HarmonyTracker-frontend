@@ -13,20 +13,33 @@ import { DatePicker } from 'react-native-wheel-pick';
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import NextQuestion from "../../Components/Buttons/NextQuestion"
 import MultipleQuestions from "../../Components/MultipleQuestions"
+import WeightQuestion from "./Questions/WeightQuestion"
+import AgeQuestion from "./Questions/AgeQuestion"
 
 {/**
 Type 0 : single choice with no icon
 Type 1: Multiple choice
 type 6: date question
 type 7: weight question
-
+type 8: height question
 */}
 const questionsArray = [
+
+    {
+        key: 2,
+        type: 6,
+        question: 'When is your birthday?',
+    },
 
     {
         key: 3,
         type: 7,
         question: 'What is your weight?',
+    },
+    {
+        key: 4,
+        type: 8,
+        question: 'What is your Height?',
     },
     {
         key: 0,
@@ -47,40 +60,30 @@ const questionsArray = [
         ],
     },
 
-    {
-        key: 2,
-        type: 6,
-        question: 'When is your birthday?',
-    },
-
 
 ];
 
+const answers = {
+    weight: '',
+    height: '',
+    age: '',
+}
+
 export default function Quiz() {
+
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [birthDay, setBirthDay] = useState(new Date());
-    const [selectedWeight, setSelectedWeight] = useState('kg')
-    const kgArray = Array.from({ length: 321 }, (_, index) => index + 30);
-    const lbArray = Array.from({ length: 650 }, (_, index) => index + 70);
-    // Create an object with values from 1 to 100
-    const kgData = kgArray.map((value) => ({ label: `${value}`, value }));
-    const lbData = lbArray.map((value) => ({ label: `${value}`, value }));
-    const [userWeightInitial,setUserWeightInitial]=useState(70);
-    const [userWeightFinal,setUserWeightFinal]=useState(0);
-    const handleDate = (date) => {
-        const timestamp = date.nativeEvent.timestamp;
-        const selectedDate = new Date(timestamp);
-        const year = selectedDate.getFullYear();
-        const month = selectedDate.getMonth() + 1; // Month is zero-indexed, so add 1
-        const day = selectedDate.getDate();
-        const extractedDate = new Date(year, month - 1, day);
-        setBirthDay(extractedDate);
-    };
 
-    const monthNames = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
+    const [selectedHeight, setSelectedHeight] = useState('cm')
+    const cmArray = Array.from({ length: 321 }, (_, index) => index + 30);
+    const inchArray = Array.from({ length: 650 }, (_, index) => index + 70);
+    const [userHeightInitial, setUserHeightInitial] = useState(70);
+    const [userHeightFinal, setUserHeightFinal] = useState(0);
+
+   
+
+    
+
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [textInputData, setTextInputData] = useState({});
 
@@ -127,98 +130,22 @@ export default function Quiz() {
 
         } else if (currentQuestion.type === 6) {
             return (
+                <AgeQuestion handleNextQuestion={handleNextQuestion} />
 
-                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-                        <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'gray' }}>{monthNames[birthDay.getMonth()]} {birthDay.getDate()},{birthDay.getFullYear()}</Text>
-                    </View>
-                    <NextQuestion goNext={handleNextQuestion} noRadius={true} />
-                    {
-                        Platform.OS === 'ios' ?
-                            <View style={{ padding: 0, marginLeft: 0, }}>
-                                <DateTimePicker
-                                    display={'spinner'}
-                                    value={birthDay}
-                                    dateFormat='day month year'
-                                    onChange={handleDate}
-                                    textColor='white'
-                                    maximumDate={new Date('2020-01-01')}
-                                />
-                            </View>
-                            :
-                            <DatePicker
-                                style={{ backgroundColor: 'transparent' }}
-                                textColor='white'
-
-                                minimumDate={new Date('1960-01-01')}
-                                maximumDate={new Date('2020-01-01')}
-                                onDateChange={(date) => {
-                                    const timestamp = new Date(date).getTime(); // Convert date to timestamp
-                                    const selectedDate = new Date(timestamp);
-                                    const year = selectedDate.getFullYear();
-                                    const month = selectedDate.getMonth() + 1; // Month is zero-indexed, so add 1
-                                    const day = selectedDate.getDate();
-                                    const extractedDate = new Date(year, month - 1, day);
-                                    setBirthDay(extractedDate);
-
-                                }}
-                            />
-                    }
-                </View >
             );
         } else if (currentQuestion.type === 7) {
             return (
+                <WeightQuestion
+                    handleNextQuestion={handleNextQuestion}
+                />
 
-                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
-                    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-                        <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>{userWeightInitial}.{userWeightFinal} {selectedWeight}</Text>
-                    </View>
-                    <NextQuestion goNext={handleNextQuestion} noRadius={true} />
-                    <View style={{ flexDirection: 'row' }}>
-                        <Picker
-                            style={{ flex: 2, backgroundColor: AppColors.stackBackground, }}
-                            textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                            selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
-                            textSize={30}
-                            isShowSelectBackground={false}
-                            isShowSelectLine={false}
-                            selectLineSize={9}
-                            pickerData={selectedWeight === 'kg' ? kgArray : lbArray}
-                            selectedValue={selectedWeight === 'kg' ? 70 : 150}
-                            onValueChange={setUserWeightInitial}
+            );
+        }
+        else if (currentQuestion.type === 8) {
+            return (
 
-                        />
-                        <View style={{ justifyContent: 'center', }}>
-                            <Text style={{ fontSize: 30, color: 'white', paddingBottom: 5 }}>.</Text>
-                        </View>
-                        <Picker
-                            style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
-                            textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                            selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
-                            textSize={30}
-                            isShowSelectBackground={false}
-                            isShowSelectLine={false}
-                            selectLineSize={9}
-                            pickerData={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
-                            selectedValue={0}
-                            onValueChange={setUserWeightFinal}
-                        />
-                        <Picker
-                            style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
-                            textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                            selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
-                            textSize={30}
-                            isShowSelectBackground={false}
-                            isShowSelectLine={false}
-                            selectLineSize={9}
-                            pickerData={['kg', 'lb']}
-                            selectedValue='kg'
-                            onValueChange={value => { setSelectedWeight(value); }}
-                        />
-                    </View>
-
-
-                </View >
+                <>
+                </>
             );
         }
     };
