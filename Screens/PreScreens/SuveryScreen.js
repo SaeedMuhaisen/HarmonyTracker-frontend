@@ -38,8 +38,8 @@ const questionsArray = [
             { name: 'Male', icon: 'male', iconProvider: 'Ionicons' },
             { name: 'Female', icon: 'female', iconProvider: 'Ionicons' }
         ],
-        update: (val)=>updateGender(val),
-        
+        update: (val) => updateGender(val),
+
     },
     {
         key: 1,
@@ -49,7 +49,7 @@ const questionsArray = [
             { name: '2' },
             { name: '3' }
         ],
-        update: (val)=>updateGender(val),
+        update: (val) => updateGender(val),
     },
 
     {
@@ -67,9 +67,15 @@ const questionsArray = [
 
 
 ];
+const extraBmiQuestions = [
+    {
+        key: 1,
 
-export default function Quiz() {
+    }
+]
 
+export default function Quiz() {    
+    const [added,setAdded]=useState(false);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [textInputData, setTextInputData] = useState({});
@@ -106,7 +112,7 @@ export default function Quiz() {
 
                 <View style={{ flex: 1, paddingHorizontal: 10 }}>
                     <View style={{ flex: 1 }}>
-                        <MultipleQuestions answers={questionsArray[currentQuestionIndex].answers} updateState={questionsArray[currentQuestionIndex].update }handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
+                        <MultipleQuestions answers={questionsArray[currentQuestionIndex].answers} updateState={questionsArray[currentQuestionIndex].update} handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
                     </View>
                     <SafeAreaView style={{ paddingBottom: 5 }}>
                         <NextQuestion goNext={handleNextQuestion} />
@@ -130,7 +136,7 @@ export default function Quiz() {
         }
         else if (currentQuestion.type === 8) {
             return (
-                    <HeightQuestion handleNextQuestion={handleNextQuestion}/>
+                <HeightQuestion handleNextQuestion={handleNextQuestion} />
             );
         }
     };
@@ -154,7 +160,9 @@ export default function Quiz() {
                                 <View style={{ flex: 2 }}>
                                     <ProgressBar style={{ backgroundColor: AppColors.SecondaryYellow }} progress={currentQuestionIndex / 3} color={AppColors.primaryYellow} />
                                 </View>
-                                <View style={{ flex: 1 }}></View>
+                                <View style={{ flex: 1 }}>
+
+                                </View>
 
                             </View>
                         </SafeAreaView>
