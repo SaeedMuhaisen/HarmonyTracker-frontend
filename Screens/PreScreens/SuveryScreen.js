@@ -15,78 +15,130 @@ import NextQuestion from "../../Components/Buttons/NextQuestion"
 import MultipleQuestions from "../../Components/MultipleQuestions"
 import WeightQuestion from "./Questions/WeightQuestion"
 import AgeQuestion from "./Questions/AgeQuestion"
-import { updateGender } from "../../redux/userDetailsSlice"
+import { updateExtraData, updateGender, updateWaistNarrowest, updateWaistNarrowestUnit } from "../../redux/userDetailsSlice"
 import HeightQuestion from "./Questions/HeightQuestion"
+import ExtraQuestions from "./Questions/ExtraQuestions"
+import { useSelector, useStore } from "react-redux"
 {/**
-Type 0 : single choice with no icon
-Type 1: Multiple choice
+Type 0 : single choice with no update function
 type 6: date question
 type 7: weight question
 type 8: height question
+
+type 10:extra questions with picture and custom keyboard
 */}
-const questionsArray = [
-    {
-        key: 4,
-        type: 8,
-        question: 'What is your Height?',
-    },
-    {
-        key: 0,
-        type: 0,
-        question: 'Whats your Gender?',
-        answers: [
-            { name: 'Male', icon: 'male', iconProvider: 'Ionicons' },
-            { name: 'Female', icon: 'female', iconProvider: 'Ionicons' }
-        ],
-        update: (val) => updateGender(val),
-
-    },
-    {
-        key: 1,
-        type: 0,
-        question: 'Whats 1 + 1 ',
-        answers: [
-            { name: '2' },
-            { name: '3' }
-        ],
-        update: (val) => updateGender(val),
-    },
-
-    {
-        key: 2,
-        type: 6,
-        question: 'When is your birthday?',
-    },
-
-    {
-        key: 3,
-        type: 7,
-        question: 'What is your weight?',
-    },
 
 
+export default function Quiz() {
 
-];
-const extraBmiQuestions = [
-    {
-        key: 1,
+    const questionsArray = [
+        {
+            key: 1,
+            type: 10,
+            question: 'Waist at Narrowest?',
+            updateState: updateWaistNarrowest,
+            updateUnit: updateWaistNarrowestUnit,
+            state: useSelector(state => state.userDetails.waistNarrowest),
+            unit: useSelector(state => state.userDetails.waistNarrowestUnit),
+        },
+        {
+            key: 0,
+            type: 0,
+            question: 'Whats your Gender?',
+            answers: [
+                { name: 'Male', val: 'male', icon: 'male', iconProvider: 'Ionicons' },
+                { name: 'Female', val: 'female', icon: 'female', iconProvider: 'Ionicons' }
+            ],
+            update: (val) => updateGender(val),
 
-    }
-]
+        },
 
-export default function Quiz() {    
-    const [added,setAdded]=useState(false);
+        {
+            key: 1,
+            type: 0,
+            question: 'Whats 1 + 1 ',
+            answers: [
+                { name: '2' },
+                { name: '3' }
+            ],
+            update: (val) => updateGender(val),
+
+        },
+
+        {
+            key: 2,
+            type: 6,
+            question: 'When is your birthday?',
+        },
+        {
+            key: 3,
+            type: 8,
+            question: 'What is your Height?',
+        },
+        {
+            key: 4,
+            type: 7,
+            question: 'What is your weight?',
+        },
+        {
+            key: 5,
+            type: 0,
+            question: "Would you like to calculate your Body fat accurately with measure tape?",
+            answers: [
+                { name: "yes, lets do it!", val: true },
+                { name: "I don't have a measure tape", val: false }
+            ],
+            update: (val) => updateExtraData(val),
+
+        }
+        , {
+            key: 6,
+            type: 0,
+            question: 'a',
+            answers: [
+                { name: 'Male', val: 'a', icon: 'male', iconProvider: 'Ionicons' },
+                { name: 'Female', val: 'b', icon: 'female', iconProvider: 'Ionicons' }
+            ],
+            update: (val) => updateGender(val),
+
+        },
+        {
+            key: 7,
+            type: 0,
+            question: 'b',
+            answers: [
+                { name: 'Male', val: 'c', icon: 'male', iconProvider: 'Ionicons' },
+                { name: 'Female', val: 'd', icon: 'female', iconProvider: 'Ionicons' }
+            ],
+            update: (val) => updateGender(val),
+
+        },
+        {
+            key: 8,
+            type: 0,
+            question: 'finish',
+            answers: [
+                { name: 'Male', val: 'e', icon: 'male', iconProvider: 'Ionicons' },
+                { name: 'Female', val: 'f', icon: 'female', iconProvider: 'Ionicons' }
+            ],
+            update: (val) => updateGender(val),
+
+        }
+    ]
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [textInputData, setTextInputData] = useState({});
 
     const handleAnswerSelection = (item) => {
         setSelectedAnswer(item);
-        setPressedItem(item); // Add this line to update pressedItem state
+        setPressedItem(item);
     };
 
     const handleNextQuestion = () => {
         if (currentQuestionIndex < questionsArray.length - 1) {
+            if (currentQuestionIndex === 5 && !store.getState().userDetails.extraData) {
+                setCurrentQuestionIndex((prevIndex) => prevIndex + 2);
+            }
             setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
             setSelectedAnswer(null);
         } else {
@@ -96,8 +148,15 @@ export default function Quiz() {
     };
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
-            setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
-            setSelectedAnswer(null);
+            if (currentQuestionIndex == 8 && !store.getState().userDetails.extraData) {
+                setCurrentQuestionIndex(7 - 2);
+                setSelectedAnswer(null);
+            }
+            else {
+                setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
+                setSelectedAnswer(null);
+            }
+
         } else {
 
             console.log('End of Quiz');
@@ -138,6 +197,11 @@ export default function Quiz() {
             return (
                 <HeightQuestion handleNextQuestion={handleNextQuestion} />
             );
+        }
+        else if (currentQuestion.type === 10) {
+            return (
+                <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]} temp={'waistNarrowestUnit'} />
+            )
         }
     };
 

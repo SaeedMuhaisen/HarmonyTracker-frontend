@@ -29,4 +29,4 @@ export const globalStyles = StyleSheet.create({
 
     elevation: 6,
   }
-});
+});5
