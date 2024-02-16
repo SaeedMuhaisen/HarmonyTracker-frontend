@@ -4,24 +4,24 @@ import { AppColors } from "../Styles/AppColors";
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import Ionicons from '@expo/vector-icons/Ionicons'
-export default function ({ answers, handleAnswerSelection, pressedItem, updateState }) {
+export default function ({ element, handleAnswerSelection, pressedItem }) {
     const dispatch = useDispatch();
     return (
         <FlatList
+            key={element.key}
             scrollEnabled={false}
             contentContainerStyle={{ paddingTop: 30, justifyContent: 'center', gap: 10 }}
-            data={answers}
-            keyExtractor={(item) => item.name}
+            data={element.answers}
             renderItem={({ item }) => (
                 <TouchableWithoutFeedback
-                    onPress={() => { 
-                        dispatch(updateState(item.name))
+                    onPress={() => {
+                        dispatch(element.update(item.val))
                         handleAnswerSelection(item)
                     }}
                 >
+
                     <View style={{
-                        backgroundColor: pressedItem === item ? AppColors.primaryYellow : AppColors.cardBackground, // Changed to simpler color
-                        padding: 15,
+                        backgroundColor: pressedItem?.name === item.name ? AppColors.primaryYellow : AppColors.cardBackground, padding: 15,
                         gap: 5,
                         borderRadius: 7,
                         shadowColor: "#000",
@@ -35,8 +35,8 @@ export default function ({ answers, handleAnswerSelection, pressedItem, updateSt
                         flexDirection: 'row',
                         alignItems: 'center'
                     }}>
-                        {item.iconProvider === 'Ionicons' ? <Ionicons name={item.icon} size={25} color={pressedItem === item ? 'black' : 'white'}></Ionicons> : <></>}
-                        <Text style={{ color: pressedItem === item ? 'black' : 'white', fontWeight: '700' }}>{item.name}</Text>
+                        {item.iconProvider === 'Ionicons' ? <Ionicons name={item.icon} size={25} color={pressedItem?.name === item.name ? 'black' : 'white'}></Ionicons> : <></>}
+                        <Text style={{ color: pressedItem?.name === item.name ? 'black' : 'white', fontWeight: '700' }}>{item.name}</Text>
                     </View>
                 </TouchableWithoutFeedback>
             )}

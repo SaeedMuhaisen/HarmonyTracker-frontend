@@ -36,7 +36,7 @@ export default function ({ handleNextQuestion }) {
                 }
 
             </View>
-            <NextQuestion goNext={handleNextQuestion} noRadius={true} />
+            <NextQuestion goNext={handleNextQuestion} noRadius={true} disabled={false}/>
             <View style={{ flexDirection: 'row' }}>
                 {
                     userDetails.heightUnit === 'cm' ?

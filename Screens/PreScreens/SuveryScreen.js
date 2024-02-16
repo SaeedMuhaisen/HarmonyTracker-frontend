@@ -27,64 +27,9 @@ type 10:extra questions with picture and custom keyboard
 export default function Quiz() {
 
     const questionsArray = [
+
         {
             key:0,
-            type: 10,
-            question: 'Waist at Narrowest point?',
-            updateState: updateWaistNarrowest,
-            state: useSelector(state => state.userDetails.waistNarrowest),
-            imgSource:body,
-        },
-        {
-            key:1,
-            type: 10,
-            question: 'Waist at navel?',
-            updateState: updateWaistNavel,
-            state: useSelector(state => state.userDetails.waistNavel),
-        },
-        {
-            key:2,
-            type: 10,
-            question: 'Hip at widest point',
-            updateState: updateHipWidest,
-            state: useSelector(state => state.userDetails.hipWidest),
-        },
-        {
-            key:3,
-            type: 10,
-            question: 'Thigh at widest point?',
-            updateState: updateThighWidest,
-            state: useSelector(state => state.userDetails.thighWidest),
-        },
-        {
-            key:4,
-            type: 10,
-            question: 'Neck at Narrowest point?',
-            updateState: updateNeckNarrowest,
-            state: useSelector(state => state.userDetails.neckNarrowest),
-        },
-        {
-            key:5,
-            type: 10,
-            question: 'biceps at widest point?',
-            updateState: updateBicepsWidest,
-            state: useSelector(state => state.userDetails.bicepsWidest),
-        },
-        {
-            key:6,
-            type: 10,
-            question: 'forearm at widest point?',
-            updateState: updateForearmWidest,
-            state: useSelector(state => state.userDetails.forearmWidest),
-        },
-        {
-            key:7,
-            type: 10,
-            question: 'wrist at narrowest point?',
-            updateState: updateWristNarrowest,
-            state: useSelector(state => state.userDetails.wristNarrowest),
-        },
-        {
             type: 0,
             question: 'Whats your Gender?',
             answers: [
@@ -94,38 +39,25 @@ export default function Quiz() {
             update: (val) => updateGender(val),
 
         },
-
         {
-            key: 1,
-            type: 0,
-            question: 'Whats 1 + 1 ',
-            answers: [
-                { name: '2' },
-                { name: '3' }
-            ],
-            update: (val) => updateGender(val),
-
-        },
-
-        {
-            key: 2,
+            key:1,
             type: 6,
             question: 'When is your birthday?',
         },
         {
-            key: 3,
+            key:2,
             type: 8,
             question: 'What is your Height?',
         },
         {
-            key: 4,
+            key:3,
             type: 7,
             question: 'What is your weight?',
         },
         {
-            key: 5,
+            key: 4,
             type: 0,
-            question: "Would you like to calculate your Body fat accurately with measure tape?",
+            question: "Do you have a measure tape?",
             answers: [
                 { name: "yes, lets do it!", val: true },
                 { name: "I don't have a measure tape", val: false }
@@ -133,8 +65,73 @@ export default function Quiz() {
             update: (val) => updateExtraData(val),
 
         }
-        , {
+        ,
+        {
+            key: 5,
+            type: 10,
+            question: 'Waist at Narrowest point?',
+            updateState: updateWaistNarrowest,
+            state: useSelector(state => state.userDetails.waistNarrowest),
+            imgSource: body,
+        },
+        {
             key: 6,
+            type: 10,
+            question: 'Waist at navel?',
+            updateState: updateWaistNavel,
+            state: useSelector(state => state.userDetails.waistNavel),
+            imgSource: body,
+        },
+        {
+            key: 7,
+            type: 10,
+            question: 'Hip at widest point',
+            updateState: updateHipWidest,
+            state: useSelector(state => state.userDetails.hipWidest),
+            imgSource: body,
+        },
+        {
+            key: 8,
+            type: 10,
+            question: 'Thigh at widest point?',
+            updateState: updateThighWidest,
+            state: useSelector(state => state.userDetails.thighWidest),
+            imgSource: body,
+        },
+        {
+            key: 9,
+            type: 10,
+            question: 'Neck at Narrowest point?',
+            updateState: updateNeckNarrowest,
+            state: useSelector(state => state.userDetails.neckNarrowest),
+            imgSource: body,
+        },
+        {
+            key: 10,
+            type: 10,
+            question: 'biceps at widest point?',
+            updateState: updateBicepsWidest,
+            state: useSelector(state => state.userDetails.bicepsWidest),
+            imgSource: body,
+        },
+        {
+            key: 11,
+            type: 10,
+            question: 'forearm at widest point?',
+            updateState: updateForearmWidest,
+            state: useSelector(state => state.userDetails.forearmWidest),
+            imgSource: body,
+        },
+        {
+            key: 12,
+            type: 10,
+            question: 'wrist at narrowest point?',
+            updateState: updateWristNarrowest,
+            state: useSelector(state => state.userDetails.wristNarrowest),
+            imgSource: body,
+        },
+        {
+            key: 13,
             type: 0,
             question: 'a',
             answers: [
@@ -144,54 +141,39 @@ export default function Quiz() {
             update: (val) => updateGender(val),
 
         },
-        {
-            key: 7,
-            type: 0,
-            question: 'b',
-            answers: [
-                { name: 'Male', val: 'c', icon: 'male', iconProvider: 'Ionicons' },
-                { name: 'Female', val: 'd', icon: 'female', iconProvider: 'Ionicons' }
-            ],
-            update: (val) => updateGender(val),
-
-        },
-        {
-            key: 8,
-            type: 0,
-            question: 'finish',
-            answers: [
-                { name: 'Male', val: 'e', icon: 'male', iconProvider: 'Ionicons' },
-                { name: 'Female', val: 'f', icon: 'female', iconProvider: 'Ionicons' }
-            ],
-            update: (val) => updateGender(val),
-
-        }
     ]
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [textInputData, setTextInputData] = useState({});
-    
+    const [pressedItem, setPressedItem] = useState(null);
+
     const handleAnswerSelection = (item) => {
         setSelectedAnswer(item);
         setPressedItem(item);
     };
 
     const handleNextQuestion = () => {
+        console.log(currentQuestionIndex)
+        console.log(store.getState().userDetails.extraData)
         if (currentQuestionIndex < questionsArray.length - 1) {
-            if (currentQuestionIndex === 5 && !store.getState().userDetails.extraData) {
-                setCurrentQuestionIndex((prevIndex) => prevIndex + 2);
+            if (currentQuestionIndex === 4 && !store.getState().userDetails.extraData) {
+                setCurrentQuestionIndex(13)
+                setSelectedAnswer(null);
             }
-            setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-            setSelectedAnswer(null);
+            else {
+                setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+                setSelectedAnswer(null);
+            }
+            
         } else {
-
             console.log('End of Quiz');
         }
     };
     const handlePreviousQuestion = () => {
+        console.log(currentQuestionIndex)
         if (currentQuestionIndex > 0) {
-            if (currentQuestionIndex == 8 && !store.getState().userDetails.extraData) {
-                setCurrentQuestionIndex(7 - 2);
+            if (currentQuestionIndex === 13 && !store.getState().userDetails.extraData) {
+                setCurrentQuestionIndex(4);
                 setSelectedAnswer(null);
             }
             else {
@@ -204,19 +186,17 @@ export default function Quiz() {
             console.log('End of Quiz');
         }
     };
-    const [pressedItem, setPressedItem] = useState(null);
-
+    
     const renderAnswers = () => {
         const currentQuestion = questionsArray[currentQuestionIndex];
         if (currentQuestion.type === 0) {
             return (
-
                 <View style={{ flex: 1, paddingHorizontal: 10 }}>
                     <View style={{ flex: 1 }}>
-                        <MultipleQuestions answers={questionsArray[currentQuestionIndex].answers} updateState={questionsArray[currentQuestionIndex].update} handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
+                        <MultipleQuestions element={questionsArray[currentQuestionIndex]} handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
                     </View>
                     <SafeAreaView style={{ paddingBottom: 5 }}>
-                        <NextQuestion goNext={handleNextQuestion} />
+                        <NextQuestion goNext={handleNextQuestion} disabled={selectedAnswer===null?true:false}/>
                     </SafeAreaView>
                 </View>
 
@@ -242,7 +222,7 @@ export default function Quiz() {
         }
         else if (currentQuestion.type === 10) {
             return (
-                <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]}/>
+                <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]} />
             )
         }
     };
@@ -264,7 +244,7 @@ export default function Quiz() {
                                     <Ionicons name="chevron-back" size={30} color='white' />
                                 </TouchableOpacity>
                                 <View style={{ flex: 2 }}>
-                                    <ProgressBar style={{ backgroundColor: AppColors.SecondaryYellow }} progress={currentQuestionIndex / 3} color={AppColors.primaryYellow} />
+                                    <ProgressBar style={{ backgroundColor: AppColors.SecondaryYellow }} progress={currentQuestionIndex / 14} color={AppColors.primaryYellow} />
                                 </View>
                                 <View style={{ flex: 1 }}>
 
