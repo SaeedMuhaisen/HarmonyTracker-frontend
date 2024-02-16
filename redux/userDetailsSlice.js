@@ -13,22 +13,47 @@ export const userDetailsSlice = createSlice({
         heightF: 8,
         heightUnit: 'cm',
         extraData: false,
-        waistNarrowest: 20.0,
-        waistNavel: 20,
-        hipWidest: 20,
-        thighWidest: 20,
-        neckNarrowest: 20,
-        bicepsWidest: 20,
-        forearmWidest: 20,
-        wristNarrowest: 20.0,
-        waistNarrowestUnit: 'cm',
-        waistNavelUnit: 'cm',
-        hipWidestUnit: 'cm',
-        thighWidestUnit: 'cm',
-        neckNarrowestUnit: 'cm',
-        bicepsWidestUnit: 'cm',
-        forearmWidestUnit: 'cm',
-        wristNarrowestUnit: 'cm',
+        waistNarrowest: {
+            first: 60,
+            last: 0,
+            unit: 'cm',
+        },
+        waistNavel: {
+            first: 60,
+            last: 0,
+            unit: 'cm',
+        },
+        hipWidest: {
+            first: 60,
+            last: 0,
+            unit: 'cm',
+        },
+        thighWidest: {
+            first: 60,
+            last: 0,
+            unit: 'cm',
+        },
+        neckNarrowest: {
+            first: 60,
+            last: 0,
+            unit: 'cm',
+        },
+        bicepsWidest: {
+            first: 60,
+            last: 0,
+            unit: 'cm',
+        },
+        forearmWidest: {
+            first: 60,
+            last: 0,
+            unit: 'cm',
+        },
+        wristNarrowest: {
+            first: 60,
+            last: 0,
+            unit: 'cm',
+        },
+
 
     },
 
@@ -44,31 +69,14 @@ export const userDetailsSlice = createSlice({
         updateHeightUnit: (state, action) => { state.heightUnit = action.payload },
         updateExtraData: (state, action) => { state.extraData = action.payload },
 
-        updateWaistNarrowest: (state, action) => { state.waistNarrowest = action.payload},
-        updateWaistNavel: (state, action) => { state.waistNavel = action.payload },
-        updateHipWidest: (state, action) => { state.hipWidest = action.payload },
-        updateThighWidest: (state, action) => { state.thighWidest = action.payload },
-        updateNeckNarrowest: (state, action) => { state.neckNarrowest = action.payload },
-        updateBicepsWidest: (state, action) => { state.bicepsWidest = action.payload },
-        updateForearmWidest: (state, action) => { state.forearmWidest = action.payload },
-        updateWristNarrowest: (state, action) => { state.wristNarrowest = action.payload },
-
-        updateWaistNarrowestUnit: (state, action) => {
-            state.waistNarrowestUnit = action.payload;
-            if(action.payload==='cm'){
-                state.waistNarrowest=25;
-            }
-            else{
-                state.waistNarrowest=11;
-            }
-        },
-        updateWaistNavelUnit: (state, action) => { state.waistNavelUnit = action.payload },
-        updateHipWidestUnit: (state, action) => { state.hipWidestUnit = action.payload },
-        updateThighWidestUnit: (state, action) => { state.thighWidestUnit = action.payload },
-        updateNeckNarrowestUnit: (state, action) => { state.neckNarrowestUnit = action.payload },
-        updateBicepsWidestUnit: (state, action) => { state.bicepsWidestUnit = action.payload },
-        updateForearmWidestUnit: (state, action) => { state.forearmWidestUnit = action.payload },
-        updateWristNarrowestUnit: (state, action) => { state.wristNarrowestUnit = action.payload },
+        updateWaistNarrowest: (state, action) => { state.waistNarrowest = { ...state.waistNarrowest, ...action.payload } },
+        updateWaistNavel: (state, action) => { state.waistNavel = { ...state.waistNavel, ...action.payload } },
+        updateHipWidest: (state, action) => { state.hipWidest = { ...state.hipWidest, ...action.payload } },
+        updateThighWidest: (state, action) => { state.thighWidest = { ...state.thighWidest, ...action.payload } },
+        updateNeckNarrowest: (state, action) => { state.neckNarrowest = { ...state.neckNarrowest, ...action.payload } },
+        updateBicepsWidest: (state, action) => { state.bicepsWidest = { ...state.bicepsWidest, ...action.payload } },
+        updateForearmWidest: (state, action) => { state.forearmWidest = { ...state.forearmWidest, ...action.payload } },
+        updateWristNarrowest: (state, action) => { state.wristNarrowest = { ...state.wristNarrowest, ...action.payload } },
     }
 })
 
@@ -83,6 +91,7 @@ export const {
     updateGender,
     updateHeightUnit,
     updateExtraData,
+    
     updateWaistNarrowest,
     updateWaistNavel,
     updateHipWidest,
@@ -91,13 +100,5 @@ export const {
     updateBicepsWidest,
     updateForearmWidest,
     updateWristNarrowest,
-    updateWaistNarrowestUnit,
-    updateWaistNavelUnit,
-    updateHipWidestUnit,
-    updateThighWidestUnit,
-    updateNeckNarrowestUnit,
-    updateBicepsWidestUnit,
-    updateForearmWidestUnit,
-    updateWristNarrowestUnit,
 } = userDetailsSlice.actions;
 export default userDetailsSlice.reducer;

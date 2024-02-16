@@ -33,7 +33,6 @@ export default function ({ handleNextQuestion }) {
                     : <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
                         {userDetails.heightI}"{userDetails.heightF}'{userDetails.heightUnit}
                     </Text>
-
                 }
 
             </View>
@@ -101,34 +100,6 @@ export default function ({ handleNextQuestion }) {
                     }
                     }
                 />
-                {/* 
-                <View style={{ justifyContent: 'center', }}>
-                    <Text style={{ fontSize: 30, color: 'white', paddingBottom: 5 }}>.</Text>
-                </View>
-                <Picker
-                    style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
-                    textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
-                    textSize={30}
-                    isShowSelectBackground={false}
-                    isShowSelectLine={false}
-                    selectLineSize={9}
-                    pickerData={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
-                    selectedValue={userDetails.weightF}
-                    onValueChange={value => dispatch(updateWeightF({weightF:value}))}
-                />
-                <Picker
-                    style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
-                    textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
-                    textSize={30}
-                    isShowSelectBackground={false}
-                    isShowSelectLine={false}
-                    selectLineSize={9}
-                    pickerData={['kg', 'lb']}
-                    selectedValue={userDetails.weightUnit}
-                    onValueChange={value => dispatch(updateWeightUnit({weightUnit:value}))}
-                /> */}
             </View>
         </View>
     );

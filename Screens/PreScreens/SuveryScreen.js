@@ -1,24 +1,19 @@
 import React, { useState } from "react"
 import { KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView, View, Keyboard, TextInput, Platform, Text, TouchableHighlight, TouchableOpacity, SafeAreaViewBase, StatusBar } from "react-native"
 import { AppColors } from "../../Styles/AppColors"
-import Card from "../../Components/Cards/Card"
-import AnswerCard from "../../Components/Cards/AnswerCard"
-import { FlatList } from "react-native"
-import CustomHeader from "../../Components/Bars/CustomHeader"
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { globalStyles } from "../../GlobalStyles"
 import { ProgressBar, Colors } from 'react-native-paper';
-import { Picker } from 'react-native-wheel-pick'
-import { DatePicker } from 'react-native-wheel-pick';
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import NextQuestion from "../../Components/Buttons/NextQuestion"
 import MultipleQuestions from "../../Components/MultipleQuestions"
 import WeightQuestion from "./Questions/WeightQuestion"
 import AgeQuestion from "./Questions/AgeQuestion"
-import { updateExtraData, updateGender, updateWaistNarrowest, updateWaistNarrowestUnit } from "../../redux/userDetailsSlice"
+import { updateBicepsWidest, updateExtraData, updateForearmWidest, updateGender, updateHipWidest, updateNeckNarrowest, updateThighWidest, updateWaistNarrowest, updateWaistNarrowestUnit, updateWaistNavel, updateWristNarrowest } from "../../redux/userDetailsSlice"
 import HeightQuestion from "./Questions/HeightQuestion"
 import ExtraQuestions from "./Questions/ExtraQuestions"
 import { useSelector, useStore } from "react-redux"
+import store from "../../redux/store"
+import body from "../../assets/body.png"
 {/**
 Type 0 : single choice with no update function
 type 6: date question
@@ -33,16 +28,63 @@ export default function Quiz() {
 
     const questionsArray = [
         {
-            key: 1,
+            key:0,
             type: 10,
-            question: 'Waist at Narrowest?',
+            question: 'Waist at Narrowest point?',
             updateState: updateWaistNarrowest,
-            updateUnit: updateWaistNarrowestUnit,
             state: useSelector(state => state.userDetails.waistNarrowest),
-            unit: useSelector(state => state.userDetails.waistNarrowestUnit),
+            imgSource:body,
         },
         {
-            key: 0,
+            key:1,
+            type: 10,
+            question: 'Waist at navel?',
+            updateState: updateWaistNavel,
+            state: useSelector(state => state.userDetails.waistNavel),
+        },
+        {
+            key:2,
+            type: 10,
+            question: 'Hip at widest point',
+            updateState: updateHipWidest,
+            state: useSelector(state => state.userDetails.hipWidest),
+        },
+        {
+            key:3,
+            type: 10,
+            question: 'Thigh at widest point?',
+            updateState: updateThighWidest,
+            state: useSelector(state => state.userDetails.thighWidest),
+        },
+        {
+            key:4,
+            type: 10,
+            question: 'Neck at Narrowest point?',
+            updateState: updateNeckNarrowest,
+            state: useSelector(state => state.userDetails.neckNarrowest),
+        },
+        {
+            key:5,
+            type: 10,
+            question: 'biceps at widest point?',
+            updateState: updateBicepsWidest,
+            state: useSelector(state => state.userDetails.bicepsWidest),
+        },
+        {
+            key:6,
+            type: 10,
+            question: 'forearm at widest point?',
+            updateState: updateForearmWidest,
+            state: useSelector(state => state.userDetails.forearmWidest),
+        },
+        {
+            key:7,
+            type: 10,
+            question: 'wrist at narrowest point?',
+            updateState: updateWristNarrowest,
+            state: useSelector(state => state.userDetails.wristNarrowest),
+        },
+        {
             type: 0,
             question: 'Whats your Gender?',
             answers: [
@@ -128,7 +170,7 @@ export default function Quiz() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [textInputData, setTextInputData] = useState({});
-
+    
     const handleAnswerSelection = (item) => {
         setSelectedAnswer(item);
         setPressedItem(item);
@@ -200,7 +242,7 @@ export default function Quiz() {
         }
         else if (currentQuestion.type === 10) {
             return (
-                <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]} temp={'waistNarrowestUnit'} />
+                <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]}/>
             )
         }
     };
