@@ -19,12 +19,13 @@ import { View } from 'react-native';
 import SuveryScreen from '../Screens/PreScreens/SuveryScreen';
 import Test from '../Screens/TestScreen/TestScreen';
 import TestScreen from '../Screens/TestScreen/TestScreen';
+import SurveyEndScreen from '../Screens/PreScreens/SurveyEndScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={ROUTES.SurveyScreen}>
+            <Stack.Navigator initialRouteName={ROUTES.SurveyEndScreen}>
                 <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
                     {(props) =>
                         <EntranceScreen />
@@ -61,6 +62,12 @@ const MobileNavigation = () => {
                         headerShown: false,
                     }}
                     component={InnerApp} />
+
+                <Stack.Screen name={ROUTES.SurveyEndScreen} options={{ headerShown: false }}>
+                    {(props) =>
+                        <SurveyEndScreen />
+                    }
+                </Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
     );

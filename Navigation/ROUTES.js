@@ -5,6 +5,7 @@ export default {
     SignInScreen: "SignInScreen",
     EntranceScreen:"EntranceScreen",
     SurveyScreen: "SurveyScreen",
+    SurveyEndScreen: "SurveyEndScreen",
     InnerApp: "InnerApp",
     
     

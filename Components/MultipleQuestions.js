@@ -4,6 +4,7 @@ import { AppColors } from "../Styles/AppColors";
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
 import Ionicons from '@expo/vector-icons/Ionicons'
+import FadeInFlatList from "./ReAnimatedComps/FadeInFlatList";
 export default function ({ element, handleAnswerSelection, pressedItem }) {
     const dispatch = useDispatch();
     return (

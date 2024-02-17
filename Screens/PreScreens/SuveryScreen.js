@@ -14,6 +14,8 @@ import ExtraQuestions from "./Questions/ExtraQuestions"
 import { useSelector, useStore } from "react-redux"
 import store from "../../redux/store"
 import body from "../../assets/body.png"
+import { useNavigation } from "@react-navigation/native"
+import ROUTES from "../../Navigation/ROUTES"
 {/**
 Type 0 : single choice with no update function
 type 6: date question
@@ -25,7 +27,7 @@ type 10:extra questions with picture and custom keyboard
 
 
 export default function Quiz() {
-
+    const navigation=useNavigation();
     const questionsArray = [
 
         {
@@ -166,11 +168,11 @@ export default function Quiz() {
             }
             
         } else {
-            console.log('End of Quiz');
+            navigation.navigate(ROUTES.SurveyEndScreen)
         }
     };
     const handlePreviousQuestion = () => {
-        console.log(currentQuestionIndex)
+        
         if (currentQuestionIndex > 0) {
             if (currentQuestionIndex === 13 && !store.getState().userDetails.extraData) {
                 setCurrentQuestionIndex(4);
