@@ -1,24 +1,13 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
-import Animated, {
-  useSharedValue,
-  withTiming,
-  useAnimatedProps,
-  useDerivedValue,
-} from 'react-native-reanimated';
-import Svg, { Circle } from 'react-native-svg';
+import React, { useState, useEffect } from 'react';
+import Svg from 'react-native-svg';
 import { AppColors } from '../Styles/AppColors';
 import { VictoryPie, VictoryAnimation, VictoryLabel } from 'victory-native';
-export default function ({timer,setTimer,state,setState,getData}) {
+
+export default function ({ timer, setTimer, state, setState, getData }) {
+  const [height, setHeight] = useState(null);
+  const [width, setWidth] = useState(null);
 
   useEffect(() => {
-    console.log('hello')
     let percent = 0;
     const setStateInterval = setInterval(() => {
       const randomIncrement = Math.floor(Math.random() * (30 - 10 + 1)) + 10;
@@ -37,48 +26,51 @@ export default function ({timer,setTimer,state,setState,getData}) {
       }
 
     }, timer);
-    if (timer == 0) {
-      return
-    }
-    else {
+    if (timer === 0) {
       return () => clearInterval(setStateInterval);
     }
-  }, [timer, state.percent]);
-
+    return () => clearInterval(setStateInterval);
+  }, [timer, state.percent, setState, setTimer, getData]);
   return (
-    <Svg>
-      <VictoryPie
-        animate={{ duration: 1000 }}
+    <Svg onLayout={(event) => {
+      setHeight(event.nativeEvent.layout.height);
+      setWidth(event.nativeEvent.layout.width);
+    }}>
+      {width !== null && height !== null && (
 
-        data={state.data}
-        innerRadius={140}
-        cornerRadius={5}
-        labels={() => null}
-        style={{
-          data: {
-            fill: ({ datum }) => {
-              const color = AppColors.primaryYellow;
-              return datum.x === 1 ? color : AppColors.SecondaryYellow; // Corrected property name
-            },
-          },
+        <>
+          <VictoryPie
+            animate={{ duration: 500 }}
+            startAngle={0}
+            height={height} width={width}
+            data={state.data}
+            radius={width/2 -40 }
+            innerRadius={width/2 -35}
+            labels={()=>{return null}}
+            style={{
+              data: {
+                fill: ({ datum }) => {
+                  const color = AppColors.primaryYellow;
+                  return datum.x === 1 ? color : AppColors.SecondaryYellow;
+                },
+              },
+            }}
+          />
 
-        }}
-
-      />
-      <VictoryAnimation duration={1000} data={this.state}>
-        {(newProps) => {
-          return (
-            <VictoryLabel
-              textAnchor="middle" verticalAnchor="middle"
-              x={200} y={200}
-              text={state.percent === 100 ? 'Finished' : `${Math.round(state.percent)}%`}
-              style={{ fontSize: 45, fill: 'white' }}
-            />
-          );
-        }}
-      </VictoryAnimation>
-
-    </Svg >
+          <VictoryAnimation data={state}>
+            {(newProps) => {
+              return (
+                <VictoryLabel
+                  textAnchor={'middle'} verticalAnchor={'middle'}
+                  y={height/2} x={width/2 }
+                  text={state.percent === 100 ?  'FINISHED' : `${Math.round(state.percent)}%`}
+                  style={{ fontSize: 45, fill: 'white' }}
+                />
+              );
+            }}
+          </VictoryAnimation>
+        </>
+      )}
+    </Svg>
   );
 }
-

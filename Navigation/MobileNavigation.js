@@ -20,12 +20,13 @@ import SuveryScreen from '../Screens/PreScreens/SuveryScreen';
 import Test from '../Screens/TestScreen/TestScreen';
 import TestScreen from '../Screens/TestScreen/TestScreen';
 import SurveyEndScreen from '../Screens/PreScreens/SurveyEndScreen';
+import SurveyResultsScreen from '../Screens/PreScreens/SurveyResultsScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={ROUTES.SurveyEndScreen}>
+            <Stack.Navigator initialRouteName={ROUTES.SurveyResultsScreen}>
                 <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
                     {(props) =>
                         <EntranceScreen />
@@ -66,6 +67,11 @@ const MobileNavigation = () => {
                 <Stack.Screen name={ROUTES.SurveyEndScreen} options={{ headerShown: false }}>
                     {(props) =>
                         <SurveyEndScreen />
+                    }
+                </Stack.Screen>
+                <Stack.Screen name={ROUTES.SurveyResultsScreen} options={{ headerShown: false }}>
+                    {(props) =>
+                        <SurveyResultsScreen />
                     }
                 </Stack.Screen>
             </Stack.Navigator>

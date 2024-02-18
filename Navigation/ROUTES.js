@@ -6,6 +6,8 @@ export default {
     EntranceScreen:"EntranceScreen",
     SurveyScreen: "SurveyScreen",
     SurveyEndScreen: "SurveyEndScreen",
+    SurveyResultsScreen: "SurveyResultsScreen",
+
     InnerApp: "InnerApp",
     
     
