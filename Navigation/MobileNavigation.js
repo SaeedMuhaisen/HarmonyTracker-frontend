@@ -26,7 +26,7 @@ const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer >
-            <Stack.Navigator initialRouteName={ROUTES.SurveyResultsScreen}>
+            <Stack.Navigator initialRouteName={ROUTES.SurveyEndScreen}>
                 <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
                     {(props) =>
                         <EntranceScreen />

@@ -7,10 +7,11 @@ import store from '../../redux/store';
 import { updateUserTokens } from '../../redux/userSlice';
 import { useNavigation } from '@react-navigation/native';
 import ROUTES from '../../Navigation/ROUTES';
+import { localhost } from '../../connectionConfig';
 export default function () {
     const [appleAuthAvailable, setAppleAuthAvailable] = useState(true);
     const [userToken, setUserToken] = useState();
-    const navigation=useNavigation();
+    const navigation = useNavigation();
 
     const login = async () => {
         try {
@@ -28,7 +29,7 @@ export default function () {
     }
     const getTrt = async (ctoken) => {
         console.log(ctoken);
-        const response = await fetch('http://192.168.1.102:8080/api/register/3', {
+        const response = await fetch(localhost + '/api/register/3', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -41,11 +42,18 @@ export default function () {
             const userData = {
                 refreshToken: responseData.access_token,
                 token: responseData.refresh_token,
-              };
-              store.dispatch(updateUserTokens(userData));
-              console.log(responseData)
-              navigation.navigate(ROUTES.InnerApp)
-              
+                initialized: responseData.initialized,
+            };
+            store.dispatch(updateUserTokens(userData));
+            console.log(responseData)
+            if (!responseData.initialized) {
+                navigation.navigate(ROUTES.SurveyScreen)
+            }
+            else {
+                navigation.navigate(ROUTES.InnerApp)
+            }
+
+
         } else {
             console.log('different response: not okay:', response);
         }
@@ -78,7 +86,7 @@ export default function () {
                 },
                 shadowOpacity: 0.27,
                 shadowRadius: 4.65,
-        
+
                 elevation: 6,
             }}
             onPress={login}

@@ -5,11 +5,13 @@ import { TouchableOpacity,Image,Text } from 'react-native';
 import store from '../../redux/store';
 import { updateUserTokens } from '../../redux/userSlice';
 import facebook from '../../assets/facebook.png'
-
+import { localhost } from "../../connectionConfig";
+import { useNavigation } from "@react-navigation/native";
+import ROUTES from "../../Navigation/ROUTES";
 export default function () {
     Settings.setAppID('402103549044920');
     Settings.initializeSDK();
-
+    const navigation=useNavigation();
     const handleLogin = async () => {
         try {
             await LoginManager.logInWithPermissions()
@@ -20,7 +22,7 @@ export default function () {
         }
     };
     const getTrt = async (fbtoken) => {
-        const response = await fetch('http://192.168.1.102:8080/api/register/2', {
+        const response = await fetch(localhost+'/api/register/2', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,8 +35,16 @@ export default function () {
             const userData = {
                 refreshToken: responseData.access_token,
                 token: responseData.refresh_token,
+                initialized: responseData.initialized,
             };
             store.dispatch(updateUserTokens(userData));
+            console.log(responseData)
+            if (!responseData.initialized) {
+                navigation.navigate(ROUTES.SurveyScreen)
+            }
+            else {
+                navigation.navigate(ROUTES.InnerApp)
+            }
         } else {
             console.log('different response: not okay:', response);
         }

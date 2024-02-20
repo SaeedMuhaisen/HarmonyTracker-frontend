@@ -12,7 +12,7 @@ export const userDetailsSlice = createSlice({
         heightI: 5,
         heightF: 8,
         heightUnit: 'cm',
-        extraData: false,
+        extraData: true,
         waistNarrowest: {
             first: 60,
             last: 0,

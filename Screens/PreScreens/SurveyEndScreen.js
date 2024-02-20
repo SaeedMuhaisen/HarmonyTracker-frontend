@@ -9,7 +9,23 @@ import { FontAwesome6 } from '@expo/vector-icons';
 import NextQuestion from "../../Components/Buttons/NextQuestion";
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../Navigation/ROUTES";
+import { useSelector } from "react-redux";
+import { localhost } from "../../connectionConfig";
 export default function () {
+    const userDetails = useSelector(state => state.userDetails);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await fetch(localhost + '/api/preview/macros', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userDetails),
+            });
+        }
+        fetchData();
+    }, [])
     const navigation = useNavigation();
     const [timer, setTimer] = useState(1000);
     const getData = (percent) => {
@@ -33,14 +49,15 @@ export default function () {
                 </View>
                 <View style={{ flex: 1, gap: 12 }}>
                     <FadeInFlatList
+                        scrollEnabled={false}
                         initialDelay={500}
                         durationPerItem={1500}
                         data={[{ item: 'Calculated Macros' }, { item: 'Calculated BodyFat%' }, { item: 'Optimized Calender' }, { item: 'Plan Created' }]}
                         contentContainerStyle={{ gap: 10, alignSelf: 'center' }}
                         renderItem={({ item }) => (
-                            <View style={{ flexDirection: 'row', alignItems: 'flex-start', gap: 20 }}>
-                                <FontAwesome6 name="circle-check" size={24} color="white" />
-                                <Text style={{ color: 'white', fontSize: 24 }}>{item.item}</Text>
+                            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
+                                <FontAwesome6 name="circle-check" size={20} color="white" />
+                                <Text style={{ color: 'white', fontSize: 24, alignSelf: 'center' }}>{item.item}</Text>
                             </View>
                         )}
                     />
