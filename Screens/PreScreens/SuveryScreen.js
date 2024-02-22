@@ -135,7 +135,7 @@ export default function Quiz() {
         {
             key: 13,
             type: 0,
-            question: 'a',
+            question: 'Do you follow a specific diet?',
             answers: [
                 { name: 'Male', val: 'a', icon: 'male', iconProvider: 'Ionicons' },
                 { name: 'Female', val: 'b', icon: 'female', iconProvider: 'Ionicons' }
@@ -155,8 +155,6 @@ export default function Quiz() {
     };
 
     const handleNextQuestion = () => {
-        console.log(currentQuestionIndex)
-        console.log(store.getState().userDetails.extraData)
         if (currentQuestionIndex < questionsArray.length - 1) {
             if (currentQuestionIndex === 4 && !store.getState().userDetails.extraData) {
                 setCurrentQuestionIndex(13)
@@ -182,9 +180,7 @@ export default function Quiz() {
                 setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
                 setSelectedAnswer(null);
             }
-
         } else {
-
             console.log('End of Quiz');
         }
     };

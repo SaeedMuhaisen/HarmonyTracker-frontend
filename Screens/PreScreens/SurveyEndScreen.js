@@ -11,8 +11,9 @@ import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../Navigation/ROUTES";
 import { useSelector } from "react-redux";
 import { localhost } from "../../connectionConfig";
+
 export default function () {
-    const userDetails = useSelector(state => state.userDetails);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -35,6 +36,17 @@ export default function () {
         percent: 1,
         data: getData(0)
     });
+
+    const user = useSelector(state => state.user);
+    const handleNav = () => {
+        console.log(user);
+        if (user.signedIn) {
+            navigation.navigate(ROUTES.SurveyResultsScreen);
+        }
+        else {
+            navigation.navigate(ROUTES.EntranceScreen);
+        }
+    }
     return (
         <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground} >
             <View style={{ flex: 1, gap: 5, padding: 15, justifyContent: 'flex-start' }}>
@@ -62,7 +74,7 @@ export default function () {
                         )}
                     />
                     <View>
-                        {state.percent === 100 ? <NextQuestion title="Preview Plan And Details" goNext={() => { navigation.navigate(ROUTES.SurveyResultsScreen) }} /> : <></>}
+                        {state.percent === 100 ? <NextQuestion title="Preview Plan And Details" goNext={handleNav} /> : <></>}
                     </View>
 
                 </View>

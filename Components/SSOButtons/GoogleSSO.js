@@ -7,10 +7,11 @@ import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { logoStyles } from '../../Styles/LogoStyles';
 import google from '../../assets/google.png'
 import store from '../../redux/store';
-import { updateUserTokens } from '../../redux/userSlice';
+import { updateUserTokens,setSignedIn } from '../../redux/userSlice';
 import { localhost } from '../../connectionConfig';
 import { useNavigation } from '@react-navigation/native';
 import ROUTES from '../../Navigation/ROUTES';
+
 export default function () {
     const navigation=useNavigation();
     GoogleSignin.configure({
@@ -21,9 +22,7 @@ export default function () {
         try {
             await GoogleSignin.hasPlayServices();
             const credential = await GoogleSignin.signIn();
-
             console.log(JSON.stringify(credential, null, 2))
-
             getTrt(credential.idToken);
         } catch (e) {
             console.log(e);
@@ -45,6 +44,7 @@ export default function () {
                 initialized: responseData.initialized,
             };
             store.dispatch(updateUserTokens(userData));
+            store.dispatch(setSignedIn(true));
             console.log(responseData)
             if (!responseData.initialized) {
                 navigation.navigate(ROUTES.SurveyScreen)

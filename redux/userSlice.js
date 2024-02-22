@@ -3,14 +3,15 @@ import {createSlice} from '@reduxjs/toolkit';
 export const userSlice = createSlice({
     name: "user",
     initialState:{
+        signedIn: false,
+        initialized:false,
         firstname:"",
         lastname:"",
         email:"",
         phoneNumber:"",
         access_token:"",
         refresh_token:"",
-        dietType:"",
-        initialized:false,
+        
     },
     reducers:{
         updateUserTokens: (state,action)=>{
@@ -23,11 +24,11 @@ export const userSlice = createSlice({
             state.lastname=action.payload.lastname;
             state.email=action.payload.email;
         },
-        updateDietType:(state,action)=>{
-            state.dietType=action.payload;
-        }
+        setSignedIn: (state, action) => {
+            state.signedIn = action.payload;
+        },
     }
 })
 
-export const {updateUserDetails,updateUserTokens,updateDietType} = userSlice.actions;
+export const {updateUserDetails,updateUserTokens,updateDietType,setSignedIn} = userSlice.actions;
 export default userSlice.reducer;

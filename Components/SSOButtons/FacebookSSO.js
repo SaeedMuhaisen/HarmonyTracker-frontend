@@ -3,7 +3,7 @@ import { AccessToken, LoginButton, LoginManager, Settings } from "react-native-f
 import { logoStyles } from "../../Styles/LogoStyles";
 import { TouchableOpacity,Image,Text } from 'react-native';
 import store from '../../redux/store';
-import { updateUserTokens } from '../../redux/userSlice';
+import { updateUserTokens,setSignedIn } from '../../redux/userSlice';
 import facebook from '../../assets/facebook.png'
 import { localhost } from "../../connectionConfig";
 import { useNavigation } from "@react-navigation/native";
@@ -38,6 +38,7 @@ export default function () {
                 initialized: responseData.initialized,
             };
             store.dispatch(updateUserTokens(userData));
+            store.dispatch(setSignedIn(true));
             console.log(responseData)
             if (!responseData.initialized) {
                 navigation.navigate(ROUTES.SurveyScreen)

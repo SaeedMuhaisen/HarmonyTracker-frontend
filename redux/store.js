@@ -7,6 +7,6 @@ export default configureStore({
     reducer:{
         user: userReducer,
         macros: macroSlice,
-        userDetails:userDetailsSlice
+        userDetails:userDetailsSlice,
     }
 });

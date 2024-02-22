@@ -4,15 +4,13 @@ import { logoStyles } from '../../Styles/LogoStyles';
 import apple from '../../assets/apple.png'
 import * as AppleAuthentication from 'expo-apple-authentication'
 import store from '../../redux/store';
-import { updateUserTokens } from '../../redux/userSlice';
+import { updateUserTokens,setSignedIn } from '../../redux/userSlice';
 import { useNavigation } from '@react-navigation/native';
 import ROUTES from '../../Navigation/ROUTES';
 import { localhost } from '../../connectionConfig';
-export default function () {
-    const [appleAuthAvailable, setAppleAuthAvailable] = useState(true);
-    const [userToken, setUserToken] = useState();
-    const navigation = useNavigation();
 
+export default function () {
+    const navigation = useNavigation();
     const login = async () => {
         try {
             const credential = await AppleAuthentication.signInAsync({
@@ -21,7 +19,6 @@ export default function () {
                     AppleAuthentication.AppleAuthenticationScope.EMAIL
                 ]
             });
-            setUserToken(credential);
             getTrt(credential);
         } catch (e) {
             console.log(e);
@@ -45,6 +42,7 @@ export default function () {
                 initialized: responseData.initialized,
             };
             store.dispatch(updateUserTokens(userData));
+            store.dispatch(setSignedIn(true));
             console.log(responseData)
             if (!responseData.initialized) {
                 navigation.navigate(ROUTES.SurveyScreen)
