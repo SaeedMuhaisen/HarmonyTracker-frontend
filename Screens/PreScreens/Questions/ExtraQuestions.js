@@ -5,21 +5,44 @@ import { globalStyles } from "../../../GlobalStyles"
 import { Picker } from 'react-native-wheel-pick'
 import NextQuestion from "../../../Components/Buttons/NextQuestion"
 import { useDispatch, useSelector } from "react-redux"
-
+import { updatePreferedUnit } from "../../../redux/userDetailsSlice"
+import { convertCmToInches, convertInchesToCm } from "../../../utils/converters"
+const CONVERSION_FACTOR = 1.0;
 export default function ({ handleNextQuestion, comp }) {
+
+    const preferedUnit = useSelector(state => state.userDetails.preferedUnit)
+
+    const [initial, setInitial] = useState(preferedUnit === 'cm' ? Math.floor(comp.state) : Math.floor(convertCmToInches(comp.state)));
+    const [final, setFinal] = useState(preferedUnit === 'cm' ? 10 * (comp.state - Math.floor(comp.state)).toFixed(1)
+        : 10 * (convertCmToInches(comp.state) - Math.floor(convertCmToInches(comp.state))).toFixed(1)
+    );
+
     const dispatch = useDispatch();
-    const intArray = Array.from({ length: 400 }, (_, index) => index + 15);
+    const intArray = Array.from({ length: 400 }, (_, index) => index + 0);
     const dArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    useEffect(() => {
+        const updateState = (value) => {
+            dispatch(comp.updateState(value));
+        };
+        const calculateAndUpdateState = () => {
+            const newValue = preferedUnit === 'cm'
+                ? initial * CONVERSION_FACTOR + final / 10
+                : convertInchesToCm(initial * CONVERSION_FACTOR + final / 10);
+            updateState(newValue);
+        };
+        calculateAndUpdateState();
+    }, [initial, final, preferedUnit]);
 
     return (
-        <View key={comp.key} style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
-            <View style={{flex:6,alignItems:'center',justifyContent:'center'}}>
-                <Image source={comp.imgSource} resizeMode="center"/>
+        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
+            <View style={{ flex: 6, alignItems: 'center', justifyContent: 'center' }}>
+                <Image source={comp.imgSource} resizeMode="center" />
             </View>
 
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
+
                 <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
-                    {comp.state.unit === 'cm' ? <>{comp.state.first}.{comp.state.last}</> : <>{comp.state.first}' {comp.state.last}</>}
+                    {initial || 0}.{final || 0} {preferedUnit === "cm" ? <>cm</> : <> inches</>}
                 </Text>
 
             </View>
@@ -27,7 +50,7 @@ export default function ({ handleNextQuestion, comp }) {
             <View style={{ flexDirection: 'row' }}>
                 <View style={{ flex: 3, flexDirection: 'row' }}>
                     <Picker
-
+                        key={comp.key}
                         style={{ flex: 1, backgroundColor: AppColors.stackBackground }}
                         textColor={Platform.OS === 'android' ? 'gray' : 'white'}
                         selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
@@ -36,10 +59,9 @@ export default function ({ handleNextQuestion, comp }) {
                         isShowSelectLine={false}
                         selectLineSize={9}
                         pickerData={intArray}
-                        selectedValue={comp.state.first}
-                        value={comp.state.first}
+                        selectedValue={initial}
                         onValueChange={(value) => {
-                            dispatch(comp.updateState({ first: value }));
+                            setInitial(value);
                         }}
                     />
                     <Picker
@@ -52,10 +74,10 @@ export default function ({ handleNextQuestion, comp }) {
                         isShowSelectLine={false}
                         selectLineSize={9}
                         pickerData={dArray}
-                        selectedValue={comp.state.last}
-                        value={comp.state.last}
+                        selectedValue={final}
+                        value={final}
                         onValueChange={(value) => {
-                            dispatch(comp.updateState({ last: value }));
+                            setFinal(value)
                         }}
                     />
                 </View>
@@ -70,9 +92,9 @@ export default function ({ handleNextQuestion, comp }) {
                     isShowSelectLine={false}
                     selectLineSize={9}
                     pickerData={['cm', 'inch']}
-                    selectedValue={comp.state.unit}
+                    selectedValue={preferedUnit}
                     onValueChange={value => {
-                        dispatch(comp.updateState({ unit: value }))
+                        dispatch(updatePreferedUnit(value))
                     }
                     }
                 />

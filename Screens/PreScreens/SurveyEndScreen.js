@@ -13,8 +13,6 @@ import { useSelector } from "react-redux";
 import { localhost } from "../../connectionConfig";
 
 export default function () {
-
-
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(localhost + '/api/preview/macros', {
@@ -24,9 +22,11 @@ export default function () {
                 },
                 body: JSON.stringify(userDetails),
             });
+            console.log(response);
         }
         fetchData();
     }, [])
+
     const navigation = useNavigation();
     const [timer, setTimer] = useState(1000);
     const getData = (percent) => {

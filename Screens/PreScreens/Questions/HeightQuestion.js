@@ -13,36 +13,56 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import store from "../../../redux/store"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
-import userDetailsSlice, { updateHeight, updateHeightF, updateHeightI, updateHeightUnit, updateWeightF, updateWeightI, updateWeightUnit } from "../../../redux/userDetailsSlice"
+import userDetailsSlice, { updateHeight, updateHeightF, updateHeightI, updateHeightUnit, updatePreferedUnit, updateWeightF, updateWeightI, updateWeightUnit } from "../../../redux/userDetailsSlice"
+import { convertCmToInches, convertCmtoFt, convertFtToCm, convertInchesToCm } from "../../../utils/converters"
 export default function ({ handleNextQuestion }) {
 
     const userDetails = useSelector(state => state.userDetails);
     const dispatch = useDispatch();
-
+    const [initial, setInitial] = useState(5);
+    const [final, setFinal] = useState(7);
     const cmArray = Array.from({ length: 210 }, (_, index) => index + 110);
     const inch1Array = [4, 5, 6, 7, 8,];
     const inch2Array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+    useEffect(() => {
+        const updateState = (value) => {
+            dispatch(updateHeight(value));
+        };
+        const calculateAndUpdateState = () => {
+            if (userDetails.preferedUnit === 'inch') {
+                const newValue = Math.round(convertFtToCm(initial)+convertInchesToCm(final));
+                
+                updateState(newValue);
+            }
+        };
+        calculateAndUpdateState();
+    }, [initial, final]);
+
+    useEffect(() => {
+        console.log('state height:', userDetails.height)
+    }, [userDetails.height])
     return (
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
 
-                {userDetails.heightUnit === 'cm' ?
+                {userDetails.preferedUnit === 'cm' ?
                     <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
-                        {userDetails.height} {userDetails.heightUnit}
+                        {userDetails.height} {userDetails.preferedUnit}
                     </Text>
                     : <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
-                        {userDetails.heightI}"{userDetails.heightF}'{userDetails.heightUnit}
+                        {initial}" {final}' {userDetails.preferedUnit}es
                     </Text>
                 }
 
             </View>
-            <NextQuestion goNext={handleNextQuestion} noRadius={true} disabled={false}/>
+            <NextQuestion goNext={handleNextQuestion} noRadius={true} disabled={false} />
             <View style={{ flexDirection: 'row' }}>
                 {
-                    userDetails.heightUnit === 'cm' ?
+                    userDetails.preferedUnit === 'cm' ?
                         <View style={{ flex: 3 }}>
                             <Picker
-                                key={1} //issue with rendering over the following picker in inches, i have no idea why though
+                                key={1}
                                 style={{ backgroundColor: AppColors.stackBackground, }}
                                 textColor={Platform.OS === 'android' ? 'gray' : 'white'}
                                 selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
@@ -66,8 +86,8 @@ export default function ({ handleNextQuestion }) {
                                 isShowSelectLine={false}
                                 selectLineSize={9}
                                 pickerData={inch1Array}
-                                selectedValue={userDetails.heightI}
-                                onValueChange={value => dispatch(updateHeightI(value))}
+                                selectedValue={initial}
+                                onValueChange={value => setInitial(value)}
                             />
                             <Picker
                                 style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
@@ -78,8 +98,8 @@ export default function ({ handleNextQuestion }) {
                                 isShowSelectLine={false}
                                 selectLineSize={9}
                                 pickerData={inch2Array}
-                                selectedValue={userDetails.heightF}
-                                onValueChange={value => dispatch(updateHeightF(value))}
+                                selectedValue={final}
+                                onValueChange={value => setFinal(value)}
                             />
                         </View>
 
@@ -94,9 +114,9 @@ export default function ({ handleNextQuestion }) {
                     isShowSelectLine={false}
                     selectLineSize={9}
                     pickerData={['cm', 'inch']}
-                    selectedValue={userDetails.heightUnit}
+                    selectedValue={userDetails.preferedUnit}
                     onValueChange={value => {
-                        dispatch(updateHeightUnit(value))
+                        dispatch(updatePreferedUnit(value))
                     }
                     }
                 />

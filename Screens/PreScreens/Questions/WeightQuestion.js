@@ -13,24 +13,47 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import store from "../../../redux/store"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
-import userDetailsSlice, { updateWeightF, updateWeightI, updateWeightUnit } from "../../../redux/userDetailsSlice"
+import userDetailsSlice, { updateWeight, updatePreferedWeightUnit } from "../../../redux/userDetailsSlice"
+import { convertKgtoLb, convertLbtoKg } from "../../../utils/converters"
 export default function ({ handleNextQuestion }) {
-    
-    const userDetails = useSelector(state => state.userDetails);
     const dispatch = useDispatch();
+    const CONVERSION_FACTOR = 1.0;
+    const preferedWeightUnit = useSelector(state => state.userDetails.preferedWeightUnit)
     
+    const weight = useSelector(state => state.userDetails.weight);
+    const [initial, setInitial] = useState(preferedWeightUnit === 'kg' ? Math.floor(weight) : Math.floor(convertKgtoLb((weight))));
+    const [final, setFinal] = useState(preferedWeightUnit === 'kg'
+        ? 10 * (weight - Math.floor(weight)).toFixed(1)
+        : 10 * (convertKgtoLb(weight) - Math.floor(convertKgtoLb(weight))).toFixed(1)
+    );
+    useEffect(() => {
+        const updateState = (value) => {
+            dispatch(updateWeight(value));
+        };
+        const calculateAndUpdateState = () => {
+            const newValue = preferedWeightUnit === 'kg'
+                ? initial * CONVERSION_FACTOR + final / 10
+                : convertLbtoKg(initial * CONVERSION_FACTOR + final / 10);
+            updateState(newValue);
+        };
+        calculateAndUpdateState();
+    }, [initial, final, preferedWeightUnit]);
+
+    useEffect(() => {
+        console.log('state weight:',weight)
+    }, [weight])
+
     const kgArray = Array.from({ length: 321 }, (_, index) => index + 30);
     const lbArray = Array.from({ length: 650 }, (_, index) => index + 70);
-
     return (
-        <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
+        <View key={1} style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-                <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>{userDetails.weightI}.{userDetails.weightF} {userDetails.weightUnit}</Text>
+                <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>{initial}.{final} {preferedWeightUnit}</Text>
             </View>
             <NextQuestion goNext={handleNextQuestion} noRadius={true} />
             <View style={{ flexDirection: 'row' }}>
                 <Picker
-                    key={1}
+
                     style={{ flex: 2, backgroundColor: AppColors.stackBackground, }}
                     textColor={Platform.OS === 'android' ? 'gray' : 'white'}
                     selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
@@ -38,15 +61,15 @@ export default function ({ handleNextQuestion }) {
                     isShowSelectBackground={false}
                     isShowSelectLine={false}
                     selectLineSize={9}
-                    pickerData={userDetails.weightUnit === 'kg' ? kgArray : lbArray}
-                    selectedValue={userDetails.weightI}
-                    onValueChange={value => dispatch(updateWeightI({weightI:value}))}
+                    pickerData={preferedWeightUnit === 'kg' ? kgArray : lbArray}
+                    selectedValue={initial}
+                    onValueChange={value => setInitial(value)}
                 />
                 <View style={{ justifyContent: 'center', }}>
                     <Text style={{ fontSize: 30, color: 'white', paddingBottom: 5 }}>.</Text>
                 </View>
                 <Picker
-                    key={2}
+
                     style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
                     textColor={Platform.OS === 'android' ? 'gray' : 'white'}
                     selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
@@ -55,11 +78,11 @@ export default function ({ handleNextQuestion }) {
                     isShowSelectLine={false}
                     selectLineSize={9}
                     pickerData={[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]}
-                    selectedValue={userDetails.weightF}
-                    onValueChange={value => dispatch(updateWeightF({weightF:value}))}
+                    selectedValue={final}
+                    onValueChange={value => setFinal(value)}
                 />
                 <Picker
-                    key={3}
+
                     style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
                     textColor={Platform.OS === 'android' ? 'gray' : 'white'}
                     selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
@@ -68,8 +91,8 @@ export default function ({ handleNextQuestion }) {
                     isShowSelectLine={false}
                     selectLineSize={9}
                     pickerData={['kg', 'lb']}
-                    selectedValue={userDetails.weightUnit}
-                    onValueChange={value => dispatch(updateWeightUnit({weightUnit:value}))}
+                    selectedValue={preferedWeightUnit}
+                    onValueChange={value => dispatch(updatePreferedWeightUnit(value))}
                 />
             </View>
         </View>

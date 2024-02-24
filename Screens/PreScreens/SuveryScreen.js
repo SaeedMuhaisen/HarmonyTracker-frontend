@@ -27,11 +27,11 @@ type 10:extra questions with picture and custom keyboard
 
 
 export default function Quiz() {
-    const navigation=useNavigation();
+    const navigation = useNavigation();
     const questionsArray = [
 
         {
-            key:0,
+            key: 0,
             type: 0,
             question: 'Whats your Gender?',
             answers: [
@@ -42,17 +42,17 @@ export default function Quiz() {
 
         },
         {
-            key:1,
+            key: 1,
             type: 6,
             question: 'When is your birthday?',
         },
         {
-            key:2,
+            key: 2,
             type: 8,
             question: 'What is your Height?',
         },
         {
-            key:3,
+            key: 3,
             type: 7,
             question: 'What is your weight?',
         },
@@ -164,13 +164,13 @@ export default function Quiz() {
                 setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
                 setSelectedAnswer(null);
             }
-            
+
         } else {
             navigation.navigate(ROUTES.SurveyEndScreen)
         }
     };
     const handlePreviousQuestion = () => {
-        
+
         if (currentQuestionIndex > 0) {
             if (currentQuestionIndex === 13 && !store.getState().userDetails.extraData) {
                 setCurrentQuestionIndex(4);
@@ -184,7 +184,7 @@ export default function Quiz() {
             console.log('End of Quiz');
         }
     };
-    
+
     const renderAnswers = () => {
         const currentQuestion = questionsArray[currentQuestionIndex];
         if (currentQuestion.type === 0) {
@@ -194,7 +194,7 @@ export default function Quiz() {
                         <MultipleQuestions element={questionsArray[currentQuestionIndex]} handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
                     </View>
                     <SafeAreaView style={{ paddingBottom: 5 }}>
-                        <NextQuestion goNext={handleNextQuestion} disabled={selectedAnswer===null?true:false}/>
+                        <NextQuestion goNext={handleNextQuestion} disabled={selectedAnswer === null ? true : false} />
                     </SafeAreaView>
                 </View>
 
@@ -220,7 +220,9 @@ export default function Quiz() {
         }
         else if (currentQuestion.type === 10) {
             return (
-                <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]} />
+                <View  style={{flex:1,}} key={currentQuestion.key}>
+                    <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]} state={currentQuestion.state}/>
+                </View>
             )
         }
     };
