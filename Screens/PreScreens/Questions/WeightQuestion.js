@@ -13,16 +13,16 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import store from "../../../redux/store"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
-import userDetailsSlice, { updateWeight, updatePreferedWeightUnit } from "../../../redux/userDetailsSlice"
+import userDetailsSlice, { updateWeight, updatePreferredWeightUnit } from "../../../redux/userDetailsSlice"
 import { convertKgtoLb, convertLbtoKg } from "../../../utils/converters"
 export default function ({ handleNextQuestion }) {
     const dispatch = useDispatch();
     const CONVERSION_FACTOR = 1.0;
-    const preferedWeightUnit = useSelector(state => state.userDetails.preferedWeightUnit)
+    const preferredWeightUnit = useSelector(state => state.userDetails.preferredWeightUnit)
     
     const weight = useSelector(state => state.userDetails.weight);
-    const [initial, setInitial] = useState(preferedWeightUnit === 'kg' ? Math.floor(weight) : Math.floor(convertKgtoLb((weight))));
-    const [final, setFinal] = useState(preferedWeightUnit === 'kg'
+    const [initial, setInitial] = useState(preferredWeightUnit === 'kg' ? Math.floor(weight) : Math.floor(convertKgtoLb((weight))));
+    const [final, setFinal] = useState(preferredWeightUnit === 'kg'
         ? 10 * (weight - Math.floor(weight)).toFixed(1)
         : 10 * (convertKgtoLb(weight) - Math.floor(convertKgtoLb(weight))).toFixed(1)
     );
@@ -31,13 +31,13 @@ export default function ({ handleNextQuestion }) {
             dispatch(updateWeight(value));
         };
         const calculateAndUpdateState = () => {
-            const newValue = preferedWeightUnit === 'kg'
+            const newValue = preferredWeightUnit === 'kg'
                 ? initial * CONVERSION_FACTOR + final / 10
                 : convertLbtoKg(initial * CONVERSION_FACTOR + final / 10);
             updateState(newValue);
         };
         calculateAndUpdateState();
-    }, [initial, final, preferedWeightUnit]);
+    }, [initial, final, preferredWeightUnit]);
 
     useEffect(() => {
         console.log('state weight:',weight)
@@ -48,7 +48,7 @@ export default function ({ handleNextQuestion }) {
     return (
         <View key={1} style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-                <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>{initial}.{final} {preferedWeightUnit}</Text>
+                <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>{initial}.{final} {preferredWeightUnit}</Text>
             </View>
             <NextQuestion goNext={handleNextQuestion} noRadius={true} />
             <View style={{ flexDirection: 'row' }}>
@@ -61,7 +61,7 @@ export default function ({ handleNextQuestion }) {
                     isShowSelectBackground={false}
                     isShowSelectLine={false}
                     selectLineSize={9}
-                    pickerData={preferedWeightUnit === 'kg' ? kgArray : lbArray}
+                    pickerData={preferredWeightUnit === 'kg' ? kgArray : lbArray}
                     selectedValue={initial}
                     onValueChange={value => setInitial(value)}
                 />
@@ -91,8 +91,8 @@ export default function ({ handleNextQuestion }) {
                     isShowSelectLine={false}
                     selectLineSize={9}
                     pickerData={['kg', 'lb']}
-                    selectedValue={preferedWeightUnit}
-                    onValueChange={value => dispatch(updatePreferedWeightUnit(value))}
+                    selectedValue={preferredWeightUnit}
+                    onValueChange={value => dispatch(updatePreferredWeightUnit(value))}
                 />
             </View>
         </View>

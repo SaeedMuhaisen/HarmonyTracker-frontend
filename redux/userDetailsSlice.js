@@ -5,9 +5,12 @@ export const userDetailsSlice = createSlice({
     initialState: {
         gender: 'male',
         birthDate: 1262350800000,
-        preferedUnit: 'cm',
-        preferedWeightUnit: 'kg',
+        preferredUnit: 'cm',
+        preferredWeightUnit: 'kg',
+
         height: 170,
+        weight: 100,
+
         extraData: false,
         waistNarrowest: 50.0,
         waistNavel: 60.0,
@@ -17,15 +20,16 @@ export const userDetailsSlice = createSlice({
         bicepsWidest: 100.0,
         forearmWidest: 200.0,
         wristNarrowest: 300.0,
-        weight: 100,
+
+        activityLevel:1.2,
     },
 
     reducers: {
         updateGender: (state, action) => { state.gender = action.payload },
         updateBirthDate: (state, action) => { state.birthDate = action.payload.birthDate },
 
-        updatePreferedUnit: (state, action) => { state.preferedUnit = action.payload },
-        updatePreferedWeightUnit: (state, action) => { state.preferedWeightUnit = action.payload },
+        updatePreferedUnit: (state, action) => { state.preferredUnit = action.payload },
+        updatePreferedWeightUnit: (state, action) => { state.preferredWeightUnit = action.payload },
 
         updateWeight: (state, action) => { state.weight = action.payload },
         updateHeight: (state, action) => { state.height = action.payload },
@@ -39,6 +43,8 @@ export const userDetailsSlice = createSlice({
         updateBicepsWidest: (state, action) => { state.bicepsWidest = action.payload },
         updateForearmWidest: (state, action) => { state.forearmWidest = action.payload },
         updateWristNarrowest: (state, action) => { state.wristNarrowest = action.payload },
+
+        updateActivityLevel: (state, action) => { state.activityLevel = action.payload },
 
     }
 })
@@ -62,5 +68,7 @@ export const {
     updateBicepsWidest,
     updateForearmWidest,
     updateWristNarrowest,
+
+    updateActivityLevel,
 } = userDetailsSlice.actions;
 export default userDetailsSlice.reducer;

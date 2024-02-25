@@ -5,15 +5,15 @@ import { globalStyles } from "../../../GlobalStyles"
 import { Picker } from 'react-native-wheel-pick'
 import NextQuestion from "../../../Components/Buttons/NextQuestion"
 import { useDispatch, useSelector } from "react-redux"
-import { updatePreferedUnit } from "../../../redux/userDetailsSlice"
+import { updatePreferredUnit } from "../../../redux/userDetailsSlice"
 import { convertCmToInches, convertInchesToCm } from "../../../utils/converters"
 const CONVERSION_FACTOR = 1.0;
 export default function ({ handleNextQuestion, comp }) {
 
-    const preferedUnit = useSelector(state => state.userDetails.preferedUnit)
+    const preferredUnit = useSelector(state => state.userDetails.preferredUnit)
 
-    const [initial, setInitial] = useState(preferedUnit === 'cm' ? Math.floor(comp.state) : Math.floor(convertCmToInches(comp.state)));
-    const [final, setFinal] = useState(preferedUnit === 'cm' ? 10 * (comp.state - Math.floor(comp.state)).toFixed(1)
+    const [initial, setInitial] = useState(preferredUnit === 'cm' ? Math.floor(comp.state) : Math.floor(convertCmToInches(comp.state)));
+    const [final, setFinal] = useState(preferredUnit === 'cm' ? 10 * (comp.state - Math.floor(comp.state)).toFixed(1)
         : 10 * (convertCmToInches(comp.state) - Math.floor(convertCmToInches(comp.state))).toFixed(1)
     );
 
@@ -25,13 +25,13 @@ export default function ({ handleNextQuestion, comp }) {
             dispatch(comp.updateState(value));
         };
         const calculateAndUpdateState = () => {
-            const newValue = preferedUnit === 'cm'
+            const newValue = preferredUnit === 'cm'
                 ? initial * CONVERSION_FACTOR + final / 10
                 : convertInchesToCm(initial * CONVERSION_FACTOR + final / 10);
             updateState(newValue);
         };
         calculateAndUpdateState();
-    }, [initial, final, preferedUnit]);
+    }, [initial, final, preferredUnit]);
 
     return (
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -42,7 +42,7 @@ export default function ({ handleNextQuestion, comp }) {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
 
                 <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
-                    {initial || 0}.{final || 0} {preferedUnit === "cm" ? <>cm</> : <> inches</>}
+                    {initial || 0}.{final || 0} {preferredUnit === "cm" ? <>cm</> : <> inches</>}
                 </Text>
 
             </View>
@@ -92,9 +92,9 @@ export default function ({ handleNextQuestion, comp }) {
                     isShowSelectLine={false}
                     selectLineSize={9}
                     pickerData={['cm', 'inch']}
-                    selectedValue={preferedUnit}
+                    selectedValue={preferredUnit}
                     onValueChange={value => {
-                        dispatch(updatePreferedUnit(value))
+                        dispatch(updatePreferredUnit(value))
                     }
                     }
                 />

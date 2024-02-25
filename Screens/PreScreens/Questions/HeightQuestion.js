@@ -13,7 +13,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import store from "../../../redux/store"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
-import userDetailsSlice, { updateHeight, updateHeightF, updateHeightI, updateHeightUnit, updatePreferedUnit, updateWeightF, updateWeightI, updateWeightUnit } from "../../../redux/userDetailsSlice"
+import userDetailsSlice, { updateHeight,updatePreferredUnit } from "../../../redux/userDetailsSlice"
 import { convertCmToInches, convertCmtoFt, convertFtToCm, convertInchesToCm } from "../../../utils/converters"
 export default function ({ handleNextQuestion }) {
 
@@ -30,7 +30,7 @@ export default function ({ handleNextQuestion }) {
             dispatch(updateHeight(value));
         };
         const calculateAndUpdateState = () => {
-            if (userDetails.preferedUnit === 'inch') {
+            if (userDetails.preferredUnit === 'inch') {
                 const newValue = Math.round(convertFtToCm(initial)+convertInchesToCm(final));
                 
                 updateState(newValue);
@@ -46,12 +46,12 @@ export default function ({ handleNextQuestion }) {
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
 
-                {userDetails.preferedUnit === 'cm' ?
+                {userDetails.preferredUnit === 'cm' ?
                     <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
-                        {userDetails.height} {userDetails.preferedUnit}
+                        {userDetails.height} {userDetails.preferredUnit}
                     </Text>
                     : <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
-                        {initial}" {final}' {userDetails.preferedUnit}es
+                        {initial}" {final}' {userDetails.preferredUnit}es
                     </Text>
                 }
 
@@ -59,7 +59,7 @@ export default function ({ handleNextQuestion }) {
             <NextQuestion goNext={handleNextQuestion} noRadius={true} disabled={false} />
             <View style={{ flexDirection: 'row' }}>
                 {
-                    userDetails.preferedUnit === 'cm' ?
+                    userDetails.preferredUnit === 'cm' ?
                         <View style={{ flex: 3 }}>
                             <Picker
                                 key={1}
@@ -114,9 +114,9 @@ export default function ({ handleNextQuestion }) {
                     isShowSelectLine={false}
                     selectLineSize={9}
                     pickerData={['cm', 'inch']}
-                    selectedValue={userDetails.preferedUnit}
+                    selectedValue={userDetails.preferredUnit}
                     onValueChange={value => {
-                        dispatch(updatePreferedUnit(value))
+                        dispatch(updatePreferredUnit(value))
                     }
                     }
                 />

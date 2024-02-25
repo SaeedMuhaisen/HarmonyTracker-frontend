@@ -8,7 +8,7 @@ import NextQuestion from "../../Components/Buttons/NextQuestion"
 import MultipleQuestions from "../../Components/MultipleQuestions"
 import WeightQuestion from "./Questions/WeightQuestion"
 import AgeQuestion from "./Questions/AgeQuestion"
-import { updateBicepsWidest, updateExtraData, updateForearmWidest, updateGender, updateHipWidest, updateNeckNarrowest, updateThighWidest, updateWaistNarrowest, updateWaistNarrowestUnit, updateWaistNavel, updateWristNarrowest } from "../../redux/userDetailsSlice"
+import { updateActivityLevel, updateBicepsWidest, updateExtraData, updateForearmWidest, updateGender, updateHipWidest, updateNeckNarrowest, updateThighWidest, updateWaistNarrowest, updateWaistNarrowestUnit, updateWaistNavel, updateWristNarrowest } from "../../redux/userDetailsSlice"
 import HeightQuestion from "./Questions/HeightQuestion"
 import ExtraQuestions from "./Questions/ExtraQuestions"
 import { useSelector, useStore } from "react-redux"
@@ -135,12 +135,15 @@ export default function Quiz() {
         {
             key: 13,
             type: 0,
-            question: 'Do you follow a specific diet?',
+            question: 'Whats your activity level? Do you workout?',
             answers: [
-                { name: 'Male', val: 'a', icon: 'male', iconProvider: 'Ionicons' },
-                { name: 'Female', val: 'b', icon: 'female', iconProvider: 'Ionicons' }
+                { name: 'Not at all, i am mostly setting on my desk', val:1.2, icon: 'male', iconProvider: 'Ionicons' },
+                { name: 'I do light activity, like walking', val: 1.375, icon: 'female', iconProvider: 'Ionicons' } ,               
+                { name: 'I workout somedays of the week', val: 1.55, icon: 'female', iconProvider: 'Ionicons' },
+                { name: 'I am actually quite active', val: 1.725, icon: 'female', iconProvider: 'Ionicons' },
+                { name: 'I am extremely active', val: 1.9, icon: 'female', iconProvider: 'Ionicons' },
             ],
-            update: (val) => updateGender(val),
+            update: (val) => updateActivityLevel(val),
 
         },
     ]
