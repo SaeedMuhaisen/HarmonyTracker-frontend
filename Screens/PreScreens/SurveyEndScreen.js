@@ -9,23 +9,39 @@ import { FontAwesome6 } from '@expo/vector-icons';
 import NextQuestion from "../../Components/Buttons/NextQuestion";
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from "../../Navigation/ROUTES";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { localhost } from "../../connectionConfig";
+import { setResult } from "../../redux/surveyResultSlice";
 
 export default function () {
+    const userDetails=useSelector(state=>state.userDetails)
+    const dispatch=useDispatch();
     useEffect(() => {
+        console.log(userDetails)
+
         const fetchData = async () => {
-            const response = await fetch(localhost + '/api/preview/macros', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userDetails),
-            });
-            console.log(response);
-        }
+            try {
+                const response = await fetch(localhost+'/api/preview/macros', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userDetails),
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                else{
+                    const responseData = await response.json();
+                    dispatch(setResult(responseData));
+                    console.log(responseData)
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
         fetchData();
-    }, [])
+    }, []);
 
     const navigation = useNavigation();
     const [timer, setTimer] = useState(1000);

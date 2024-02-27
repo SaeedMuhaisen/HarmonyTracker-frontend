@@ -28,5 +28,20 @@ export const globalStyles = StyleSheet.create({
     shadowRadius: 4.65,
 
     elevation: 6,
+  },
+  showdedCard:{
+    backgroundColor: AppColors.cardBackground,
+    padding: 15,
+    gap: 5,
+    borderRadius: 7,
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    color: 'white',
+    elevation: 6,
   }
-});5
+});

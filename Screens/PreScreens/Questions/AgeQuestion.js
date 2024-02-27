@@ -29,7 +29,8 @@ export default function ({ handleNextQuestion }) {
                             value={new Date(userDetails.birthDate)}
                             dateFormat='day month year'
                             onChange={(date) => {
-                                dispatch(updateBirthDate({ birthDate: new Date(date.nativeEvent.timestamp).toISOString() }));
+                                const selectedDate = new Date(date.nativeEvent.timestamp);
+                                dispatch(updateBirthDate({ birthDate: selectedDate.getTime() }));
                             }}
                             textColor='white'
                             maximumDate={new Date('2020-01-01')}
