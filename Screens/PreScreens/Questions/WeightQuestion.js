@@ -48,7 +48,7 @@ export default function ({ handleNextQuestion }) {
     return (
         <View key={1} style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-                <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>{initial}.{final} {preferredWeightUnit}</Text>
+                <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'white' }}>{initial}.{final} {preferredWeightUnit}</Text>
             </View>
             <NextQuestion goNext={handleNextQuestion} noRadius={true} />
             <View style={{ flexDirection: 'row' }}>

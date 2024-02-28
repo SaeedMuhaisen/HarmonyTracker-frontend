@@ -16,7 +16,7 @@ export default function ({ handleNextQuestion }) {
     return (
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-                <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'gray' }}>
+                <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'gray' }}>
                     {monthNames[birthDate.getMonth()]} {birthDate.getDate()}, {birthDate.getFullYear()}
                 </Text>
             </View>

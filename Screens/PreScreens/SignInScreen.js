@@ -107,7 +107,7 @@ export default function () {
 
 
                         <View >
-                            <Text style={globalStyles.H4} >Sign in</Text>
+                            <Text style={globalStyles.title} >Sign in</Text>
                         </View>
                         <View style={{ gap: 10 }}>
                             <TextInput style={{ fontSize: 18, borderRadius: 10, backgroundColor: AppColors.stackBackground, padding: 7, color: 'white' }} placeholder='Email' placeholderTextColor={'gray'} />

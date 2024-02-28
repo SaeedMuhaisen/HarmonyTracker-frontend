@@ -41,7 +41,7 @@ export default function ({ handleNextQuestion, comp }) {
 
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
 
-                <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
+                <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'white' }}>
                     {initial || 0}.{final || 0} {preferredUnit === "cm" ? <>cm</> : <> inches</>}
                 </Text>
 

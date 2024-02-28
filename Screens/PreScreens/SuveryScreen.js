@@ -258,7 +258,7 @@ export default function Quiz() {
                     </View>
                     <View style={{ flex: 1, justifyContent: 'flex-start', }}>
                         <View style={{ alignItems: 'center', paddingVertical: 10 }}>
-                            <Text style={{ ...globalStyles.H4 }}>{currentQuestion.question}</Text>
+                            <Text style={{ ...globalStyles.title }}>{currentQuestion.question}</Text>
                         </View>
                         <View style={{ flex: 1 }}>
                             {renderAnswers()}

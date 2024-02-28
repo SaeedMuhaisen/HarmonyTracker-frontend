@@ -47,10 +47,10 @@ export default function ({ handleNextQuestion }) {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
 
                 {userDetails.preferredUnit === 'cm' ?
-                    <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
+                    <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'white' }}>
                         {userDetails.height} {userDetails.preferredUnit}
                     </Text>
-                    : <Text style={{ ...globalStyles.H4, borderBottomWidth: 1, borderBottomColor: 'white' }}>
+                    : <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'white' }}>
                         {initial}" {final}' {userDetails.preferredUnit}es
                     </Text>
                 }
