@@ -5,8 +5,8 @@ export const surveyResultSlice = createSlice({
   initialState: {
     data: {
       bmi: null,
-      bodyFatPercentage: null,
       bmiClassificationType: null,
+      bodyFatPercentage: null,
       leanBodyMass: null,
       bodyFatMass: null,
       bmrMSJ: null,

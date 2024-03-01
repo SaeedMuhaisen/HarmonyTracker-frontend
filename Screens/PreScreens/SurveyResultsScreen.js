@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { VictoryAxis, VictoryBrushLine, VictoryChart, VictoryScatter } from "victory-native";
 import XAxis from "../../Components/XAxis";
 import BmiCard from "../../Components/Cards/ResultScreenCards/BmiCard";
+import BodyDetails from "../../Components/Cards/ResultScreenCards/BodyDetails";
 
 export default function () {
     const result = useSelector(state => state.surveyResult.data)
@@ -61,9 +62,9 @@ export default function () {
     }, []);
     return (
         <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground}>
-            <ScrollView contentContainerStyle={{ flex: 1, gap: 5, padding: 15 }}>
-                <View></View>
+            <ScrollView contentContainerStyle={{ flex: 1, gap: 15, padding: 15 }}>
                 <BmiCard/>
+                <BodyDetails/>
             </ScrollView>
         </SafeAreaView>
     )
