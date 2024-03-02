@@ -7,6 +7,7 @@ import LabeledInput from "../../Inputs/LabeledInput";
 import LabeledSeparator from "../../Seperators/LabeledSeparator";
 import { StyleSheet } from "react-native";
 import PercentagePieChart from "./PercentagePieChart";
+import { capitalizeFirstLetters } from "../../../utils/converters";
 export default function () {
     const [width, setWidth] = useState(null)
     const result = useSelector(state => state.surveyResult.data)
@@ -22,16 +23,12 @@ export default function () {
             }} />
             <View style={{ gap: 10, }} onLayout={(event) => { setWidth(event.nativeEvent.layout.width) }}>
                 <View>
-                    <Text style={{ ...globalStyles.title, alignSelf: 'center' }}>{weight} kg = {weight-Math.floor(result.leanBodyMass * 10) / 10} FM + {Math.floor(result.leanBodyMass * 10) / 10} LBM  </Text>
+                    <Text style={{ ...globalStyles.title, alignSelf: 'center' }}>{weight} kg = {weight - Math.floor(result.leanBodyMass * 10) / 10} FM + {Math.floor(result.leanBodyMass * 10) / 10} LBM  </Text>
                 </View>
-
                 <Text style={globalStyles.description}>Your Body Fat Mass Percentage: <Text style={globalStyles.body}>{Math.floor(result.bodyFatPercentage * 10) / 10}%</Text></Text>
-                <Text style={globalStyles.description}>Your Lean Body Mass Percentage: <Text style={globalStyles.body}>{100-Math.floor(result.bodyFatPercentage * 10) / 10}%</Text></Text>
-                <Text style={globalStyles.description}>Your Fat Classification: <Text style={globalStyles.body}>{result.bmiClassificationType}</Text></Text>
+                <Text style={globalStyles.description}>Your Lean Body Mass Percentage: <Text style={globalStyles.body}>{100 - Math.floor(result.bodyFatPercentage * 10) / 10}%</Text></Text>
+                <Text style={globalStyles.description}>Your Fat Classification: <Text style={globalStyles.body}>{capitalizeFirstLetters(result.bodyFatMassClassificationType)}</Text></Text>
             </View>
-
-
-
         </View>
     );
 }

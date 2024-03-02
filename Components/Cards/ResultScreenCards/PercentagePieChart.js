@@ -43,7 +43,7 @@ export default function ({ data, width }) {
 
         //         </View>
         <View>
-
+            
         </View>
     );
 }

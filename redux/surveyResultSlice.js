@@ -12,6 +12,7 @@ export const surveyResultSlice = createSlice({
       bmrMSJ: null,
       bmrRHE: null,
       bmrKMA: null,
+      bodyFatMassClassificationType: null,
     },
   },
   reducers: {

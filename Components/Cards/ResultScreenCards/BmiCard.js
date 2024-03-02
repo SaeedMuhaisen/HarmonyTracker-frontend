@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import LabeledInput from "../../Inputs/LabeledInput";
 import LabeledSeparator from "../../Seperators/LabeledSeparator";
 import { StyleSheet } from "react-native";
+import { capitalizeFirstLetters } from "../../../utils/converters";
 export default function () {
     const result = useSelector(state => state.surveyResult.data)
     return (
@@ -20,11 +21,8 @@ export default function () {
             <View style={{ gap: 10, }}>
                 <XAxis outerPaddingSize={globalStyles.card.padding} pointerPos={result.bmi} />
                 <Text style={globalStyles.description}>Your Bmi: <Text style={globalStyles.body}>{Math.round(result.bmi * 10) / 10}</Text></Text>
-                <Text style={globalStyles.description}>Classification: <Text style={globalStyles.body}>{result.bmiClassificationType}</Text></Text>
+                <Text style={globalStyles.description}>Classification: <Text style={globalStyles.body}>{capitalizeFirstLetters(result.bmiClassificationType)}</Text></Text>
             </View>
-
-
-
         </View>
     );
 }
