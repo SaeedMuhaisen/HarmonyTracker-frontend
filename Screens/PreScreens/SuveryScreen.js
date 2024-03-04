@@ -135,13 +135,16 @@ export default function Quiz() {
         {
             key: 13,
             type: 0,
-            question: 'Whats your activity level? Do you workout?',
+            question: 'Which of the following describes your lifestyle at best?',
             answers: [
-                { name: 'Not at all, i am mostly setting on my desk', val:1.2, icon: 'male', iconProvider: 'Ionicons' },
-                { name: 'I do light activity, like walking', val: 1.375, icon: 'female', iconProvider: 'Ionicons' } ,               
-                { name: 'I workout somedays of the week', val: 1.55, icon: 'female', iconProvider: 'Ionicons' },
-                { name: 'I am actually quite active', val: 1.725, icon: 'female', iconProvider: 'Ionicons' },
-                { name: 'I am extremely active', val: 1.9, icon: 'female', iconProvider: 'Ionicons' },
+                { name: 'Constricted Lifestyle, Movement is Limited to a Confined Space, Almost Always Sitting or Laying', val: 1.1, icon: 'male', iconProvider: 'Ionicons' },
+                { name: 'Working From Home with Little to No Travel, No Exercise, Some Walking, Mostly Sitting or Laying ', val: 1.16, icon: 'female', iconProvider: 'Ionicons' },
+                { name: 'Sedentary Lifestyle, Little or No Exercise, Moderate Walking, Desk Job (Away from Home) ', val: 1.2, icon: 'female', iconProvider: 'Ionicons' },
+                { name: 'Slightly Active, Exercise or Light Sports 1 to 3 Days a Week, Light Jogging or Walking 3 to 4 Days a Week', val: 1.375, icon: 'female', iconProvider: 'Ionicons' },
+                { name: 'Lightly Active, Exercise or Moderate Sports 2 to 3 Days a Week, Light Jogging or Walking 5 to 7 Days a Week', val: 1.425, icon: 'female', iconProvider: 'Ionicons' },
+                { name: 'Moderately Active, Physical Work, Exercise, or Sports 4 to 5 Days a Week, Construction Laborer', val: 1.55, icon: 'female', iconProvider: 'Ionicons' },
+                { name: 'Very Active, Heavy Physical Work, Exercise, or Sports 6 to 7 Days a Week, Hard Laborer', val: 1.75, icon: 'female', iconProvider: 'Ionicons' },
+                { name: 'Extremely Active, Very Heavy Physical Work or Exercise Every Day, Professional/Olympic Athlete', val: 1.9, icon: 'female', iconProvider: 'Ionicons' },
             ],
             update: (val) => updateActivityLevel(val),
 
@@ -223,8 +226,8 @@ export default function Quiz() {
         }
         else if (currentQuestion.type === 10) {
             return (
-                <View  style={{flex:1,}} key={currentQuestion.key}>
-                    <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]} state={currentQuestion.state}/>
+                <View style={{ flex: 1, }} key={currentQuestion.key}>
+                    <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]} state={currentQuestion.state} />
                 </View>
             )
         }

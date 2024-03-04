@@ -3,24 +3,24 @@ export const userDetailsSlice = createSlice({
     name: 'userDetails',
 
     initialState: {
-        gender: 'male',
-        birthDate: 1262350800000,
+        gender: "male",
+        birthDate: 860932800000,
         preferredUnit: 'cm',
         preferredWeightUnit: 'kg',
 
-        height: 170,
-        weight: 100,
+        height: 173,
+        weight: 83,
 
-        extraData: false,
-        waistNarrowest: 50.0,
-        waistNavel: 60.0,
-        hipWidest: 70.0,
-        thighWidest: 80.0,
-        neckNarrowest: 90.0,
-        bicepsWidest: 100.0,
-        forearmWidest: 200.0,
-        wristNarrowest: 300.0,
-        activityLevel:1.2,
+        extraData: true,
+        waistNarrowest: 95.5,
+        waistNavel: 96.5,
+        hipWidest: 105,
+        thighWidest: 59.5,
+        neckNarrowest: 39.8,
+        bicepsWidest: 32.5,
+        forearmWidest: 26.5,
+        wristNarrowest: 15.5,
+        activityLevel:1.1,
     },
 
     reducers: {

@@ -21,22 +21,22 @@ export default function () {
     const [width, setWidth] = useState(null);
     const dispatch = useDispatch();
     const temp = {
-        "activityLevel": 1.2,
-        "bicepsWidest": 100,
-        "birthDate": 865166400000,
-        "extraData": false,
-        "forearmWidest": 200,
+        "activityLevel": 1.1,
+        "bicepsWidest": 32.5,
+        "birthDate": 860932800000,
+        "extraData": true,
+        "forearmWidest": 26.5,
         "gender": "male",
-        "height": 170,
-        "hipWidest": 70,
-        "neckNarrowest": 90,
+        "height": 173,
+        "hipWidest": 105,
+        "neckNarrowest": 39.8,
         "preferredUnit": "cm",
         "preferredWeightUnit": "kg",
-        "thighWidest": 80,
-        "waistNarrowest": 50,
-        "waistNavel": 60,
-        "weight": 80,
-        "wristNarrowest": 300
+        "thighWidest": 59.5,
+        "waistNarrowest": 95.5,
+        "waistNavel": 96.5,
+        "weight": 83,
+        "wristNarrowest": 15.5
     }
     useEffect(() => {
 
@@ -47,7 +47,7 @@ export default function () {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(temp),
+                    body: JSON.stringify(userDetails),
                 });
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -70,7 +70,7 @@ export default function () {
                 {width !== null &&
                     <ScrollView horizontal={true} contentContainerStyle={{ gap: 15 }} >
                         <View style={{ width: width - 30 }}>
-                            <TdeeCard/>
+                            <TdeeCard />
                         </View>
                     </ScrollView>
                 }
