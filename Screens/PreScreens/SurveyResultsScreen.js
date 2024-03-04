@@ -13,10 +13,12 @@ import { VictoryAxis, VictoryBrushLine, VictoryChart, VictoryScatter } from "vic
 import XAxis from "../../Components/XAxis";
 import BmiCard from "../../Components/Cards/ResultScreenCards/BmiCard";
 import BodyDetails from "../../Components/Cards/ResultScreenCards/BodyDetails";
+import TdeeCard from "../../Components/Cards/ResultScreenCards/TdeeCard";
 
 export default function () {
     const result = useSelector(state => state.surveyResult.data)
     const userDetails = useSelector(state => state.userDetails)
+    const [width, setWidth] = useState(null);
     const dispatch = useDispatch();
     const temp = {
         "activityLevel": 1.2,
@@ -61,10 +63,18 @@ export default function () {
         fetchData();
     }, []);
     return (
-        <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground}>
-            <ScrollView contentContainerStyle={{ flex: 1, gap: 15, padding: 15 }}>
-                <BmiCard/>
-                <BodyDetails/>
+        <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground} >
+            <ScrollView onLayout={(event) => setWidth(event.nativeEvent.layout.width)} contentContainerStyle={{ gap: 15, padding: 15 }}>
+                <BmiCard />
+                <BodyDetails />
+                {width !== null &&
+                    <ScrollView horizontal={true} contentContainerStyle={{ gap: 15 }} >
+                        <View style={{ width: width - 30 }}>
+                            <TdeeCard/>
+                        </View>
+                    </ScrollView>
+                }
+
             </ScrollView>
         </SafeAreaView>
     )

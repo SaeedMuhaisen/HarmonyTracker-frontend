@@ -20,7 +20,6 @@ export const userDetailsSlice = createSlice({
         bicepsWidest: 100.0,
         forearmWidest: 200.0,
         wristNarrowest: 300.0,
-
         activityLevel:1.2,
     },
 

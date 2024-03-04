@@ -7,12 +7,13 @@ export const surveyResultSlice = createSlice({
       bmi: null,
       bmiClassificationType: null,
       bodyFatPercentage: null,
-      leanBodyMass: null,
+      bfpType:null,
       bodyFatMass: null,
-      bmrMSJ: null,
-      bmrRHE: null,
-      bmrKMA: null,
-      bodyFatMassClassificationType: null,
+      bodyFatMassClassificationType:null,
+      leanBodyMass: null,
+      bmr:null,
+      bmrType:null,
+      
     },
   },
   reducers: {
