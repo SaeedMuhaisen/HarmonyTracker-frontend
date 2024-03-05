@@ -56,14 +56,14 @@ export default function () {
                                             />
                                             <MacroPieChart
                                                 title={'Protein'} unit={'grams'}
-                                                width={width - 2} value={200}
+                                                width={width - 2} value={Math.round(result.leanBodyMass*1.763696)}
                                                 pieColor={'white'} cardColor={'#5068a4'}
                                                 description={'Goal'}
 
                                             />
-                                            <MacroPieChart title={'Carbs'} value={200} unit={'grams'} pieColor={'white'} width={width - 2} cardColor={'#F83A46'} description={'Limit'}
+                                            <MacroPieChart title={'Carbs'} value={Math.round(result.bmr * userDetails.activityLevel*0.05/4)} unit={'grams'} pieColor={'white'} width={width - 2} cardColor={'#F83A46'} description={'Limit'}
                                             />
-                                            <MacroPieChart title={'Fat'} value={200} unit={'grams'} pieColor={'white'} width={width - 2} cardColor={'#E8A020'} description={'Limit'} />
+                                            <MacroPieChart title={'Fat'} value={Math.round(result.bmr * userDetails.activityLevel*0.7/9)} unit={'grams'} pieColor={'white'} width={width - 2} cardColor={'#E8A020'} description={'Limit'} />
                                         </>
                                         }
                                     </View>
