@@ -21,6 +21,7 @@ import Test from '../Screens/TestScreen/TestScreen';
 import TestScreen from '../Screens/TestScreen/TestScreen';
 import SurveyEndScreen from '../Screens/PreScreens/SurveyEndScreen';
 import SurveyResultsScreen from '../Screens/PreScreens/SurveyResultsScreen';
+import DietPlanScreen from '../Screens/PreScreens/DietPlanScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
@@ -72,6 +73,11 @@ const MobileNavigation = () => {
                 <Stack.Screen name={ROUTES.SurveyResultsScreen} options={{ headerShown: false }}>
                     {(props) =>
                         <SurveyResultsScreen />
+                    }
+                </Stack.Screen>
+                <Stack.Screen name={ROUTES.DietPlansScreen} options={{ headerShown: false }}>
+                    {(props) =>
+                        <DietPlanScreen />
                     }
                 </Stack.Screen>
             </Stack.Navigator>

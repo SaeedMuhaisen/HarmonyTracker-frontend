@@ -20,9 +20,10 @@ export const userDetailsSlice = createSlice({
         bicepsWidest: 32.5,
         forearmWidest: 26.5,
         wristNarrowest: 15.5,
-        activityLevel:1.1,
+        activityLevel: 1.1,
+        goal: 0,
     },
-
+        
     reducers: {
         updateGender: (state, action) => { state.gender = action.payload },
         updateBirthDate: (state, action) => { state.birthDate = action.payload.birthDate },
@@ -42,8 +43,8 @@ export const userDetailsSlice = createSlice({
         updateBicepsWidest: (state, action) => { state.bicepsWidest = action.payload },
         updateForearmWidest: (state, action) => { state.forearmWidest = action.payload },
         updateWristNarrowest: (state, action) => { state.wristNarrowest = action.payload },
-
         updateActivityLevel: (state, action) => { state.activityLevel = action.payload },
+        updateGoal: (state, action) => { state.goal = action.payload },
 
     }
 })
@@ -51,11 +52,11 @@ export const userDetailsSlice = createSlice({
 export const {
     updateGender,
     updateBirthDate,
-    
+
     updatePreferedUnit,
     updatePreferedWeightUnit,
-    
-    updateHeight,  
+
+    updateHeight,
     updateWeight,
 
     updateExtraData,
@@ -67,7 +68,7 @@ export const {
     updateBicepsWidest,
     updateForearmWidest,
     updateWristNarrowest,
-
+    updateGoal,
     updateActivityLevel,
 } = userDetailsSlice.actions;
 export default userDetailsSlice.reducer;

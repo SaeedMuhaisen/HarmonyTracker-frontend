@@ -9,9 +9,7 @@ export default function PieChart({ y, max, baseColor, secondaryColor }) {
     return (
         <Svg width={75} height={75}>
             <VictoryPie
-
                 padAngle={0}
-                // used to hide labels
                 labelComponent={null}
                 innerRadius={34}
 
@@ -38,8 +36,6 @@ export default function PieChart({ y, max, baseColor, secondaryColor }) {
                 text={max - y + '\n/' + max + 'g'}
 
             />
-
-
         </Svg>
     );
 }

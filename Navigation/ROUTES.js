@@ -7,7 +7,7 @@ export default {
     SurveyScreen: "SurveyScreen",
     SurveyEndScreen: "SurveyEndScreen",
     SurveyResultsScreen: "SurveyResultsScreen",
-
+    DietPlansScreen:"DietPlansScreen",
     InnerApp: "InnerApp",
     
     

@@ -14,30 +14,16 @@ import XAxis from "../../Components/XAxis";
 import BmiCard from "../../Components/Cards/ResultScreenCards/BmiCard";
 import BodyDetails from "../../Components/Cards/ResultScreenCards/BodyDetails";
 import TdeeCard from "../../Components/Cards/ResultScreenCards/TdeeCard";
+import NextQuestion from "../../Components/Buttons/NextQuestion";
+import ROUTES from "../../Navigation/ROUTES";
+import { useNavigation } from "@react-navigation/native";
 
 export default function () {
     const result = useSelector(state => state.surveyResult.data)
     const userDetails = useSelector(state => state.userDetails)
-    const [width, setWidth] = useState(null);
     const dispatch = useDispatch();
-    const temp = {
-        "activityLevel": 1.1,
-        "bicepsWidest": 32.5,
-        "birthDate": 860932800000,
-        "extraData": true,
-        "forearmWidest": 26.5,
-        "gender": "male",
-        "height": 173,
-        "hipWidest": 105,
-        "neckNarrowest": 39.8,
-        "preferredUnit": "cm",
-        "preferredWeightUnit": "kg",
-        "thighWidest": 59.5,
-        "waistNarrowest": 95.5,
-        "waistNavel": 96.5,
-        "weight": 83,
-        "wristNarrowest": 15.5
-    }
+    const navigation = useNavigation();
+
     useEffect(() => {
 
         const fetchData = async () => {
@@ -64,18 +50,15 @@ export default function () {
     }, []);
     return (
         <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground} >
-            <ScrollView onLayout={(event) => setWidth(event.nativeEvent.layout.width)} contentContainerStyle={{ gap: 15, padding: 15 }}>
-                <BmiCard />
-                <BodyDetails />
-                {width !== null &&
-                    <ScrollView horizontal={true} contentContainerStyle={{ gap: 15 }} >
-                        <View style={{ width: width - 30 }}>
-                            <TdeeCard />
-                        </View>
-                    </ScrollView>
-                }
-
-            </ScrollView>
+            <View style={{ flex: 1, paddingHorizontal: 15, }} >
+                <ScrollView contentContainerStyle={{ gap: 10 }} showsVerticalScrollIndicator={false}>
+                    <BmiCard />
+                    <BodyDetails />
+                    <TdeeCard />
+                    <View style={{height:10}}/>
+                </ScrollView>
+                <NextQuestion title="Preview Your Plan" goNext={() => navigation.navigate(ROUTES.DietPlansScreen)} />
+            </View>
         </SafeAreaView>
     )
 }

@@ -8,7 +8,7 @@ import NextQuestion from "../../Components/Buttons/NextQuestion"
 import MultipleQuestions from "../../Components/MultipleQuestions"
 import WeightQuestion from "./Questions/WeightQuestion"
 import AgeQuestion from "./Questions/AgeQuestion"
-import { updateActivityLevel, updateBicepsWidest, updateExtraData, updateForearmWidest, updateGender, updateHipWidest, updateNeckNarrowest, updateThighWidest, updateWaistNarrowest, updateWaistNarrowestUnit, updateWaistNavel, updateWristNarrowest } from "../../redux/userDetailsSlice"
+import { updateActivityLevel, updateBicepsWidest, updateExtraData, updateForearmWidest, updateGender, updateGoal, updateHipWidest, updateNeckNarrowest, updateThighWidest, updateWaistNarrowest, updateWaistNarrowestUnit, updateWaistNavel, updateWristNarrowest } from "../../redux/userDetailsSlice"
 import HeightQuestion from "./Questions/HeightQuestion"
 import ExtraQuestions from "./Questions/ExtraQuestions"
 import { useSelector, useStore } from "react-redux"
@@ -147,7 +147,17 @@ export default function Quiz() {
                 { name: 'Extremely Active, Very Heavy Physical Work or Exercise Every Day, Professional/Olympic Athlete', val: 1.9, icon: 'female', iconProvider: 'Ionicons' },
             ],
             update: (val) => updateActivityLevel(val),
-
+        },
+        {
+            key: 14,
+            type: 0,
+            question: 'What is your goal?',
+            answers: [
+                { name: 'Lose Weight', val: 0 },
+                { name: 'Maintain My Weight', val: 1 },
+                { name: 'Gain Weight and Muscels', val: 2 },
+            ],
+            update: (val) => updateGoal(val),
         },
     ]
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
