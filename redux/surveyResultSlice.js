@@ -6,10 +6,13 @@ export const surveyResultSlice = createSlice({
     data: {
       bmi: null,
       bmiClassificationType: null,
+
       bodyFatPercentage: null,
       bfpType:null,
+
       bodyFatMass: null,
       bodyFatMassClassificationType:null,
+
       leanBodyMass: null,
       bmr:null,
       bmrType:null,
