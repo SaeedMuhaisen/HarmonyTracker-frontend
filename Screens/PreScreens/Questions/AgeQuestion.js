@@ -49,7 +49,7 @@ export default function ({ handleNextQuestion }) {
                             const month = selectedDate.getMonth() + 1; // Month is zero-indexed, so add 1
                             const day = selectedDate.getDate();
                             const extractedDate = new Date(year, month - 1, day);
-                            setBirthDay(extractedDate);
+                            dispatch(updateBirthDate({ birthDate: extractedDate.getTime() }));
                         }}
                     />
             }

@@ -24,7 +24,7 @@ export default function ({ outerPaddingSize, pointerPos }) {
                 borderWidth: 1,
                 left: position <= 50 ? `${position}%` : undefined,
                 right: position > 50 ? `${(position - 100) * -1}%` : undefined, borderRadius: 100
-            }} 
+            }}
             />
         </LinearGradient>
     )

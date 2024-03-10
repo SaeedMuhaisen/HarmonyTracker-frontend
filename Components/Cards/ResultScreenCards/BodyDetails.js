@@ -23,10 +23,10 @@ export default function () {
             }} />
             <View style={{ gap: 10, }} onLayout={(event) => { setWidth(event.nativeEvent.layout.width) }}>
                 <View>
-                    <Text style={{ ...globalStyles.title, alignSelf: 'center' }}>{weight} kg = {Math.round(weight*10 - result.leanBodyMass * 10) / 10} FM + {Math.round(result.leanBodyMass * 10) / 10} LBM  </Text>
+                    <Text style={{ ...globalStyles.title, alignSelf: 'center' }}>{weight} kg = {Math.round(weight * 10 - result.leanBodyMass * 10) / 10} FM + {Math.round(result.leanBodyMass * 10) / 10} LBM  </Text>
                 </View>
                 <Text style={globalStyles.description}>Your Body Fat Mass Percentage: <Text style={globalStyles.body}>{Math.round(result.bodyFatPercentage * 10) / 10}%</Text></Text>
-                <Text style={globalStyles.description}>Your Lean Body Mass Percentage: <Text style={globalStyles.body}>{Math.round((100 - result.bodyFatPercentage)*10) / 10}%</Text></Text>
+                <Text style={globalStyles.description}>Your Lean Body Mass Percentage: <Text style={globalStyles.body}>{Math.round((100 - result.bodyFatPercentage) * 10) / 10}%</Text></Text>
                 <Text style={globalStyles.description}>Your Fat Classification: <Text style={globalStyles.body}>{capitalizeFirstLetters(result.bodyFatMassClassificationType)}</Text></Text>
                 <Text></Text>
             </View>
