@@ -8,6 +8,7 @@ import Slider from '@react-native-community/slider';
 import UserMacrosPie from "../../Components/Cards/ResultScreenCards/UserMacrosPie";
 import SingleMacro from "../../Components/Cards/ResultScreenCards/SingleMacro";
 import DietGraph from "../../Components/Cards/ResultScreenCards/DietGraph";
+import Graph from "../../Components/Graph";
 export default function () {
     const [width, setWidth] = useState(width);
     const result = useSelector(state => state.surveyResult.data)
@@ -118,8 +119,11 @@ export default function () {
                                     </View>
 
                                 </View>
-                                <View >
+                                {/* <View >
                                     <DietGraph deficit={updatedDeficit} initialWeight={userDetails.weight} bmi={result.bmi} height={userDetails.height} bodyFat={result.bodyFatMass}/>
+                                </View> */}
+                                <View>
+                                    <Graph/>
                                 </View>
                             </View>
 
