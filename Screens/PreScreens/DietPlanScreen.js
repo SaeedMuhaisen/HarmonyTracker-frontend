@@ -7,6 +7,7 @@ import Slider from '@react-native-community/slider';
 
 import UserMacrosPie from "../../Components/Cards/ResultScreenCards/UserMacrosPie";
 import SingleMacro from "../../Components/Cards/ResultScreenCards/SingleMacro";
+import DietGraph from "../../Components/Cards/ResultScreenCards/DietGraph";
 export default function () {
     const [width, setWidth] = useState(width);
     const result = useSelector(state => state.surveyResult.data)
@@ -18,6 +19,7 @@ export default function () {
     const carbsAndProteinCal = protein * 4 + carbs * 4;
 
     const [deficet, setDeficet] = useState(Math.round(initialTdee * 0.3));
+    const [updatedDeficit, setUpdatedDeficit] = useState(2)
     const [tdee, setTdee] = useState(initialTdee);
     const [fat, setFat] = useState(initialTdee * 0.7 / 9)
 
@@ -110,10 +112,14 @@ export default function () {
                                                 step={1}
                                                 value={deficet}
                                                 onValueChange={handleDeficitChange}
+                                                onSlidingComplete={(value) => { setUpdatedDeficit(Math.round(deficet * 0.00013 * 7 * 100) / 100) }}
                                             />
                                         </View>
                                     </View>
 
+                                </View>
+                                <View >
+                                    <DietGraph deficit={updatedDeficit} initialWeight={userDetails.weight} bmi={result.bmi} height={userDetails.height} bodyFat={result.bodyFatMass}/>
                                 </View>
                             </View>
 

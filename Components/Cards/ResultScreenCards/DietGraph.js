@@ -1,123 +1,120 @@
-import React, { useEffect, useState } from "react";
-import { View, Text } from "react-native";
-import { VictoryChart, VictoryClipContainer, VictoryLine, VictoryScatter, VictoryTheme } from "victory-native";
+import React, { useState, memo, useEffect } from "react";
+import { View, Text, } from "react-native";
 import { AppColors } from "../../../Styles/AppColors";
-import { monthNames } from "../../../Consts/MonthNames";
-import { FlatList } from "react-native-gesture-handler";
+import {
+    LineChart,
 
-export default function ({ deficit, initialWeight, bmi, height }) {
-    //Map based on bmi implementation
+} from "react-native-chart-kit";
+import { globalStyles } from "../../../GlobalStyles";
+import { useSelector } from "react-redux";
+function* yLabel() {
+    yield* [1, 2, 3, 4, 5, 6];
+}
+
+const DietGraph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
+    console.log(deficit)
     const roadMap = [];
     const goals = [];
+    const [data, setData] = useState({})
+    const yLabelIterator = yLabel();
+
     useEffect(() => {
-        const setUpGoals = () => {
-            const thresholds = [35, 30, 25, 22.5, 20, 18];
-            thresholds.forEach(threshold => {
-                if (bmi > threshold) {
-                    goals.push({ weight: Math.floor(threshold * height / 100 * height / 100), bmi: threshold });
-                }
-            });
-            setUpRoadMap()
-        }
-        const setUpRoadMap = () => {
-            const markedWeights = goals.map(goal => goal.weight);
-            Array.from({ length: Math.ceil(initialWeight - goals[goals.length - 1].weight) }, (_, index) => {
-                const myWeight = initialWeight - index;
-                let mark = null;
-                if (markedWeights.includes(myWeight)) {
-                    mark = 'MARKED';
-                } else if ((initialWeight - myWeight) % 5 === 0) {
-                    mark = 'MILESTONE+MARKED';
-                }
-                roadMap.push({ myWeight, mark });
-            });
-        }
-        setUpGoals();
-    }, [])
+        const generateArray = () => {
+            console.log(initialWeight, 'initial weight')
+            let currentValue = initialWeight;
+            let array = [];
 
+            let iterations = 0;
+            let dietBreak = 0;
+            let wall = 0;
+            while (iterations <= 16) {
+                if (dietBreak === 5) {
+                    array.push(Math.round(currentValue * 100) / 100)
+                    iterations = iterations + 1;
+                    dietBreak = 0;
+                }
 
-    console.log(roadMap)
+                else {
+                    if (wall === 7) {
+                        iterations = iterations + 1;
+                        currentValue = Math.round((currentValue + deficit) * 100) / 100;
+                        wall = 0;
+                    }
+                    else {
+                        dietBreak = dietBreak + 1;
+                        wall += 1
+                        array.push(Math.round(currentValue * 100) / 100);
+
+                        currentValue = Math.round((currentValue - deficit) * 100) / 100;
+                        console.log(Math.round((currentValue - deficit) * 100), 'val')
+                        console.log(deficit, 'vals')
+                        iterations = iterations + 1;
+                    }
+                }
+            }
+            console.log(array)
+            return array;
+        };
+        setData(generateArray)
+    }, [deficit])
     const [width, setWidth] = useState(null);
-    const date = new Date();
-
+    console.log(width !== null ? width : 'null')
     return (
-        <View style={{ backgroundColor: 'gray' }} onLayout={(event) => { setWidth(event.nativeEvent.layout.width) }}>
-            {/* {width !== null &&
+        <View style={{}} onLayout={(event) => { setWidth(event.nativeEvent.layout.width) }}>
+            <Text style={{ color: 'white' }}>To lose {Math.round(bodyFat)}</Text>
+            {width !== null && data !== null &&
+                <LineChart
+                    // fromNumber={initialWeight + 6}
+                    bezier
+                    data={{
+                        labels: [1, 10, 20, 30, 50],
 
-                <VictoryChart
-                    theme={VictoryTheme.grayscale}
-                    width={width}
-                    style={{
+
+                        datasets: [
+                            {
+                                data: data,
+                                withDots: false,
+                                strokeWidth: 1
+                            },
+                            {
+                                data: [initialWeight - 15], // Set Min
+                                withDots: false, // Hide Dots
+                            },
+                            {
+                                data: [initialWeight + 15], // Set Max
+                                withDots: false, // Hide Dots
+                            },
+                        ]
+                    }
+
+                    }
+                    width={width} // from react-native
+                    height={width / 2}
+
+                    yAxisSuffix="kg"
+                    yAxisInterval={1} // optional, defaults to 1
+                    segments={4}
+                    chartConfig={{
+                        backgroundGradientFrom: AppColors.cardBackground,
+                        backgroundGradientTo: AppColors.cardBackground,
+                        decimalPlaces: 0,
+                        color: (opacity = 1) => `white`,
+                        //labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                        labelColor: (opacity = 1) => `white`,
+
 
                     }}
+                    withVerticalLines={false}
+                    withHorizontalLines={false}
 
-                >
-                    <VictoryLine
-                        groupComponent={<VictoryClipContainer clipPadding={{ top: 5, right: 10 }} />}
-                        style={{
-                            data: { stroke: "#c43a31", },
 
-                        }}
-                        interpolation="natural"
-                        data={[
-                            { x: 'today', y: 89, },
-                            { x: 'feb', y: 87, },
-                            { x: 'march', y: 85, },
-                            { x: 'april', y: 80, },
-                        ]}
-
-                    />
-                    <VictoryScatter
-                        style={{
-                            parent: {
-                                border: "1px solid #ccc"
-                            },
-                            data: {
-                                fill: "#c43a31", fillOpacity: 0.6, stroke: "#c43a31", strokeWidth: 3
-                            },
-                            labels: {
-                                fontSize: 15, fill: "#c43a31", padding: 15
-                            }
-                        }}
-                        size={9}
-                        data={[
-                            { x: 'feb', y: 87, },
-
-                        ]}
-                        labels={({ datum }) => datum.x}
-                    />
-
-                </VictoryChart>
-            } */}
-
-            <Text>Goals:</Text>
-            <Text>BMI: {bmi}</Text>
-            {goals !== null && roadMap !== null &&
-                <>
-                    <FlatList
-                        data={goals}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (
-                            <Text>
-                                Reach {item.weight.toFixed(2)} kg (BMI: {item.bmi})
-                            </Text>
-                        )}
-                    />
-                    <FlatList
-                        data={roadMap}
-                        keyExtractor={(item, index) => index.toString()}
-                        renderItem={({ item }) => (
-                            <Text>
-                                Reach {item.myWeight} kg {item.mark}
-                            </Text>
-                        )}
-                    />
-                </>
+                />
             }
-
-
-
         </View>
-    )
-
+    );
 }
+);
+
+export default DietGraph;
+
+
