@@ -3,7 +3,6 @@ import { View, Text, } from "react-native";
 import { AppColors } from "../../../Styles/AppColors";
 import {
     LineChart,
-
 } from "react-native-chart-kit";
 import { globalStyles } from "../../../GlobalStyles";
 import { useSelector } from "react-redux";
@@ -68,8 +67,6 @@ const DietGraph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
                     bezier
                     data={{
                         labels: [1, 10, 20, 30, 50],
-
-
                         datasets: [
                             {
                                 data: data,

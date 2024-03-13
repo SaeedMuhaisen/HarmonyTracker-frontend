@@ -9,7 +9,11 @@ import UserMacrosPie from "../../Components/Cards/ResultScreenCards/UserMacrosPi
 import SingleMacro from "../../Components/Cards/ResultScreenCards/SingleMacro";
 import DietGraph from "../../Components/Cards/ResultScreenCards/DietGraph";
 import Graph from "../../Components/Graph";
+import NextQuestion from "../../Components/Buttons/NextQuestion";
+import ROUTES from "../../Navigation/ROUTES";
+import { useNavigation } from "@react-navigation/native";
 export default function () {
+    const navigation=useNavigation();
     const [width, setWidth] = useState(width);
     const result = useSelector(state => state.surveyResult.data)
     const userDetails = useSelector(state => state.userDetails)
@@ -20,7 +24,7 @@ export default function () {
     const carbsAndProteinCal = protein * 4 + carbs * 4;
 
     const [deficet, setDeficet] = useState(Math.round(initialTdee * 0.3));
-    const [updatedDeficit, setUpdatedDeficit] = useState(2)
+    const [updatedDeficit, setUpdatedDeficit] = useState(0)
     const [tdee, setTdee] = useState(initialTdee);
     const [fat, setFat] = useState(initialTdee * 0.7 / 9)
 
@@ -34,103 +38,101 @@ export default function () {
         <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground} >
             <View style={{ flex: 1, paddingHorizontal: 15, }} >
                 <ScrollView contentContainerStyle={{ gap: 10 }} onLayout={(event) => { setWidth(event.nativeEvent.layout.width) }} showsVerticalScrollIndicator={false}>
-                    {
-                        userDetails.goal === 0
-                            ?
-                            <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
-                                <View>
-                                    <Text style={{ ...globalStyles.title, }}>Your Keto Plan</Text>
-                                </View>
-                                <View style={{
-                                    borderBottomColor: 'gray',
-                                    borderBottomWidth: StyleSheet.hairlineWidth,
-                                }} />
+                    <View style={{ ...globalStyles.showdedCard, gap: 15, }}>
+                        <View>
+                            <Text style={{ ...globalStyles.title, }}>Your Keto Plan</Text>
+                        </View>
+                        <View style={{
+                            borderBottomColor: 'gray',
+                            borderBottomWidth: StyleSheet.hairlineWidth,
+                        }} />
 
-                                <View style={{ gap: 20 }} >
+                        <View style={{ gap: 20 }} >
 
 
 
-                                    {tdee !== null && fat !== null && carbs !== null &&
-                                        <UserMacrosPie calories={tdee} fat={fat} carbs={carbs} protein={protein} />
-                                    }
+                            {tdee !== null && fat !== null && carbs !== null &&
+                                <UserMacrosPie calories={tdee} fat={fat} carbs={carbs} protein={protein} />
+                            }
 
 
-                                    <View style={{ gap: 5 }}>
+                            <View style={{ gap: 5 }}>
 
-                                        <Text style={{ ...globalStyles.description }}>Macros</Text>
-                                        <View style={{ flexDirection: 'row', borderRadius: 20, gap: 60 }}>
-                                            <View style={{ flex: 1, }}>
-                                                <SingleMacro title={'Protein'} color={AppColors.proteinColor} value={protein} percentage={'70'} />
-                                            </View>
-                                            <View style={{ flex: 1, }}>
-                                                <SingleMacro title={'Carbs'} color={AppColors.carbsColor} value={carbs} percentage={'5'} />
-                                            </View>
-                                            <View style={{ flex: 1, }}>
-                                                <SingleMacro title={'Fat'} color={AppColors.fatColor} value={fat} percentage={'25'} />
-                                            </View>
-
-                                        </View>
+                                <Text style={{ ...globalStyles.description }}>Macros</Text>
+                                <View style={{ flexDirection: 'row', borderRadius: 20, gap: 60 }}>
+                                    <View style={{ flex: 1, }}>
+                                        <SingleMacro title={'Protein'} color={AppColors.proteinColor} value={protein} percentage={'70'} />
+                                    </View>
+                                    <View style={{ flex: 1, }}>
+                                        <SingleMacro title={'Carbs'} color={AppColors.carbsColor} value={carbs} percentage={'5'} />
+                                    </View>
+                                    <View style={{ flex: 1, }}>
+                                        <SingleMacro title={'Fat'} color={AppColors.fatColor} value={fat} percentage={'25'} />
                                     </View>
 
-                                    <View style={{ gap: 5 }}>
-                                        <View style={{ gap: 5 }}>
-
-
-                                            <Text style={globalStyles.description}>Increase Your Daily Deficit</Text>
-                                            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 20, padding: 10, }}>
-                                                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', borderRightWidth: StyleSheet.hairlineWidth, borderColor: 'gray' }}>
-                                                    <Text style={{ ...globalStyles.description }}>
-                                                        Deficit
-                                                    </Text>
-                                                    <Text style={{ ...globalStyles.body }}>
-                                                        {Math.round(100 - (initialTdee - deficet) * 100 / initialTdee)} %
-                                                    </Text >
-
-
-                                                </View>
-
-                                                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                                                    <Text style={{ ...globalStyles.description }}>
-                                                        Kg/Week
-                                                    </Text>
-                                                    <Text style={{ ...globalStyles.body }}>
-                                                        {Math.round(deficet * 0.00013 * 7 * 100) / 100}
-                                                    </Text>
-
-                                                </View>
-
-                                            </View>
-                                        </View>
-                                        <View>
-                                            <Slider
-
-                                                height={35}
-                                                minimumTrackTintColor={AppColors.proteinColor}
-                                                maximumTrackTintColor={'gray'}
-                                                thumbTintColor={'white'}
-                                                minimumValue={0}
-                                                maximumValue={Math.ceil(initialTdee * 0.4)}
-                                                step={1}
-                                                value={deficet}
-                                                onValueChange={handleDeficitChange}
-                                                onSlidingComplete={(value) => { setUpdatedDeficit(Math.round(deficet * 0.00013 * 7 * 100) / 100) }}
-                                            />
-                                        </View>
-                                    </View>
-
-                                </View>
-                                {/* <View >
-                                    <DietGraph deficit={updatedDeficit} initialWeight={userDetails.weight} bmi={result.bmi} height={userDetails.height} bodyFat={result.bodyFatMass}/>
-                                </View> */}
-                                <View>
-                                    <Graph/>
                                 </View>
                             </View>
 
-                            :
-                            <></>
-                    }
+                            <View style={{ gap: 5 }}>
+                                <View style={{ gap: 5 }}>
+
+
+                                    <Text style={globalStyles.description}>Increase Your Daily Deficit</Text>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', borderRadius: 20, padding: 10, }}>
+                                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', borderRightWidth: StyleSheet.hairlineWidth, borderColor: 'gray' }}>
+                                            <Text style={{ ...globalStyles.description }}>
+                                                Deficit
+                                            </Text>
+                                            <Text style={{ ...globalStyles.body }}>
+                                                {Math.round(100 - (initialTdee - deficet) * 100 / initialTdee)} %
+                                            </Text >
+
+
+                                        </View>
+
+                                        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                                            <Text style={{ ...globalStyles.description }}>
+                                                Kg/Week
+                                            </Text>
+                                            <Text style={{ ...globalStyles.body }}>
+                                                {Math.round(deficet * 0.00013 * 7 * 100) / 100}
+                                            </Text>
+
+                                        </View>
+
+                                    </View>
+                                </View>
+                                <View>
+                                    <Slider
+
+                                        height={35}
+                                        minimumTrackTintColor={AppColors.proteinColor}
+                                        maximumTrackTintColor={'gray'}
+                                        thumbTintColor={'white'}
+                                        minimumValue={0}
+                                        maximumValue={Math.ceil(initialTdee * 0.4)}
+                                        step={1}
+                                        value={deficet}
+                                        onValueChange={handleDeficitChange}
+                                        onSlidingComplete={(value) => { setUpdatedDeficit(Math.round(deficet * 0.00013 * 30 * 100) / 100) }}
+                                    />
+                                </View>
+                            </View>
+
+                        </View>
+                        {/* <View >
+                                    <DietGraph deficit={updatedDeficit} initialWeight={userDetails.weight} bmi={result.bmi} height={userDetails.height} bodyFat={result.bodyFatMass}/>
+                                </View> */}
+                        <View>
+                            <Graph deficit={updatedDeficit} initialWeight={userDetails.weight} bmi={result.bmi} height={userDetails.height} bodyFat={result.bodyFatMass} />
+                        </View>
+                                
+                    </View>
+                    <View style={{height:25}}/>
                 </ScrollView>
+                <View>
+                    <NextQuestion title="Lets get started!" goNext={()=>navigation.navigate(ROUTES.InnerApp)}/>
+                </View>
             </View >
         </SafeAreaView >
     )
