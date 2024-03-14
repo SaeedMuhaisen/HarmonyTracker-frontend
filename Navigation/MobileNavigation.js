@@ -95,12 +95,18 @@ function InnerApp() {
             options={{ headerShown: false }}
             screenOptions={{
                 tabBarActiveTintColor: 'white',
+                tabBarInactiveTintColor: 'gray',
+
                 tabBarShowLabel: false,
+                
                 tabBarStyle: {
                     position: 'absolute',
-                    backgroundColor: AppColors.primaryYellow,
-
-
+                    backgroundColor: AppColors.carbsColor,
+                    marginBottom:30,
+                    marginHorizontal:15,
+                    borderRadius:50,
+                    paddingBottom:0,
+                    height:45,
                 }
             }}
 

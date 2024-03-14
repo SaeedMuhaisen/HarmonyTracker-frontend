@@ -39,7 +39,7 @@ const renderLeftActions = (progress, dragX, onDelete) => {
             }}
         >
             <Text
-                style={{ color: 'white', fontWeight: 'bold' }}
+                style={{ color:AppColors.textColor, fontWeight: 'bold' }}
                 onPress={() => onDelete()}
             >
                 Delete

@@ -12,12 +12,12 @@ export const globalStyles = StyleSheet.create({
     color: AppColors.textColor
   },
   description: {
-    color: 'white',
+    color: AppColors.textColor,
     fontSize: 15,
     fontWeight:'600'
   },
   body: {
-    color: 'white',
+    color: AppColors.textColor,
     fontSize: 15,
     fontWeight:'normal'
   },
@@ -44,7 +44,7 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: AppColors.cardBackground,
     padding: 15,
     gap: 5,
-    borderRadius: 7,
+    borderRadius: 20,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -52,7 +52,7 @@ export const globalStyles = StyleSheet.create({
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
-    color: 'white',
+    color: AppColors.textColor,
     elevation: 6,
   }
 });
