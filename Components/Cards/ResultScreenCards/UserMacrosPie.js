@@ -7,7 +7,6 @@ import { AppColors } from "../../../Styles/AppColors";
 import { globalStyles } from "../../../GlobalStyles";
 export default function ({ carbs, fat, protein, calories }) {
     const [width, setWidth] = useState(null)
-
     return (
 
 
@@ -22,9 +21,9 @@ export default function ({ carbs, fat, protein, calories }) {
                         height={width}
                         width={width}
                         data={[
-                            { y: (protein !== null ? protein * 4 / calories : 1) },
-                            { y: (carbs !== null ? carbs * 4 / calories : 1) },
-                            { y: (fat !== null ? fat * 9 / calories : 1) },
+                            { y: (protein !== null ? protein * 4 : 1) },
+                            { y: (carbs !== null ? carbs * 4  : 1) },
+                            { y: (fat !== null ? fat * 9  : 1) },
                         ]}
                         padding={0}
                         colorScale={[AppColors.proteinColor, AppColors.carbsColor, AppColors.fatColor]}

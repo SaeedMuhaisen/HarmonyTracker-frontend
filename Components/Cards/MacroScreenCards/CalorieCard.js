@@ -10,7 +10,7 @@ export default function () {
 
         <View style={{ flexDirection: 'row', justifyContent: 'center', gap: 10 }}>
             <View style={{ alignItems: 'center' }}>
-                <PieChart y={100} max={macros.calories} baseColor={'#DE4835'} secondaryColor={'gray'} />
+                <PieChart y={100} max={Math.round(macros.calories)} baseColor={'#DE4835'} secondaryColor={'gray'} />
                 <Text style={{color:'white'}}>Calories</Text>
             </View>
             <View style={{ alignItems: 'center' }}>

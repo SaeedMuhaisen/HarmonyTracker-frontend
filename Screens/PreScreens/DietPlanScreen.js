@@ -12,8 +12,10 @@ import Graph from "../../Components/Graph";
 import NextQuestion from "../../Components/Buttons/NextQuestion";
 import ROUTES from "../../Navigation/ROUTES";
 import { useNavigation } from "@react-navigation/native";
+import { setMacros } from "../../redux/macroSlice";
+import store from "../../redux/store";
 export default function () {
-    const navigation=useNavigation();
+    const navigation = useNavigation();
     const [width, setWidth] = useState(width);
     const result = useSelector(state => state.surveyResult.data)
     const userDetails = useSelector(state => state.userDetails)
@@ -48,9 +50,6 @@ export default function () {
                         }} />
 
                         <View style={{ gap: 20 }} >
-
-
-
                             {tdee !== null && fat !== null && carbs !== null &&
                                 <UserMacrosPie calories={tdee} fat={fat} carbs={carbs} protein={protein} />
                             }
@@ -126,12 +125,23 @@ export default function () {
                         <View>
                             <Graph deficit={updatedDeficit} initialWeight={userDetails.weight} bmi={result.bmi} height={userDetails.height} bodyFat={result.bodyFatMass} />
                         </View>
-                                
+
                     </View>
-                    <View style={{height:25}}/>
+                    <View style={{ height: 25 }} />
                 </ScrollView>
                 <View>
-                    <NextQuestion title="Lets get started!" goNext={()=>navigation.navigate(ROUTES.InnerApp)}/>
+                    <NextQuestion title="Lets get started!" goNext={
+                        () => {
+                            store.dispatch(setMacros({
+                                protein: protein,
+                                fat: fat,
+                                carbs: carbs,
+                                calories: tdee,
+                            }))
+
+                            navigation.navigate(ROUTES.InnerApp)
+                        }
+                    } />
                 </View>
             </View >
         </SafeAreaView >

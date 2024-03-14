@@ -17,6 +17,10 @@ import Card from "../../Components/Cards/Card";
 import { AppColors } from "../../Styles/AppColors"
 import FoodItem from "../../Components/Cards/MacroScreenCards/FoodItem";
 import AddMealModal from "../../Components/Modals/AddMealModal";
+import { useSelector } from "react-redux";
+import UserMacrosPie from "../../Components/Cards/ResultScreenCards/UserMacrosPie";
+import DailyMacroCard from "../../Components/Cards/MacroScreenCards/DailyMacroCard";
+import SingleMacro from "../../Components/Cards/ResultScreenCards/SingleMacro";
 
 const renderLeftActions = (progress, dragX, onDelete) => {
     const trans = dragX.interpolate({
@@ -46,6 +50,8 @@ const renderLeftActions = (progress, dragX, onDelete) => {
 
 
 export default function () {
+    const macros = useSelector((state: any) => state.macros)
+    const dailyIntake = useSelector((state: any) => state.dailyIntake)
     const [isModalVisible, setModalVisible] = useState(false);
     const openModal = () => { setModalVisible(true) };
     const closeModal = () => { setModalVisible(false) };
@@ -84,64 +90,70 @@ export default function () {
                     <TouchableWithoutFeedback >
                         <EvilIcons name="calendar" size={35} color={AppColors.textColor} />
                     </TouchableWithoutFeedback>
-
                 </View>
+
                 <View style={{
                     borderBottomColor: 'gray',
                     borderBottomWidth: StyleSheet.hairlineWidth,
                 }} />
-                <View style={{ padding: 10, gap: 10 }}>
-                    <Card>
-                        <CalorieCard />
-                    </Card>
 
-                </View>
-                <ScrollView style={{ flex: 1 }}>
+                <View style={{ flex: 1, gap: 20, padding: 15 }}>
 
-                    <View style={{ padding: 10, gap: 5 }}>
-                        <Swipeable
-                            renderLeftActions={(progress, dragX) =>
-                                renderLeftActions(progress, dragX, onDeleteItem)
-                            }
-                        >
-                            <Card >
-                                <FoodItem />
-                            </Card>
-                        </Swipeable>
-                        <Card>
-                            <FoodItem />
-                        </Card>
-                        <Card>
-                            <FoodItem />
-                        </Card>
-                        <Card>
-                            <FoodItem />
-                        </Card>
-                        <Card>
-                            <FoodItem />
-                        </Card>
-                        <Card>
-                            <FoodItem />
-                        </Card>
-                        <Card>
-                            <FoodItem />
-                        </Card>
-                        <Card>
-                            <FoodItem />
-                        </Card>
+                    <View style={{ ...globalStyles.showdedCard, flexDirection: 'row' }}>
+                        <View style={{ flex: 1, }}>
+                            <DailyMacroCard
+                            />
+                        </View>
 
-                        <Card>
-                            <FoodItem />
-                        </Card>
-                        <View style={{height:100}}/>
-
-                        
-                    
+                        <View style={{ width: '20%', justifyContent: 'space-between' }}>
+                            <View style={{}}>
+                                <SingleMacro
+                                    title={'Protein'}
+                                    color={AppColors.proteinColor}
+                                    value={macros.protein}
+                                    percentage={'70'}
+                                    withPercentage={false}
+                                    used={dailyIntake.protein}
+                                />
+                            </View>
+                            <View style={{}}>
+                                <SingleMacro
+                                    title={'Carbs'}
+                                    color={AppColors.carbsColor}
+                                    value={macros.carbs}
+                                    percentage={'5'}
+                                    withPercentage={false}
+                                    used={dailyIntake.carbs}
+                                />
+                            </View>
+                            <View style={{}}>
+                                <SingleMacro
+                                    title={'Fat'}
+                                    color={AppColors.fatColor}
+                                    value={macros.fat}
+                                    percentage={'25'}
+                                    withPercentage={false}
+                                    used={dailyIntake.fat}
+                                />
+                            </View>
+                        </View>
                     </View>
 
-                </ScrollView>
 
-
+                    <ScrollView style={{ flex: 1 }}>
+                        <View style={{ gap: 5 }}>
+                            <Swipeable
+                                renderLeftActions={(progress, dragX) =>
+                                    renderLeftActions(progress, dragX, onDeleteItem)
+                                }
+                            >
+                                <Card >
+                                    <FoodItem />
+                                </Card>
+                            </Swipeable>
+                        </View>
+                    </ScrollView>
+                </View>
 
                 <View>
                     <View style={{
