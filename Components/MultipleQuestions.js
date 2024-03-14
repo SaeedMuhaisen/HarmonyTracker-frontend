@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View, Text, TouchableWithoutFeedback, FlatList } from "react-native";
+import { View, Text, TouchableWithoutFeedback, FlatList, StyleSheet } from "react-native";
 import { AppColors } from "../Styles/AppColors";
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
@@ -11,7 +11,7 @@ export default function ({ element, handleAnswerSelection, pressedItem }) {
         <FlatList
             key={element.key}
             scrollEnabled={false}
-            contentContainerStyle={{ paddingTop: 30, justifyContent: 'center', gap: 10 }}
+            contentContainerStyle={{ paddingTop: 30,paddingBottom:30, justifyContent: 'center', gap: 10, paddingHorizontal: 10, }}
             data={element.answers}
             renderItem={({ item }) => (
                 <TouchableWithoutFeedback
@@ -22,8 +22,10 @@ export default function ({ element, handleAnswerSelection, pressedItem }) {
                 >
 
                     <View style={{
-                        backgroundColor: pressedItem?.name === item.name ? AppColors.primaryYellow : AppColors.cardBackground, padding: 15,
+                        backgroundColor: AppColors.cardBackground, padding: 15,
+                        borderColor: pressedItem?.name === item.name ? 'black' : undefined,
                         gap: 5,
+                        borderWidth: pressedItem?.name === item.name ? 1.5 : undefined,
                         borderRadius: 7,
                         shadowColor: "#000",
                         shadowOffset: {
@@ -36,8 +38,8 @@ export default function ({ element, handleAnswerSelection, pressedItem }) {
                         flexDirection: 'row',
                         alignItems: 'center'
                     }}>
-                        {item.iconProvider === 'Ionicons' ? <Ionicons name={item.icon} size={25} color={pressedItem?.name === item.name ? 'black' : 'white'}></Ionicons> : <></>}
-                        <Text style={{ color: pressedItem?.name === item.name ? 'black' : 'white', fontWeight: '700' }}>{item.name}</Text>
+                        {item.iconProvider === 'Ionicons' ? <Ionicons name={item.icon} size={25} color={pressedItem?.name === item.name ? 'black' : 'black'}></Ionicons> : <></>}
+                        <Text style={{ color: pressedItem?.name === item.name ? 'black' : 'black', fontWeight: '700' }}>{item.name}</Text>
                     </View>
                 </TouchableWithoutFeedback>
             )}

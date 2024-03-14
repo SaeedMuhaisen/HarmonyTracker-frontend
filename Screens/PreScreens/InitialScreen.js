@@ -19,6 +19,7 @@ import { AppColors } from '../../Styles/AppColors';
 import { TextInput } from 'react-native-gesture-handler';
 import Card from '../../Components/Cards/Card';
 import YellowButton from '../../Components/Buttons/YellowButton';
+import NextQuestion from '../../Components/Buttons/NextQuestion';
 
 export default function () {
 const navigation=useNavigation();
@@ -32,11 +33,14 @@ const navigation=useNavigation();
         }}>
             <View style={{ flex: 1, paddingHorizontal: 10, paddingBottom: 5 }}>
                 <View style={{ flex: 1 }}>
-
+                <Text style={{fontFamily:'Manrope',fontSize:30,paddingTop:50}}>
+                    
+sans-serif
+                </Text>
                 </View>
                 <View style={{ gap: 5 }}>
-                    <YellowButton title={'I am new here, lets get started!'} func={()=>navigation.navigate(ROUTES.SurveyScreen)} />
-                    <YellowButton title={'I already have an account'} func={()=>navigation.navigate(ROUTES.EntranceScreen)}/>
+                    <NextQuestion title='I am new here, lets get started!' goNext={()=>navigation.navigate(ROUTES.SurveyScreen)}/>
+                    <NextQuestion title='I already have an account' goNext={()=>navigation.navigate(ROUTES.EntranceScreen)}/>
                 </View>
             </View>
         </SafeAreaView>

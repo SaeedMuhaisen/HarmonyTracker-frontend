@@ -205,14 +205,15 @@ export default function Quiz() {
         const currentQuestion = questionsArray[currentQuestionIndex];
         if (currentQuestion.type === 0) {
             return (
-                <View style={{ flex: 1, paddingHorizontal: 10 }}>
-                    <View style={{ flex: 1 }}>
+                <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
+                    <View style={{}}>
                         <MultipleQuestions element={questionsArray[currentQuestionIndex]} handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
                     </View>
-                    <SafeAreaView style={{ paddingBottom: 5 }}>
+                    <View style={{ paddingHorizontal: 10, }}>
                         <NextQuestion goNext={handleNextQuestion} disabled={selectedAnswer === null ? true : false} />
-                    </SafeAreaView>
-                </View>
+                    </View>
+
+                </SafeAreaView>
 
             );
 

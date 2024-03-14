@@ -23,7 +23,7 @@ export default function () {
         const updateData = () => {
             console.log('macros:', macros)
             console.log('takenMacros:', takenMacros)
-        
+
             const array = []
             const colorArray = []
             let rest = 0
@@ -54,24 +54,24 @@ export default function () {
 
 
             if (rest > 0) {
-                console.log('rest',rest)
+                console.log('rest', rest)
                 array.push({ y: rest })
                 colorArray.push('gray')
             }
             if (protein > 0) {
-                console.log('protein',protein)
+                console.log('protein', protein)
                 array.push({ y: protein })
                 colorArray.push(AppColors.proteinColor)
             }
             if (carbs > 0) {
-                console.log('carbs',carbs)
+                console.log('carbs', carbs)
                 array.push({ y: carbs })
                 colorArray.push(AppColors.carbsColor)
             }
             if (fat > 0) {
-                console.log('fat',fat)
+                console.log('fat', fat)
 
-                array.push({ y: fat * 9/4 })
+                array.push({ y: fat * 9 / 4 })
                 colorArray.push(AppColors.fatColor)
             }
 

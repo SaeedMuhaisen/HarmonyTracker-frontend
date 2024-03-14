@@ -96,7 +96,7 @@ export default function () {
                                     gap: 10,
                                     paddingHorizontal: 10,
                                 }}>
-                                    <Image source={harmony} style={{ height: 80, width: 80,borderRadius:20 }} />
+                                    <Image source={harmony} style={{ height: 80, width: 80, borderRadius: 20 }} />
                                 </View>
                                 <View >
                                     <Text style={{
@@ -163,7 +163,7 @@ export default function () {
                                     </Text>
                                 </View>
                                 <View style={{ gap: 5 }}>
-                                    <TouchableOpacity style={{ backgroundColor: AppColors.primaryYellow, height: 35, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
+                                    <TouchableOpacity style={{ backgroundColor: AppColors.carbsColor, height: 35, borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
                                         <Text style={{ color: AppColors.backgroundColor }}>Login</Text>
                                     </TouchableOpacity>
 
@@ -173,9 +173,8 @@ export default function () {
 
 
                         </View>
-                        <TouchableOpacity onPress={()=>{navigation.navigate(ROUTES.SignupScreen)}}>
+                        <TouchableOpacity onPress={() => { navigation.navigate(ROUTES.SignupScreen) }}>
                             <Text style={{ fontSize: 14, color: 'gray', textDecorationLine: 'underline' }}>Create new account with Email</Text>
-
                         </TouchableOpacity>
                     </View>
                 </SafeAreaView >
