@@ -14,6 +14,11 @@ import ExtraQuestions from "./Questions/ExtraQuestions"
 import { useSelector, useStore } from "react-redux"
 import store from "../../redux/store"
 import body from "../../assets/body.png"
+import male_waist from "../../assets/Measurements/male_waist.png"
+import male_neck from "../../assets/Measurements/male_neck.png"
+import female_waist from "../../assets/Measurements/female_waist.png"
+import female_neck from "../../assets/Measurements/female_neck.png"
+import female_hip from "../../assets/Measurements/female_hip.png"
 import { useNavigation } from "@react-navigation/native"
 import ROUTES from "../../Navigation/ROUTES"
 import ContainerView from "../../Components/Views/OuterContainer"
@@ -41,8 +46,8 @@ type 10:extra questions with picture and custom keyboard
 
 export default function Quiz() {
     const navigation = useNavigation();
+    const userDetails = useSelector(state => state.userDetails)
     const questionsArray = [
-
         {
             key: 0,
             type: 0,
@@ -84,10 +89,11 @@ export default function Quiz() {
         {
             key: 5,
             type: 10,
-            question: 'Waist at Narrowest point?',
-            updateState: updateWaistNarrowest,
-            state: useSelector(state => state.userDetails.waistNarrowest),
-            imgSource: body,
+            question: 'Neck at Narrowest point?',
+            updateState: updateNeckNarrowest,
+            state: useSelector(state => state.userDetails.neckNarrowest),
+            imgSourceMale:male_neck,
+            imgSourceFemale:female_neck,
         },
         {
             key: 6,
@@ -95,7 +101,8 @@ export default function Quiz() {
             question: 'Waist at navel?',
             updateState: updateWaistNavel,
             state: useSelector(state => state.userDetails.waistNavel),
-            imgSource: body,
+            imgSourceMale:male_waist ,
+            imgSourceFemale: female_waist,
         },
         {
             key: 7,
@@ -103,50 +110,12 @@ export default function Quiz() {
             question: 'Hip at widest point',
             updateState: updateHipWidest,
             state: useSelector(state => state.userDetails.hipWidest),
-            imgSource: body,
+            imgSourceMale: null,
+            imgSourceFemale: female_hip,
         },
+
         {
             key: 8,
-            type: 10,
-            question: 'Thigh at widest point?',
-            updateState: updateThighWidest,
-            state: useSelector(state => state.userDetails.thighWidest),
-            imgSource: body,
-        },
-        {
-            key: 9,
-            type: 10,
-            question: 'Neck at Narrowest point?',
-            updateState: updateNeckNarrowest,
-            state: useSelector(state => state.userDetails.neckNarrowest),
-            imgSource: body,
-        },
-        {
-            key: 10,
-            type: 10,
-            question: 'biceps at widest point?',
-            updateState: updateBicepsWidest,
-            state: useSelector(state => state.userDetails.bicepsWidest),
-            imgSource: body,
-        },
-        {
-            key: 11,
-            type: 10,
-            question: 'forearm at widest point?',
-            updateState: updateForearmWidest,
-            state: useSelector(state => state.userDetails.forearmWidest),
-            imgSource: body,
-        },
-        {
-            key: 12,
-            type: 10,
-            question: 'wrist at narrowest point?',
-            updateState: updateWristNarrowest,
-            state: useSelector(state => state.userDetails.wristNarrowest),
-            imgSource: body,
-        },
-        {
-            key: 13,
             type: 1,
             question: <Text style={{ ...globalStyles.body, fontSize: 20 }}>How <Text style={{ ...globalStyles.description, fontSize: 20 }}>active</Text> are you?</Text>,
             answers: [
@@ -176,7 +145,7 @@ export default function Quiz() {
             update: (val) => updateActivityLevel(val),
         },
         {
-            key: 14,
+            key: 9,
             type: 0,
             question: 'What is your goal?',
             answers: [
@@ -187,7 +156,7 @@ export default function Quiz() {
             update: (val) => updateGoal(val),
         },
     ]
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(13);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [textInputData, setTextInputData] = useState({});
     const [pressedItem, setPressedItem] = useState(null);
@@ -198,14 +167,29 @@ export default function Quiz() {
     };
 
     const handleNextQuestion = () => {
+        console.log(currentQuestionIndex)
         if (currentQuestionIndex < questionsArray.length - 1) {
-            if (currentQuestionIndex === 4 && !store.getState().userDetails.extraData) {
-                setCurrentQuestionIndex(13)
-                setSelectedAnswer(null);
+            if (currentQuestionIndex === 6) {
+                console.log(userDetails.gender)
+                if (userDetails.gender === 'male') {
+                    console.log('+2')
+                    setCurrentQuestionIndex((prevIndex) => prevIndex + 2);
+                    setSelectedAnswer(null);
+                } else {
+                    console.log('+1')
+                    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+                    setSelectedAnswer(null);
+                }
             }
             else {
-                setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-                setSelectedAnswer(null);
+                if (currentQuestionIndex === 4 && !store.getState().userDetails.extraData) {
+                    setCurrentQuestionIndex(8)
+                    setSelectedAnswer(null);
+                }
+                else {
+                    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+                    setSelectedAnswer(null);
+                }
             }
 
         } else {
@@ -215,9 +199,22 @@ export default function Quiz() {
     const handlePreviousQuestion = () => {
 
         if (currentQuestionIndex > 0) {
-            if (currentQuestionIndex === 13 && !store.getState().userDetails.extraData) {
-                setCurrentQuestionIndex(4);
-                setSelectedAnswer(null);
+            if (currentQuestionIndex === 8) {
+                if (userDetails.extraData) {
+                    if (userDetails.gender === 'male') {
+                        console.log('-2')
+                        setCurrentQuestionIndex((prevIndex) => prevIndex - 2);
+                        setSelectedAnswer(null);
+                    } else {
+                        console.log('-1')
+                        setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
+                        setSelectedAnswer(null);
+                    }
+                }
+                else {
+                    setCurrentQuestionIndex(4);
+                    setSelectedAnswer(null);
+                }
             }
             else {
                 setCurrentQuestionIndex((prevIndex) => prevIndex - 1);

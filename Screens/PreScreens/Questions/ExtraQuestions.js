@@ -10,7 +10,7 @@ import { convertCmToInches, convertInchesToCm } from "../../../utils/converters"
 import { updatePreferedUnit } from "../../../redux/userDetailsSlice"
 const CONVERSION_FACTOR = 1.0;
 export default function ({ handleNextQuestion, comp }) {
-
+    const userDetails = useSelector(state => state.userDetails)
     const preferredUnit = useSelector(state => state.userDetails.preferredUnit)
 
     const [initial, setInitial] = useState(preferredUnit === 'cm' ? Math.floor(comp.state) : Math.floor(convertCmToInches(comp.state)));
@@ -37,7 +37,7 @@ export default function ({ handleNextQuestion, comp }) {
     return (
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 6, alignItems: 'center', justifyContent: 'center' }}>
-                <Image source={comp.imgSource} resizeMode="center" />
+                <Image source={userDetails.gender === 'male' ? comp.imgSourceMale : comp.imgSourceFemale} resizeMode='contain' style={{ height: '100%' }} />
             </View>
 
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
