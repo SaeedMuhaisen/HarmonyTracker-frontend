@@ -32,23 +32,23 @@ export default function ({ handleNextQuestion }) {
                                 const selectedDate = new Date(date.nativeEvent.timestamp);
                                 dispatch(updateBirthDate({ birthDate: selectedDate.getTime() }));
                             }}
-                            textColor='white'
+                            textColor='black'
                             maximumDate={new Date('2020-01-01')}
                         />
                     </View>
                     :
                     <DatePicker
                         style={{ backgroundColor: 'transparent' }}
-                        textColor='white'
+                        textColor='black'
                         minimumDate={new Date('1960-01-01')}
-                        maximumDate={new Date('2020-01-01')}
+                        maximumDate={new Date('2020-12-30')}
                         onDateChange={(date) => {
-                            const timestamp = new Date(date).getTime(); // Convert date to timestamp
+                            const timestamp = new Date(date).getTime();
                             const selectedDate = new Date(timestamp);
                             const year = selectedDate.getFullYear();
-                            const month = selectedDate.getMonth() + 1; // Month is zero-indexed, so add 1
+                            const month = selectedDate.getMonth();
                             const day = selectedDate.getDate();
-                            const extractedDate = new Date(year, month - 1, day);
+                            const extractedDate = new Date(year, month, day - 1);
                             dispatch(updateBirthDate({ birthDate: extractedDate.getTime() }));
                         }}
                     />

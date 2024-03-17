@@ -1,25 +1,38 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { AppColors } from "./Styles/AppColors";
-
+import {
+  useFonts,
+  Manrope_200ExtraLight,
+  Manrope_300Light,
+  Manrope_400Regular,
+  Manrope_500Medium,
+  Manrope_600SemiBold,
+  Manrope_700Bold,
+  Manrope_800ExtraBold,
+} from '@expo-google-fonts/manrope';
 export const globalStyles = StyleSheet.create({
+  SafeAreaContainer:{
+
+  },
   outerContainer: {
     flex: 1,
   },
   title: {
-    fontSize: 17,
-    fontWeight: '800',
+    fontFamily:'Manrope_800ExtraBold',
+    fontSize: 20,
     color: AppColors.textColor
   },
   description: {
+    fontFamily:'Manrope_700Bold',
     color: AppColors.textColor,
-    fontSize: 15,
-    fontWeight:'600'
+    fontSize: 18,
+
   },
   body: {
+    fontFamily:'Manrope_400Regular',
     color: AppColors.textColor,
-    fontSize: 15,
-    fontWeight:'normal'
+    fontSize: 16,
   },
 
   card: {
@@ -54,5 +67,5 @@ export const globalStyles = StyleSheet.create({
     shadowRadius: 4.65,
     color: AppColors.textColor,
     elevation: 6,
-  }
+  },
 });

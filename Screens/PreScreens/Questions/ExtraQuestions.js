@@ -5,8 +5,9 @@ import { globalStyles } from "../../../GlobalStyles"
 import { Picker } from 'react-native-wheel-pick'
 import NextQuestion from "../../../Components/Buttons/NextQuestion"
 import { useDispatch, useSelector } from "react-redux"
-import { updatePreferredUnit } from "../../../redux/userDetailsSlice"
+
 import { convertCmToInches, convertInchesToCm } from "../../../utils/converters"
+import { updatePreferedUnit } from "../../../redux/userDetailsSlice"
 const CONVERSION_FACTOR = 1.0;
 export default function ({ handleNextQuestion, comp }) {
 
@@ -41,7 +42,7 @@ export default function ({ handleNextQuestion, comp }) {
 
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
 
-                <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'white' }}>
+                <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'black' }}>
                     {initial || 0}.{final || 0} {preferredUnit === "cm" ? <>cm</> : <> inches</>}
                 </Text>
 
@@ -52,8 +53,8 @@ export default function ({ handleNextQuestion, comp }) {
                     <Picker
                         key={comp.key}
                         style={{ flex: 1, backgroundColor: AppColors.stackBackground }}
-                        textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                        selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
+                        textColor={Platform.OS === 'android' ? 'gray' : 'black'}
+                        selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'black'}
                         textSize={30}
                         isShowSelectBackground={false}
                         isShowSelectLine={false}
@@ -67,8 +68,8 @@ export default function ({ handleNextQuestion, comp }) {
                     <Picker
 
                         style={{ flex: 1, backgroundColor: AppColors.stackBackground }}
-                        textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                        selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
+                        textColor={Platform.OS === 'android' ? 'gray' : 'black'}
+                        selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'black'}
                         textSize={30}
                         isShowSelectBackground={false}
                         isShowSelectLine={false}
@@ -85,8 +86,8 @@ export default function ({ handleNextQuestion, comp }) {
                 <Picker
 
                     style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
-                    textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
+                    textColor={Platform.OS === 'android' ? 'gray' : 'black'}
+                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'black'}
                     textSize={30}
                     isShowSelectBackground={false}
                     isShowSelectLine={false}
@@ -94,7 +95,7 @@ export default function ({ handleNextQuestion, comp }) {
                     pickerData={['cm', 'inch']}
                     selectedValue={preferredUnit}
                     onValueChange={value => {
-                        dispatch(updatePreferredUnit(value))
+                        dispatch(updatePreferedUnit(value))
                     }
                     }
                 />

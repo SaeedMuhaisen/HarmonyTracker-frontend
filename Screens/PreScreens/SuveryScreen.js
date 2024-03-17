@@ -16,6 +16,19 @@ import store from "../../redux/store"
 import body from "../../assets/body.png"
 import { useNavigation } from "@react-navigation/native"
 import ROUTES from "../../Navigation/ROUTES"
+import ContainerView from "../../Components/Views/OuterContainer"
+import OuterContainer from "../../Components/Views/OuterContainer"
+import TopBar from "../../Components/SurveyComponents/TopBar"
+import ScrollQuestion from "../../Components/SurveyComponents/ScrollQuestion"
+
+import constricted_activity from '../../assets/activityLevels/constricted_activity.png'
+import extremelyActive_activity from '../../assets/activityLevels/extremelyActive_activity.png'
+import home_activity from '../../assets/activityLevels/home_activity.png'
+import lightlyActive_activity from '../../assets/activityLevels/lightlyActive_activity.png'
+import moderatelyActive_activity from '../../assets/activityLevels/moderatelyActive_activity.png'
+import sedentary_activity from '../../assets/activityLevels/sedentary_activity.png'
+import slightlyActive_activity from '../../assets/activityLevels/slightlyActive_activity.png'
+import veryActive_activity from '../../assets/activityLevels/veryActive_activity.png'
 {/**
 Type 0 : single choice with no update function
 type 6: date question
@@ -134,18 +147,32 @@ export default function Quiz() {
         },
         {
             key: 13,
-            type: 0,
-            question: 'Which of the following describes your lifestyle at best?',
+            type: 1,
+            question: <Text style={{ ...globalStyles.body, fontSize: 20 }}>How <Text style={{ ...globalStyles.description, fontSize: 20 }}>active</Text> are you?</Text>,
             answers: [
-                { name: 'Constricted Lifestyle, Movement is Limited to a Confined Space, Almost Always Sitting or Laying', val: 1.1, icon: 'male', iconProvider: 'Ionicons' },
-                { name: 'Working From Home with Little to No Travel, No Exercise, Some Walking, Mostly Sitting or Laying ', val: 1.16, icon: 'female', iconProvider: 'Ionicons' },
-                { name: 'Sedentary Lifestyle, Little or No Exercise, Moderate Walking, Desk Job (Away from Home) ', val: 1.2, icon: 'female', iconProvider: 'Ionicons' },
-                { name: 'Slightly Active, Exercise or Light Sports 1 to 3 Days a Week, Light Jogging or Walking 3 to 4 Days a Week', val: 1.375, icon: 'female', iconProvider: 'Ionicons' },
-                { name: 'Lightly Active, Exercise or Moderate Sports 2 to 3 Days a Week, Light Jogging or Walking 5 to 7 Days a Week', val: 1.425, icon: 'female', iconProvider: 'Ionicons' },
-                { name: 'Moderately Active, Physical Work, Exercise, or Sports 4 to 5 Days a Week, Construction Laborer', val: 1.55, icon: 'female', iconProvider: 'Ionicons' },
-                { name: 'Very Active, Heavy Physical Work, Exercise, or Sports 6 to 7 Days a Week, Hard Laborer', val: 1.75, icon: 'female', iconProvider: 'Ionicons' },
-                { name: 'Extremely Active, Very Heavy Physical Work or Exercise Every Day, Professional/Olympic Athlete', val: 1.9, icon: 'female', iconProvider: 'Ionicons' },
+                { title: 'Constricted', name: 'Movement is Limited to a Confined Space, Almost Always Sitting or Laying', val: 1.1, icon: 'male', iconProvider: 'Ionicons' },
+                { title: 'Working From Home', name: 'Little to No Travel, No Exercise, Some Walking, Mostly Sitting or Laying ', val: 1.16, icon: 'female', iconProvider: 'Ionicons', },
+                { title: 'Sedentary', name: 'Little or No Exercise, Moderate Walking, Desk Job (Away from Home) ', val: 1.2, icon: 'female', iconProvider: 'Ionicons', },
+
+                { title: 'Slightly Active', name: 'Exercise or Light Sports 1 to 3 Days a Week, Light Jogging or Walking 3 to 4 Days a Week', val: 1.375, icon: 'female', iconProvider: 'Ionicons' },
+
+                { title: 'Lightly Active', name: 'Exercise or Moderate Sports 2 to 3 Days a Week, Light Jogging or Walking 5 to 7 Days a Week', val: 1.425, icon: 'female', iconProvider: 'Ionicons' },
+
+                { title: 'Moderately Active', name: 'Physical Work, Exercise, or Sports 4 to 5 Days a Week, Construction Laborer', val: 1.55, icon: 'female', iconProvider: 'Ionicons' },
+                { title: 'Very Active', name: 'Heavy Physical Work, Exercise, or Sports 6 to 7 Days a Week, Hard Laborer', val: 1.75, icon: 'female', iconProvider: 'Ionicons' },
+                { title: 'Extremely Active', name: 'Very Heavy Physical Work or Exercise Every Day, Professional/Olympic Athlete', val: 1.9, icon: 'female', iconProvider: 'Ionicons' },
             ],
+            pictures: [
+                constricted_activity,
+                home_activity,
+                sedentary_activity,
+                slightlyActive_activity,
+                lightlyActive_activity,
+                moderatelyActive_activity,
+                veryActive_activity,
+                extremelyActive_activity,
+            ],
+
             update: (val) => updateActivityLevel(val),
         },
         {
@@ -160,7 +187,7 @@ export default function Quiz() {
             update: (val) => updateGoal(val),
         },
     ]
-    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState(13);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
     const [textInputData, setTextInputData] = useState({});
     const [pressedItem, setPressedItem] = useState(null);
@@ -205,81 +232,98 @@ export default function Quiz() {
         const currentQuestion = questionsArray[currentQuestionIndex];
         if (currentQuestion.type === 0) {
             return (
-                <SafeAreaView style={{ flex: 1, justifyContent: 'space-between' }}>
-                    <View style={{}}>
-                        <MultipleQuestions element={questionsArray[currentQuestionIndex]} handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
+                <View style={{ flex: 1, justifyContent: 'flex-start', }}>
+                    <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                        <Text style={{ ...globalStyles.title }}>{currentQuestion.question}</Text>
                     </View>
-                    <View style={{ paddingHorizontal: 10, }}>
-                        <NextQuestion goNext={handleNextQuestion} disabled={selectedAnswer === null ? true : false} />
+                    <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: 5, }}>
+                        <View>
+                            <MultipleQuestions element={questionsArray[currentQuestionIndex]} handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
+                        </View>
+                        <View style={{ paddingHorizontal: 10, }}>
+                            <NextQuestion goNext={handleNextQuestion} disabled={selectedAnswer === null ? true : false} />
+                        </View>
                     </View>
-
-                </SafeAreaView>
-
+                </View>
             );
 
         } else if (currentQuestion.type === 6) {
             return (
-                <AgeQuestion handleNextQuestion={handleNextQuestion} />
-
+                <View style={{ flex: 1, justifyContent: 'flex-start', }}>
+                    <View style={{ flex: 1, justifyContent: 'flex-start', }}>
+                        <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={{ ...globalStyles.title }}>{currentQuestion.question}</Text>
+                        </View>
+                        <AgeQuestion handleNextQuestion={handleNextQuestion} />
+                    </View>
+                </View>
             );
         } else if (currentQuestion.type === 7) {
             return (
-                <WeightQuestion
-                    handleNextQuestion={handleNextQuestion}
-                />
+                <View style={{ flex: 1, justifyContent: 'flex-start', }}>
+                    <View style={{ flex: 1, justifyContent: 'flex-start', }}>
+                        <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={{ ...globalStyles.title }}>{currentQuestion.question}</Text>
+                        </View>
+                        <WeightQuestion
+                            handleNextQuestion={handleNextQuestion}
+                        />
+                    </View>
+                </View>
 
             );
         }
         else if (currentQuestion.type === 8) {
             return (
-                <HeightQuestion handleNextQuestion={handleNextQuestion} />
-            );
-        }
-        else if (currentQuestion.type === 10) {
-            return (
-                <View style={{ flex: 1, }} key={currentQuestion.key}>
-                    <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]} state={currentQuestion.state} />
-                </View>
-            )
-        }
-    };
-
-    const currentQuestion = questionsArray[currentQuestionIndex];
-    return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{ flex: 1 }}
-        >
-            <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
-                <View style={{ flex: 1, backgroundColor: AppColors.stackBackground, justifyContent: 'flex-start' }} >
-
-                    <View>
-                        <SafeAreaView style={{ paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0 }} >
-
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <TouchableOpacity style={{ flex: 1 }} onPress={handlePreviousQuestion}>
-                                    <Ionicons name="chevron-back" size={30} color='white' />
-                                </TouchableOpacity>
-                                <View style={{ flex: 2 }}>
-                                    <ProgressBar style={{ backgroundColor: AppColors.SecondaryYellow }} progress={currentQuestionIndex / 14} color={AppColors.primaryYellow} />
-                                </View>
-                                <View style={{ flex: 1 }}>
-
-                                </View>
-
-                            </View>
-                        </SafeAreaView>
-                    </View>
+                <View style={{ flex: 1, justifyContent: 'flex-start', }}>
                     <View style={{ flex: 1, justifyContent: 'flex-start', }}>
                         <View style={{ alignItems: 'center', paddingVertical: 10 }}>
                             <Text style={{ ...globalStyles.title }}>{currentQuestion.question}</Text>
                         </View>
-                        <View style={{ flex: 1 }}>
-                            {renderAnswers()}
+                        <HeightQuestion handleNextQuestion={handleNextQuestion} />
+                    </View>
+                </View>
+
+            );
+        }
+        else if (currentQuestion.type === 10) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'flex-start', }}>
+                    <View style={{ flex: 1, justifyContent: 'flex-start', }}>
+                        <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                            <Text style={{ ...globalStyles.title }}>{currentQuestion.question}</Text>
+                        </View>
+                        <View style={{ flex: 1, }} key={currentQuestion.key}>
+                            <ExtraQuestions handleNextQuestion={handleNextQuestion} comp={questionsArray[currentQuestionIndex]} state={currentQuestion.state} />
                         </View>
                     </View>
                 </View>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView >
+
+            )
+        }
+        else if (currentQuestion.type === 1) {
+            return (
+                <View style={{ flex: 1, justifyContent: 'flex-start', }}>
+                    <View style={{ alignItems: 'center', paddingVertical: 10 }}>
+                        {currentQuestion.question}
+                    </View>
+                    <View style={{ flex: 1, justifyContent: 'space-between', paddingBottom: 5, }}>
+                        <ScrollQuestion element={questionsArray[currentQuestionIndex]} handleAnswerSelection={handleAnswerSelection} update pressedItem={pressedItem} />
+                        <View style={{ paddingHorizontal: 10, }}>
+                            <NextQuestion goNext={handleNextQuestion} disabled={selectedAnswer === null ? true : false} />
+                        </View>
+                    </View>
+                </View>
+            )
+        }
+    };
+    const currentQuestion = questionsArray[currentQuestionIndex];
+    return (
+        <OuterContainer>
+            <View style={{ flex: 1, backgroundColor: AppColors.stackBackground, justifyContent: 'flex-start' }} >
+                <TopBar progress={currentQuestionIndex / 14} btnFunc={handlePreviousQuestion} />
+                {renderAnswers()}
+            </View>
+        </OuterContainer >
     )
 }

@@ -13,7 +13,7 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import store from "../../../redux/store"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
-import userDetailsSlice, { updateWeight, updatePreferredWeightUnit } from "../../../redux/userDetailsSlice"
+import { updatePreferedWeightUnit, updateWeight, } from "../../../redux/userDetailsSlice"
 import { convertKgtoLb, convertLbtoKg } from "../../../utils/converters"
 export default function ({ handleNextQuestion }) {
     const dispatch = useDispatch();
@@ -48,15 +48,15 @@ export default function ({ handleNextQuestion }) {
     return (
         <View key={1} style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
-                <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'white' }}>{initial}.{final} {preferredWeightUnit}</Text>
+                <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'black' }}>{initial}.{final} {preferredWeightUnit}</Text>
             </View>
             <NextQuestion goNext={handleNextQuestion} noRadius={true} />
             <View style={{ flexDirection: 'row' }}>
                 <Picker
 
                     style={{ flex: 2, backgroundColor: AppColors.stackBackground, }}
-                    textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
+                    textColor={Platform.OS === 'android' ? 'gray' : 'black'}
+                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'black'}
                     textSize={30}
                     isShowSelectBackground={false}
                     isShowSelectLine={false}
@@ -66,13 +66,13 @@ export default function ({ handleNextQuestion }) {
                     onValueChange={value => setInitial(value)}
                 />
                 <View style={{ justifyContent: 'center', }}>
-                    <Text style={{ fontSize: 30, color: 'white', paddingBottom: 5 }}>.</Text>
+                    <Text style={{ fontSize: 30, color: 'black', paddingBottom: 5 }}>.</Text>
                 </View>
                 <Picker
 
                     style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
-                    textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
+                    textColor={Platform.OS === 'android' ? 'gray' : 'black'}
+                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'black'}
                     textSize={30}
                     isShowSelectBackground={false}
                     isShowSelectLine={false}
@@ -84,15 +84,15 @@ export default function ({ handleNextQuestion }) {
                 <Picker
 
                     style={{ flex: 1, backgroundColor: AppColors.stackBackground, }}
-                    textColor={Platform.OS === 'android' ? 'gray' : 'white'}
-                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'white'}
+                    textColor={Platform.OS === 'android' ? 'gray' : 'black'}
+                    selectTextColor={Platform.OS === 'android' ? '#FFFFF1' : 'black'}
                     textSize={30}
                     isShowSelectBackground={false}
                     isShowSelectLine={false}
                     selectLineSize={9}
                     pickerData={['kg', 'lb']}
                     selectedValue={preferredWeightUnit}
-                    onValueChange={value => dispatch(updatePreferredWeightUnit(value))}
+                    onValueChange={value => dispatch(updatePreferedWeightUnit(value))}
                 />
             </View>
         </View>
