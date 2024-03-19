@@ -44,14 +44,12 @@ export default function () {
             store.dispatch(updateUserTokens(userData));
             store.dispatch(setSignedIn(true));
             console.log(responseData)
-            if (!responseData.initialized) {
-                navigation.navigate(ROUTES.SurveyScreen)
-            }
-            else {
-                navigation.navigate(ROUTES.InnerApp)
-            }
-
-
+            // if (!responseData.initialized) {
+            //     navigation.navigate(ROUTES.SurveyScreen)
+            // }
+            // else {
+            //     navigation.navigate(ROUTES.InnerApp)
+            // }
         } else {
             console.log('different response: not okay:', response);
         }
@@ -66,7 +64,7 @@ export default function () {
 
         <AppleAuthentication.AppleAuthenticationButton
             buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
+            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
             cornerRadius={5}
             style={{
                 flexDirection: 'row',

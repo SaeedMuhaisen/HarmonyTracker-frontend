@@ -14,14 +14,14 @@ import { localhost } from "../../connectionConfig";
 import { setResult } from "../../redux/surveyResultSlice";
 
 export default function () {
-    const userDetails=useSelector(state=>state.userDetails)
-    const dispatch=useDispatch();
+    const userDetails = useSelector(state => state.userDetails)
+    const dispatch = useDispatch();
     useEffect(() => {
         console.log(userDetails)
 
         const fetchData = async () => {
             try {
-                const response = await fetch(localhost+'/api/preview/macros', {
+                const response = await fetch(localhost + '/api/preview/macros', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export default function () {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-                else{
+                else {
                     const responseData = await response.json();
                     dispatch(setResult(responseData));
                     console.log(responseData)
@@ -57,10 +57,12 @@ export default function () {
     const handleNav = () => {
         console.log(user);
         if (user.signedIn) {
-            navigation.navigate(ROUTES.SurveyResultsScreen);
+            navigation.navigate(ROUTES.SignUpToContinueScreen);
+
+            //navigation.navigate(ROUTES.SurveyResultsScreen);
         }
         else {
-            navigation.navigate(ROUTES.EntranceScreen);
+            navigation.navigate(ROUTES.SignUpToContinueScreen);
         }
     }
     return (
@@ -90,7 +92,7 @@ export default function () {
                         )}
                     />
                     <View>
-                        {state.percent === 100 ? <NextQuestion title="Preview Plan And Details" goNext={handleNav} /> : <></>}
+                        {state.percent === 100 ? <NextQuestion title="Preview Plan And Details" goNext={() => navigation.navigate(ROUTES.SurveyResultsScreen)} /> : <></>}
                     </View>
 
                 </View>

@@ -1,14 +1,17 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Text,StyleSheet } from "react-native";
+import { AppColors } from "../../Styles/AppColors";
+import { globalStyles } from "../../GlobalStyles";
 
-export default function ({ label, paddingVertical }) {
+export default function ({ text }) {
     return (
-        // <XStack alignItems="center" gap={10} paddingVertical={paddingVertical}>
-        //     <Separator borderColor={'$color.light8'} />
-        //     <Text fontSize={'$4'} color={'gray'} >{label}</Text>
-        //     <Separator borderColor={'$color.light8'} />
-        // </XStack>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20, }}>
+            <View style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: AppColors.SecondaryYellow, flex: 1 }} />
 
-        <></>
+            <Text style={{ ...globalStyles.body }}  >
+                {text}
+            </Text>
+            <View style={{ borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: AppColors.SecondaryYellow, flex: 1 }} />
+        </View>
     )
 }

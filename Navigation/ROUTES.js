@@ -2,6 +2,7 @@ export default {
     InitialScreen: "InitialScreen",
     
     SignupScreen: "SignupScreen",
+    SignUpToContinueScreen:"SignUpToContinueScreen",
     SignInScreen: "SignInScreen",
     EntranceScreen:"EntranceScreen",
     SurveyScreen: "SurveyScreen",

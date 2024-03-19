@@ -139,7 +139,7 @@ export default function () {
                                 calories: tdee,
                             }))
 
-                            navigation.navigate(ROUTES.InnerApp)
+                            navigation.navigate(ROUTES.SignUpToContinueScreen)
                         }
                     } />
                 </View>

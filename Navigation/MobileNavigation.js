@@ -22,12 +22,13 @@ import TestScreen from '../Screens/TestScreen/TestScreen';
 import SurveyEndScreen from '../Screens/PreScreens/SurveyEndScreen';
 import SurveyResultsScreen from '../Screens/PreScreens/SurveyResultsScreen';
 import DietPlanScreen from '../Screens/PreScreens/DietPlanScreen';
+import SignUpToContinueScreen from '../Screens/PreScreens/SignUpToContinueScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={ROUTES.InitialScreen} >
+            <Stack.Navigator initialRouteName={ROUTES.SignUpToContinueScreen} >
                 <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
                     {(props) =>
                         <EntranceScreen />
@@ -80,6 +81,11 @@ const MobileNavigation = () => {
                         <DietPlanScreen />
                     }
                 </Stack.Screen>
+                <Stack.Screen name={ROUTES.SignUpToContinueScreen} options={{ headerShown: false }}>
+                    {(props) =>
+                        <SignUpToContinueScreen />
+                    }
+                </Stack.Screen>
             </Stack.Navigator>
         </NavigationContainer>
     );
@@ -98,15 +104,15 @@ function InnerApp() {
                 tabBarInactiveTintColor: 'gray',
 
                 tabBarShowLabel: false,
-                
+
                 tabBarStyle: {
                     position: 'absolute',
                     backgroundColor: AppColors.carbsColor,
-                    marginBottom:30,
-                    marginHorizontal:15,
-                    borderRadius:50,
-                    paddingBottom:0,
-                    height:45,
+                    marginBottom: 30,
+                    marginHorizontal: 15,
+                    borderRadius: 50,
+                    paddingBottom: 0,
+                    height: 45,
                 }
             }}
 

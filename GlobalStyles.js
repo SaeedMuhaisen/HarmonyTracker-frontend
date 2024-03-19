@@ -12,25 +12,42 @@ import {
   Manrope_800ExtraBold,
 } from '@expo-google-fonts/manrope';
 export const globalStyles = StyleSheet.create({
-  SafeAreaContainer:{
+  signUpInputContainer: {
+    flexDirection:'row',
+    gap:10,
+    borderRadius: 5,
+    borderWidth: StyleSheet.hairlineWidth,
+    
+    backgroundColor: AppColors.stackBackground,
+    padding: 12,
+    paddingVertical:15,
+    color: AppColors.textColor
+
+  },
+  signUpInput: {
+    flex:1,
+    fontSize: 18,
+    color: AppColors.textColor
+  },
+  SafeAreaContainer: {
 
   },
   outerContainer: {
     flex: 1,
   },
   title: {
-    fontFamily:'Manrope_800ExtraBold',
+    fontFamily: 'Manrope_800ExtraBold',
     fontSize: 20,
     color: AppColors.textColor
   },
   description: {
-    fontFamily:'Manrope_700Bold',
+    fontFamily: 'Manrope_700Bold',
     color: AppColors.textColor,
     fontSize: 18,
 
   },
   body: {
-    fontFamily:'Manrope_400Regular',
+    fontFamily: 'Manrope_400Regular',
     color: AppColors.textColor,
     fontSize: 16,
   },
