@@ -31,36 +31,6 @@ export default function () {
     Settings.setAppID('402103549044920');
     Settings.initializeSDK();
 
-    const handleLogin = async () => {
-        try {
-            await LoginManager.logInWithPermissions()
-            const fbt = await AccessToken.getCurrentAccessToken();
-            getTrt(fbt);
-        } catch (error) {
-            console.log('caught error', error);
-        }
-    };
-    const getTrt = async (fbtoken) => {
-        const response = await fetch('http://192.168.1.102:8080/api/register/2', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(fbtoken),
-        });
-
-        if (response.ok) {
-            const responseData = await response.json();
-            const userData = {
-                refreshToken: responseData.access_token,
-                token: responseData.refresh_token,
-            };
-            store.dispatch(updateUserTokens(userData));
-        } else {
-            console.log('different response: not okay:', response);
-        }
-    };
-
     const Icons = Platform.select({
         ios: {
             envelop: 'envelope',

@@ -17,7 +17,6 @@ export const globalStyles = StyleSheet.create({
     gap:10,
     borderRadius: 5,
     borderWidth: StyleSheet.hairlineWidth,
-    
     backgroundColor: AppColors.stackBackground,
     padding: 12,
     paddingVertical:15,

@@ -197,7 +197,6 @@ export default function Quiz() {
         }
     };
     const handlePreviousQuestion = () => {
-
         if (currentQuestionIndex > 0) {
             if (currentQuestionIndex === 8) {
                 if (userDetails.extraData) {

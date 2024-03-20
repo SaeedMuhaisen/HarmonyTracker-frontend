@@ -11,7 +11,7 @@ export default function ({ progress, btnFunc, }) {
                 <Ionicons name="chevron-back" size={30} color={AppColors.textColor} />
             </TouchableOpacity>
             <View style={{ flex: 2 }}>
-                <ProgressBar style={{ backgroundColor: 'gray'}} progress={progress} color={AppColors.carbsColor} />
+                <ProgressBar style={{ backgroundColor: 'gray' }} progress={progress} color={AppColors.carbsColor} />
             </View>
             <View style={{ flex: 1 }}>
             </View>
