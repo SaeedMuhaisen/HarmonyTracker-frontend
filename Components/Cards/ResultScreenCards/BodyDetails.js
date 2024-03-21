@@ -8,28 +8,28 @@ import LabeledSeparator from "../../Seperators/LabeledSeparator";
 import { StyleSheet } from "react-native";
 import PercentagePieChart from "./PercentagePieChart";
 import { capitalizeFirstLetters } from "../../../utils/converters";
+import { AppColors } from "../../../Styles/AppColors";
 export default function () {
     const [width, setWidth] = useState(null)
     const result = useSelector(state => state.surveyResult.data)
     const weight = useSelector(state => state.userDetails.weight)
     return (
-        <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
-            <View>
-                <Text style={{ ...globalStyles.title, }}>Lean & Fat Body Mass</Text>
+        <View style={{ gap: 15 }}>
+            <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>
+                <Text style={{ ...globalStyles.body, textAlign: 'center' }}>{weight} kg {'\n'}<Text style={{ fontSize: 12, }}>Your weight</Text></Text>
+                <Text>=</Text>
+                <Text style={{ ...globalStyles.description, textAlign: 'center', fontSize: 16 }}>{Math.round(weight * 10 - result.leanBodyMass * 10) / 10} KG {'\n'}<Text style={{ ...globalStyles.description, fontSize: 12, color: AppColors.carbsColor }}>Fat Mass</Text></Text>
+                <Text>+</Text>
+                <Text style={{ ...globalStyles.body, textAlign: 'center' }}>{Math.round(result.leanBodyMass * 10) / 10} KG {'\n'}<Text style={{ fontSize: 12 }}>Lean Body Mass</Text></Text>
             </View>
-            <View style={{
-                borderBottomColor: 'gray',
-                borderBottomWidth: StyleSheet.hairlineWidth,
-            }} />
-            <View style={{ gap: 10, }} onLayout={(event) => { setWidth(event.nativeEvent.layout.width) }}>
-                <View>
-                    <Text style={{ ...globalStyles.title, alignSelf: 'center' }}>{weight} kg = {Math.round(weight * 10 - result.leanBodyMass * 10) / 10} FM + {Math.round(result.leanBodyMass * 10) / 10} LBM  </Text>
-                </View>
-                <Text style={globalStyles.description}>Your Body Fat Mass Percentage: <Text style={globalStyles.body}>{Math.round(result.bodyFatPercentage * 10) / 10}%</Text></Text>
-                <Text style={globalStyles.description}>Your Lean Body Mass Percentage: <Text style={globalStyles.body}>{Math.round((100 - result.bodyFatPercentage) * 10) / 10}%</Text></Text>
-                <Text style={globalStyles.description}>Your Fat Classification: <Text style={globalStyles.body}>{capitalizeFirstLetters(result.bodyFatMassClassificationType)}</Text></Text>
-                <Text></Text>
-            </View>
+            <Text style={{ ...globalStyles.body, }}>
+                Based on your input we estimate that your body fat makes up <Text style={{ ...globalStyles.title, fontSize: globalStyles.body.fontSize }}>{Math.round(result.bodyFatPercentage * 10) / 10}% </Text>
+                of your total weight. This means that approximately
+                the total amount of fat inside your body is
+                <Text style={{ ...globalStyles.title, fontSize: globalStyles.body.fontSize }}> {Math.round(weight * 10 - result.leanBodyMass * 10) / 10} kg </Text>
+                This amount is classified as
+                <Text style={{ ...globalStyles.title, fontSize: globalStyles.body.fontSize }}> {capitalizeFirstLetters(result.bodyFatMassClassificationType)}</Text>
+            </Text>
         </View>
     );
 }

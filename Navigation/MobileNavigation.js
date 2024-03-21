@@ -28,7 +28,7 @@ const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={ROUTES.SurveyEndScreen} >
+            <Stack.Navigator initialRouteName={ROUTES.SurveyResultsScreen} >
                 <Stack.Screen name={ROUTES.EntranceScreen} options={{ headerShown: false }}>
                     {(props) =>
                         <EntranceScreen />
@@ -63,6 +63,7 @@ const MobileNavigation = () => {
                     name={ROUTES.InnerApp}
                     options={{
                         headerShown: false,
+                        gestureEnabled: false
                     }}
                     component={InnerApp} />
 
@@ -71,7 +72,10 @@ const MobileNavigation = () => {
                         <SurveyEndScreen />
                     }
                 </Stack.Screen>
-                <Stack.Screen name={ROUTES.SurveyResultsScreen} options={{ headerShown: false }}>
+                <Stack.Screen name={ROUTES.SurveyResultsScreen} options={{
+                    headerShown: false,
+                    gestureEnabled: false
+                }}>
                     {(props) =>
                         <SurveyResultsScreen />
                     }

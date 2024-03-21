@@ -10,18 +10,19 @@ import { capitalizeFirstLetters } from "../../../utils/converters";
 export default function () {
     const result = useSelector(state => state.surveyResult.data)
     return (
-        <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
-            <View>
-                <Text style={{ ...globalStyles.title, }}>Body Mass Index </Text>
+        <View style={{gap:10,}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, }}>
+                <Text style={{ ...globalStyles.body, }}>
+                    Your Body Mass Index is <Text style={{ ...globalStyles.title, fontSize: globalStyles.body.fontSize }}>
+                        {Math.round(result.bmi * 10) / 10}
+                    </Text> which classifies you as <Text style={{ ...globalStyles.title, fontSize: globalStyles.body.fontSize }}>
+                        {capitalizeFirstLetters(result.bmiClassificationType)}
+                    </Text>
+                </Text>
             </View>
-            <View style={{
-                borderBottomColor: 'gray',
-                borderBottomWidth: StyleSheet.hairlineWidth,
-            }} />
-            <View style={{ gap: 10, }}>
+            <View >
                 <XAxis outerPaddingSize={globalStyles.card.padding} pointerPos={result.bmi} />
-                <Text style={globalStyles.description}>Your Bmi: <Text style={globalStyles.body}>{Math.round(result.bmi * 10) / 10}</Text></Text>
-                <Text style={globalStyles.description}>Classification: <Text style={globalStyles.body}>{capitalizeFirstLetters(result.bmiClassificationType)}</Text></Text>
+                <Text style={{ ...globalStyles.body, fontSize: 12, textAlign: 'center' }}>Your position on the body mass index chart</Text>
             </View>
         </View>
     );

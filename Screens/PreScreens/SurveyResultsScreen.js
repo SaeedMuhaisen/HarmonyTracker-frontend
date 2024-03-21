@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Text, StyleSheet, ScrollView, Animated, FlatList, KeyboardAvoidingView, Easing, TouchableWithoutFeedback, SafeAreaView, View, Platform } from "react-native";
+import { Image } from "react-native";
 
 import { LinearGradient } from 'expo-linear-gradient';
 import { AppColors } from "../../Styles/AppColors";
@@ -17,7 +18,11 @@ import TdeeCard from "../../Components/Cards/ResultScreenCards/TdeeCard";
 import NextQuestion from "../../Components/Buttons/NextQuestion";
 import ROUTES from "../../Navigation/ROUTES";
 import { useNavigation } from "@react-navigation/native";
+import OuterContainer from "../../Components/Views/OuterContainer";
+import harmony from '../../assets/Logo.png'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import CardHeader from "../../Components/Cards/CardHeader";
 export default function () {
     const result = useSelector(state => state.surveyResult.data)
     const userDetails = useSelector(state => state.userDetails)
@@ -49,16 +54,35 @@ export default function () {
         fetchData();
     }, []);
     return (
-        <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground} >
-            <View style={{ flex: 1, paddingHorizontal: 15, }} >
-                <ScrollView contentContainerStyle={{ gap: 10 }} showsVerticalScrollIndicator={false}>
-                    <BmiCard />
-                    <BodyDetails />
-                    <TdeeCard />
-                    <View style={{height:10}}/>
+        <SafeAreaView style={{ flex: 1, }}>
+            <View style={{ flex: 1 }}>
+                <ScrollView contentContainerStyle={{ paddingTop: 10, gap: 10, paddingHorizontal: 10 }} showsVerticalScrollIndicator={false} >
+                    <View style={{ alignItems: 'center', paddingVertical: 20, }}>
+                        <Image source={harmony} style={{ height: 80, width: 80, borderRadius: 20 }} />
+                        <View style={{ paddingHorizontal: 23, gap: 10, }}>
+                            <Text style={{ ...globalStyles.body, fontSize: 25, textAlign: 'center' }}>Your <Text style={{ ...globalStyles.description, fontSize: 25 }}>Plan</Text> is ready!</Text>
+                            <Text style={{ ...globalStyles.body, textAlign: 'center', }}>We have calculated your plan based on your body details. Your journy begins with understanding where you are at right now and where you want to reach!</Text>
+                        </View>
+                    </View>
+                    <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
+                        <CardHeader title={'Understand your position'} titleHeader={'STEP 1'} icon={<MaterialCommunityIcons name="head-question-outline" size={40} color="black" />}
+                        />
+                        <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
+
+                        <BmiCard />
+                        <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
+
+                        <BodyDetails />
+                        <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
+                        <TdeeCard />
+                    </View>
+
+                    <View style={{ height: 10 }} />
                 </ScrollView>
-                <NextQuestion title="Preview Your Plan" goNext={() => navigation.navigate(ROUTES.DietPlansScreen)} />
+                <View style={{ paddingHorizontal: 10 }}>
+                    <NextQuestion title="Preview Your Plan" goNext={() => navigation.navigate(ROUTES.DietPlansScreen)} />
+                </View>
             </View>
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }

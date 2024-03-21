@@ -11,24 +11,22 @@ import { capitalizeFirstLetters } from "../../../utils/converters";
 import { AppColors } from "../../../Styles/AppColors";
 import TdeeInfo from "./TdeeInfo";
 import BodyDetails from "./BodyDetails";
+import UserMacrosPie from "./UserMacrosPie";
 export default function () {
     const [width, setWidth] = useState(null)
     const result = useSelector(state => state.surveyResult.data)
     const bodyDetails = useSelector(state => state.userDetails)
     const weight = useSelector(state => state.userDetails.weight)
     return (
-        <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
-            <View>
-                <Text style={{ ...globalStyles.title, }}>Total Daily Energy Expenditure - TDEE</Text>
+        <View style={{ gap: 15 }}>
+            <Text style={{ ...globalStyles.body, }}>Your total daily energy expenditure based on your input is:</Text>
+            <View style={{ width: '50%', alignSelf: 'center' }}>
+                <UserMacrosPie calories={Math.round(result.bmr * bodyDetails.activityLevel)} protein={9} fat={4} carbs={9} />
             </View>
-            <View style={{
-                borderBottomColor: 'gray',
-                borderBottomWidth: StyleSheet.hairlineWidth,
-            }} />
             <View style={{ gap: 10, }} onLayout={(event) => { setWidth(event.nativeEvent.layout.width) }}>
                 <TdeeInfo title='Basal Metabolic Rate:' value={`${Math.round(result.bmr)} calories/day`} />
                 <TdeeInfo title='Constricted LifeStyle:' value={`${Math.round(result.bmr * 1.1)} calories/day`} chosen={bodyDetails.activityLevel === 1.1} />
-                <TdeeInfo title='Work from Home LifeStyle:' value={`${Math.round(result.bmr * 1.6)} calories/day`} chosen={bodyDetails.activityLevel === 1.16} />
+                <TdeeInfo title='Work from Home LifeStyle:' value={`${Math.round(result.bmr * 1.16)} calories/day`} chosen={bodyDetails.activityLevel === 1.16} />
                 <TdeeInfo title='Sedentary Activity:' value={`${Math.round(result.bmr * 1.2)} calories/day`} chosen={bodyDetails.activityLevel === 1.2} />
                 <TdeeInfo title='Slightly Active:' value={`${Math.round(result.bmr * 1.375)} calories/day`} chosen={bodyDetails.activityLevel === 1.375} />
                 <TdeeInfo title='Lightly Active:' value={`${Math.round(result.bmr * 1.425)} calories/day`} chosen={bodyDetails.activityLevel === 1.425} />
@@ -45,7 +43,7 @@ export default function () {
                 lose small amount of weight per week.
                 If you believe you've made a mistake and overestimated your activity level you can always change your activity level from inside the app and your diet plan will immediatly be changed for you.
             </Text>
-            
+
         </View>
     );
 }
