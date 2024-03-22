@@ -1,28 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Text, StyleSheet, ScrollView, Animated, FlatList, KeyboardAvoidingView, Easing, TouchableWithoutFeedback, SafeAreaView, View, Platform } from "react-native";
+import React, { useEffect,  } from "react";
+import { Text, StyleSheet, ScrollView, SafeAreaView, View, Platform } from "react-native";
 import { Image } from "react-native";
-
-import { LinearGradient } from 'expo-linear-gradient';
-import { AppColors } from "../../Styles/AppColors";
 import { globalStyles } from "../../GlobalStyles";
-import { FontAwesome6 } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
 import { localhost } from "../../connectionConfig";
 import { setResult } from "../../redux/surveyResultSlice";
 import { useDispatch } from "react-redux";
-import { VictoryAxis, VictoryBrushLine, VictoryChart, VictoryScatter } from "victory-native";
-import XAxis from "../../Components/XAxis";
 import BmiCard from "../../Components/Cards/ResultScreenCards/BmiCard";
 import BodyDetails from "../../Components/Cards/ResultScreenCards/BodyDetails";
 import TdeeCard from "../../Components/Cards/ResultScreenCards/TdeeCard";
 import NextQuestion from "../../Components/Buttons/NextQuestion";
 import ROUTES from "../../Navigation/ROUTES";
 import { useNavigation } from "@react-navigation/native";
-import OuterContainer from "../../Components/Views/OuterContainer";
 import harmony from '../../assets/Logo.png'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
 import CardHeader from "../../Components/Cards/CardHeader";
+import BmiGoal from "../../Components/Goals/BmiGoal";
+import FatGoal from "../../Components/Goals/FatGoal";
+
 export default function () {
     const result = useSelector(state => state.surveyResult.data)
     const userDetails = useSelector(state => state.userDetails)
@@ -65,16 +60,20 @@ export default function () {
                         </View>
                     </View>
                     <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
-                        <CardHeader title={'Understand your position'} titleHeader={'STEP 1'} icon={<MaterialCommunityIcons name="head-question-outline" size={40} color="black" />}
-                        />
+                        <CardHeader title={'Understand your position'} titleHeader={'STEP 1'} icon={<MaterialCommunityIcons name="head-question-outline" size={40} color="black" />} />
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
-
                         <BmiCard />
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
-
                         <BodyDetails />
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
                         <TdeeCard />
+                    </View>
+
+                    <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
+                        <CardHeader title={'The Goal'} titleHeader={'STEP 2'} icon={<MaterialCommunityIcons name="bullseye-arrow" size={40} color="black" />} /> 
+                        <BmiGoal bmi={result.bmi} weight={userDetails.weight} height={userDetails.height}/>
+                        <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
+                        <FatGoal/>
                     </View>
 
                     <View style={{ height: 10 }} />

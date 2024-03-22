@@ -4,9 +4,9 @@ import { globalStyles } from "../../GlobalStyles";
 import { AppColors } from "../../Styles/AppColors";
 export default function ({ title, titleHeader, icon }) {
     return (
-        <View style={{ flexDirection: 'row', gap: 5, flex: 1 }}>
+        <View style={{ flexDirection: 'row', gap: 5, flex: 1, alignItems: 'center' }}>
             {icon}
-            <View style={{}}>
+            <View>
                 <Text style={{ ...globalStyles.description, fontSize: 12, color: AppColors.carbsColor }}>
                     {titleHeader}
                 </Text>

@@ -66,38 +66,3 @@ export default function () {
         </OuterContainer>
     );
 }
-// <SafeAreaView flex={1} backgroundColor={AppColors.stackBackground} >
-//     <View style={{ flex: 1, gap: 5, padding: 15, justifyContent: 'flex-start' }}>
-//         <View style={{ flex: 1 }}>
-//             <LoadingPieChart
-//                 timer={timer}
-//                 setTimer={setTimer}
-//                 state={state}
-//                 setState={setState}
-//                 getData={getData}
-//             />
-//         </View>
-//         <View style={{ flex: 1, gap: 12 }}>
-//             <FadeInFlatList
-//                 scrollEnabled={false}
-//                 initialDelay={500}
-//                 durationPerItem={1500}
-//                 data={[{ item: 'Calculated Macros' }, { item: 'Calculated BodyFat%' }, { item: 'Optimized Calender' }, { item: 'Plan Created' }]}
-//                 contentContainerStyle={{ gap: 10, alignSelf: 'center' }}
-//                 renderItem={({ item }) => (
-//                     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 20 }}>
-//                         <FontAwesome6 name="circle-check" size={20} color="white" />
-//                         <Text style={{ color: 'white', fontSize: 24, alignSelf: 'center' }}>{item.item}</Text>
-//                     </View>
-//                 )}
-//             />
-//             <View>
-//                 {state.percent === 100 ? <NextQuestion title="Preview Plan And Details" goNext={() => navigation.navigate(ROUTES.SurveyResultsScreen)} /> : <></>}
-//             </View>
-
-//         </View>
-
-//     </View>
-
-
-// </SafeAreaView>
