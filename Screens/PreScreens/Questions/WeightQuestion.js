@@ -39,9 +39,6 @@ export default function ({ handleNextQuestion }) {
         calculateAndUpdateState();
     }, [initial, final, preferredWeightUnit]);
 
-    useEffect(() => {
-        console.log('state weight:',weight)
-    }, [weight])
 
     const kgArray = Array.from({ length: 321 }, (_, index) => index + 30);
     const lbArray = Array.from({ length: 650 }, (_, index) => index + 70);

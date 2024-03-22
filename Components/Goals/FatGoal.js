@@ -4,7 +4,7 @@ import { View,Text } from "react-native";
 export default function(){
     return (
         <View>
-            <Text>BMI GOAL:</Text>
+            <Text>Fat Percentage. (SOON)</Text>
         </View>
     )
 }

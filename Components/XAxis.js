@@ -5,8 +5,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function ({ outerPaddingSize, pointerPos }) {
     const position = Math.round((pointerPos - 18) / 17 * 100);
-
-    console.log(position)
     return (
         <LinearGradient
             colors={['rgba(255,247,119,1)', 'rgba(255,247,119,1)', 'rgba(176,229,82,1)', 'rgba(176,229,82,1)', 'rgba(244,168,52,1)', 'rgba(244,168,52,1)', 'rgba(231,62,53,1)', 'rgba(193,32,48,1)']}

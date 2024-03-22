@@ -1,4 +1,4 @@
-import React, { useEffect,  } from "react";
+import React, { useEffect, } from "react";
 import { Text, StyleSheet, ScrollView, SafeAreaView, View, Platform } from "react-native";
 import { Image } from "react-native";
 import { globalStyles } from "../../GlobalStyles";
@@ -17,6 +17,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import CardHeader from "../../Components/Cards/CardHeader";
 import BmiGoal from "../../Components/Goals/BmiGoal";
 import FatGoal from "../../Components/Goals/FatGoal";
+import { FontAwesome5 } from '@expo/vector-icons';
+import DietPlanScreen from "./DietPlanScreen";
 
 export default function () {
     const result = useSelector(state => state.surveyResult.data)
@@ -70,16 +72,25 @@ export default function () {
                     </View>
 
                     <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
-                        <CardHeader title={'The Goal'} titleHeader={'STEP 2'} icon={<MaterialCommunityIcons name="bullseye-arrow" size={40} color="black" />} /> 
-                        <BmiGoal bmi={result.bmi} weight={userDetails.weight} height={userDetails.height}/>
+                        <CardHeader title={'The Goal'} titleHeader={'STEP 2'} icon={<MaterialCommunityIcons name="bullseye-arrow" size={40} color="black" />} />
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
-                        <FatGoal/>
+                        <BmiGoal bmi={result.bmi} weight={userDetails.weight} height={userDetails.height} />
+                        <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
+                        <FatGoal />
                     </View>
-
+                    <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
+                        <CardHeader title={'The Plan'} titleHeader={'STEP 3'} icon={<FontAwesome5 name="route" size={40} color="black" />} />
+                        <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
+                        <DietPlanScreen />
+                    </View>
                     <View style={{ height: 10 }} />
                 </ScrollView>
                 <View style={{ paddingHorizontal: 10 }}>
-                    <NextQuestion title="Preview Your Plan" goNext={() => navigation.navigate(ROUTES.DietPlansScreen)} />
+                    <NextQuestion title="Lets get started!" goNext={
+                        () => {
+                            navigation.navigate(ROUTES.SignUpToContinueScreen)
+                        }
+                    } />
                 </View>
             </View>
         </SafeAreaView >

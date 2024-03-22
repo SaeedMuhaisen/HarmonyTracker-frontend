@@ -14,9 +14,9 @@ const Graph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
     const [goals, setGoals] = useState({});
 
     useEffect(() => {
-        console.log('generating goals!')
+        
         const generateGoals = () => {
-            const thresholds = [35, 30, 25, 22.5, 20, 18];
+            const thresholds = [40, 37, 35, 32, 30, 27, 25, 22, 20, 18, 15];
             const goals = [];
 
             thresholds.forEach(threshold => {
@@ -30,22 +30,19 @@ const Graph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
             return goals;
         }
         setGoals(generateGoals)
-    }, [])
+    }, [bmi])
     useEffect(() => {
         const generateGoals = (array) => {
             let data2Array = []
-            console.log('generating now!')
             for (let i = 0; i < array.length; i++) {
                 if (array[i].goal) {
                     data2Array.push({ x: array[i].x, y: array[i].y })
                 }
             }
-            
+
             return data2Array
         }
         const generateArray = () => {
-            console.log(initialWeight, 'initial weight')
-            console.log(goals, 'goals')
             let currentValue = initialWeight;
             let array = [];
             let flipper = 0;
@@ -80,7 +77,7 @@ const Graph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
                 currentValue = Math.round((currentValue - deficit) * 100) / 100;
             }
             setData2(generateGoals(array))
-            console.log(array)
+            
             return array;
         };
 
@@ -101,7 +98,7 @@ const Graph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
                     >
                         <VictoryAxis style={{
                             tickLabels: {
-                                fill: 'white',
+                                fill: 'black',
                             },
                             grid: {
                                 stroke: 'transparent', //CHANGE COLOR OF Y-AXIS GRID LINES
@@ -115,7 +112,7 @@ const Graph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
 
                             style={{
                                 tickLabels: {
-                                    fill: 'white',
+                                    fill: 'black',
 
                                 },
                                 grid: {
@@ -123,7 +120,7 @@ const Graph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
                                     strokeDasharray: '2',
                                 },
                                 axis: {
-                                    stroke: 'transparent'
+                                    stroke: 'black'
                                 }
                             }}
                             tickFormat={(t) => `${t}kg`}
@@ -136,7 +133,7 @@ const Graph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
                                 parent: { border: "1px solid #ccc" },
                                 labels: {
                                     fontSize: 10,
-                                    fill: 'white',
+                                    fill: 'black',
 
                                 },
 
@@ -155,7 +152,7 @@ const Graph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {
                                 data: { fill: "#c43a31" },
                                 labels: {
                                     fontSize: 10,
-                                    fill: 'white',
+                                    fill: 'tomato',
                                 }
                             }}
                         />

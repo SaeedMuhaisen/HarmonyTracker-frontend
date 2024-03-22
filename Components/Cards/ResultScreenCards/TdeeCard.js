@@ -34,10 +34,6 @@ export default function () {
                 <TdeeInfo title='Very Active:' value={`${Math.round(result.bmr * 1.725)} calories/day`} chosen={bodyDetails.activityLevel === 1.725} />
                 <TdeeInfo title='Extremely Active' value={`${Math.round(result.bmr * 1.9)} calories/day`} chosen={bodyDetails.activityLevel === 1.9} />
             </View>
-            {/* <Text style={{ ...globalStyles.body, fontSize: 12, textAlign: 'justify' }}>
-                note: For most accurate results its usually recommend to chose Sedentary
-                TDEE and add extra calories manually after working out. Unless you work
-                a physical job, its always the most accurate choice to chose is Sedentary</Text> */}
             <Text style={{ ...globalStyles.body, fontSize: 12, textAlign: 'justify', color: AppColors.SecondaryYellow }}>
                 note: Most of the time people overestimate this part, TDEE directly affects your diet and weight loss journy, especially for people who chose to
                 lose small amount of weight per week.

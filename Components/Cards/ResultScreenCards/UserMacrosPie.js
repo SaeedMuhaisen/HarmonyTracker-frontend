@@ -10,20 +10,20 @@ export default function ({ carbs, fat, protein, calories }) {
     return (
 
 
-        <View style={{ justifyContent: 'center', alignItems: 'center' }} onLayout={(event) => setWidth(event.nativeEvent.layout.width>250?250:event.nativeEvent.layout.width)}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }} onLayout={(event) => setWidth(event.nativeEvent.layout.width > 250 ? 250 : event.nativeEvent.layout.width)}>
             {width !== null &&
                 <>
                     < VictoryPie
                         padAngle={3}
                         labelComponent={null}
-                        radius={width/2 }
-                        innerRadius={width/2 - 10}
+                        radius={width / 2}
+                        innerRadius={width / 2 - 10}
                         height={width}
                         width={width}
                         data={[
                             { y: (protein !== null ? protein * 4 : 1) },
-                            { y: (carbs !== null ? carbs * 4  : 1) },
-                            { y: (fat !== null ? fat * 9  : 1) },
+                            { y: (carbs !== null ? carbs * 4 : 1) },
+                            { y: (fat !== null ? fat * 9 : 1) },
                         ]}
                         padding={0}
                         colorScale={[AppColors.proteinColor, AppColors.carbsColor, AppColors.fatColor]}
@@ -35,11 +35,7 @@ export default function ({ carbs, fat, protein, calories }) {
 
                     <View style={{ justifyContent: 'center', alignItems: 'center', position: "absolute", width: width, height: width }}>
                         <Text style={{ ...globalStyles.title, fontSize: 30 }}>
-                            {Math.round(calories) > 999
-                                ?
-                                `${Math.floor(calories / 1000)},${Math.floor((calories - (Math.floor(calories / 1000) * 1000)))}`
-                                :
-                                Math.round(calories)}
+                            {Math.round(calories).toLocaleString()}
                         </Text>
                         <Text style={{ ...globalStyles.description }}>Calories/Day</Text>
                     </View>
