@@ -4,6 +4,7 @@ import macroSlice from './macroSlice';
 import userDetailsSlice from './userDetailsSlice';
 import surveyResultSlice from './surveyResultSlice';
 import dailyIntakeSlice from './dailyIntakeSlice';
+import foodLogSlice from './foodLogSlice';
 
 export default configureStore({
     reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
         userDetails: userDetailsSlice,
         surveyResult: surveyResultSlice,
         dailyIntake: dailyIntakeSlice,
+        foodLog: foodLogSlice,
     }
 });

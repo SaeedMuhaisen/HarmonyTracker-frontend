@@ -25,6 +25,13 @@ export const dailyIntakeSlice = createSlice({
         },
         setDate: (state, action) => {
             state.date = action.payload;
+        },
+        resetIntake: state => {
+            state.fat = 0;
+            state.carbs = 0;
+            state.protein = 0;
+            state.calories = 0;
+            state.date = null;
         }
     }
 })

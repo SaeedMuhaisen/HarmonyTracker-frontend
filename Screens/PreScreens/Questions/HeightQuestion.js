@@ -33,7 +33,7 @@ export default function ({ handleNextQuestion }) {
     }, [initial, final]);
 
     useEffect(() => {
-        console.log('state height:', userDetails.height)
+        
     }, [userDetails.height])
     return (
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>

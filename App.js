@@ -5,6 +5,8 @@ import { Provider } from "react-redux";
 import store from "./redux/store";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { StatusBar } from 'react-native';
+
+
 import {
   useFonts,
   Manrope_200ExtraLight,
@@ -17,6 +19,7 @@ import {
 } from '@expo-google-fonts/manrope';
 
 export default () => {
+  console.log(AsyncStorage.getItem(LOGIN_TOKEN))
   let [fontsLoaded] = useFonts({
     Manrope_200ExtraLight,
     Manrope_300Light,

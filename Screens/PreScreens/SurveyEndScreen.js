@@ -21,7 +21,7 @@ export default function () {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     useEffect(() => {
-        console.log(userDetails)
+        
         const finished = () => {
             navigation.navigate(ROUTES.SurveyResultsScreen)
         }
