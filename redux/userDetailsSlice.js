@@ -7,10 +7,8 @@ export const userDetailsSlice = createSlice({
         birthDate: 860932800000,
         preferredUnit: 'cm',
         preferredWeightUnit: 'kg',
-
         height: 173,
         weight: 83,
-
         extraData: true,
         waistNarrowest: 95.5,
         waistNavel: 96.5,
@@ -23,7 +21,7 @@ export const userDetailsSlice = createSlice({
         activityLevel: 1.1,
         goal: 0,
     },
-        
+
     reducers: {
         updateGender: (state, action) => { state.gender = action.payload },
         updateBirthDate: (state, action) => { state.birthDate = action.payload.birthDate },

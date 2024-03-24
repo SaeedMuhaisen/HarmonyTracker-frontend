@@ -68,7 +68,8 @@
         }
       ],
       "expo-tracking-transparency",
-      "expo-font"
+      "expo-font",
+      "expo-secure-store"
     ],
     "owner": "saeedmuhaisen",
     "extra": {

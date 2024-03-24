@@ -14,7 +14,7 @@ import BodyDetails from "./BodyDetails";
 import UserMacrosPie from "./UserMacrosPie";
 export default function () {
     const [width, setWidth] = useState(null)
-    const result = useSelector(state => state.surveyResult.data)
+    const result = useSelector(state => state.surveyResult)
     const bodyDetails = useSelector(state => state.userDetails)
     const weight = useSelector(state => state.userDetails.weight)
     return (

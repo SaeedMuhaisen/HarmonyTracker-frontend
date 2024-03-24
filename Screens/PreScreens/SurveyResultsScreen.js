@@ -19,37 +19,16 @@ import BmiGoal from "../../Components/Goals/BmiGoal";
 import FatGoal from "../../Components/Goals/FatGoal";
 import { FontAwesome5 } from '@expo/vector-icons';
 import DietPlanScreen from "./DietPlanScreen";
-
+import * as SecureStore from 'expo-secure-store';
 export default function () {
-    const result = useSelector(state => state.surveyResult.data)
+    const result = useSelector(state => state.surveyResult)
     const userDetails = useSelector(state => state.userDetails)
-    const dispatch = useDispatch();
     const navigation = useNavigation();
-
-    useEffect(() => {
-
-        const fetchData = async () => {
-            try {
-                const response = await fetch(localhost + '/api/preview/macros', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(userDetails),
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                else {
-                    const responseData = await response.json();
-                    dispatch(setResult(responseData));
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData();
-    }, []);
+    const macros = useSelector(state => state.macros);
+    const next = async () => {
+        await SecureStore.setItemAsync('MACROS', JSON.stringify(macros));
+        navigation.navigate(ROUTES.SignUpToContinueScreen)
+    }
     return (
         <SafeAreaView style={{ flex: 1, }}>
             <View style={{ flex: 1 }}>
@@ -87,9 +66,7 @@ export default function () {
                 </ScrollView>
                 <View style={{ paddingHorizontal: 10 }}>
                     <NextQuestion title="Lets get started!" goNext={
-                        () => {
-                            navigation.navigate(ROUTES.SignUpToContinueScreen)
-                        }
+                        next
                     } />
                 </View>
             </View>

@@ -11,7 +11,7 @@ import { capitalizeFirstLetters } from "../../../utils/converters";
 import { AppColors } from "../../../Styles/AppColors";
 export default function () {
     const [width, setWidth] = useState(null)
-    const result = useSelector(state => state.surveyResult.data)
+    const result = useSelector(state => state.surveyResult)
     const weight = useSelector(state => state.userDetails.weight)
     return (
         <View style={{ gap: 15 }}>

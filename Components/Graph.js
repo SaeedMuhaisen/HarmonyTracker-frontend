@@ -3,9 +3,6 @@ import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { VictoryAxis, VictoryChart, VictoryLine, VictoryScatter, VictoryTheme } from "victory-native";
 import { monthNames, monthNamesShort } from "../Consts/MonthNames";
-import { current } from "@reduxjs/toolkit";
-import { AppColors } from "../Styles/AppColors";
-import { globalStyles } from "../GlobalStyles";
 
 
 const Graph = memo(({ deficit, initialWeight, height, bmi, bodyFat }) => {

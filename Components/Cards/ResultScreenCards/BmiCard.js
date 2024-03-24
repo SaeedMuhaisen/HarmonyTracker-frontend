@@ -8,7 +8,7 @@ import LabeledSeparator from "../../Seperators/LabeledSeparator";
 import { StyleSheet } from "react-native";
 import { capitalizeFirstLetters } from "../../../utils/converters";
 export default function () {
-    const result = useSelector(state => state.surveyResult.data)
+    const result = useSelector(state => state.surveyResult)
     return (
         <View style={{gap:10,}}>
             <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10, }}>

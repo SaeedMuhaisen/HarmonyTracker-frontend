@@ -14,9 +14,8 @@ import ContextMenu from "react-native-context-menu-view";
 import facebook from '../../assets/facebook.png'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { AccessToken, LoginButton, LoginManager, Settings } from "react-native-fbsdk-next";
-import { updateUserTokens } from '../../redux/userSlice';
-import { AppColors } from '../../Styles/AppColors';
 
+import * as SecureStore from 'expo-secure-store';
 
 import OuterContainer from '../../Components/Views/OuterContainer';
 import TopBar from '../../Components/SurveyComponents/TopBar';
@@ -42,12 +41,17 @@ export default function () {
             pencil: 'create',
         }
     })
+    const user = useSelector(state => state.user)
     const signedIn = useSelector(state => state.user.signedIn)
     useEffect(() => {
-        console.log('hello')
-        if (signedIn === true) {
-            navigation.navigate(ROUTES.InnerApp)
+        const saveTokens = async () => {
+            if (signedIn === true) {
+                console.log('signed IN!')
+                await SecureStore.setItemAsync('USER', JSON.stringify(user));
+                navigation.navigate(ROUTES.InnerApp)
+            }
         }
+        saveTokens()
     }, [signedIn])
     const [menuVisible, setMenuVisible] = useState(false);
     const navigation = useNavigation();
@@ -76,7 +80,7 @@ export default function () {
                             </View>
                             <View style={globalStyles.signUpInputContainer}>
                                 <Ionicons name="key-outline" size={24} color="black" />
-                                <TextInput style={{...globalStyles.signUpInput}} secureTextEntry={true}  placeholder='Password' placeholderTextColor={'gray'} />
+                                <TextInput style={{ ...globalStyles.signUpInput }} secureTextEntry={true} placeholder='Password' placeholderTextColor={'gray'} />
                             </View>
                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                                 <Text style={{ ...globalStyles.body, flex: 1, fontSize: 12, textAlign: 'center', paddingHorizontal: 10, color: 'gray' }}>By Continuing you accept terms and conditions of Harmony Tracker</Text>

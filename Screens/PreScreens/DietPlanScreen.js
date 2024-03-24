@@ -15,9 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { setMacros } from "../../redux/macroSlice";
 import store from "../../redux/store";
 export default function () {
-    const navigation = useNavigation();
-    const [width, setWidth] = useState(width);
-    const result = useSelector(state => state.surveyResult.data)
+    const result = useSelector(state => state.surveyResult)
     const userDetails = useSelector(state => state.userDetails)
     const macros = useSelector(state => state.macros)
 
@@ -126,17 +124,3 @@ export default function () {
 
     )
 }
-{/* <View>
-<NextQuestion title="Lets get started!" goNext={
-    () => {
-        store.dispatch(setMacros({
-            protein: protein,
-            fat: fat,
-            carbs: carbs,
-            calories: tdee,
-        }))
-
-        navigation.navigate(ROUTES.SignUpToContinueScreen)
-    }
-} />
-</View> */}

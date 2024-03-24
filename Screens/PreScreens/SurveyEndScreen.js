@@ -15,39 +15,38 @@ import { setResult } from "../../redux/surveyResultSlice";
 import OuterContainer from "../../Components/Views/OuterContainer";
 import LoadingComponent from "../../Components/Loading/LoadingComponent";
 import LoadingText from "../../Components/Loading/LoadingText";
-
+import { PreviewServices } from "../../utils/Functions/PreviewServices";
+import * as SecureStore from 'expo-secure-store';
 export default function () {
     const userDetails = useSelector(state => state.userDetails)
     const dispatch = useDispatch();
     const navigation = useNavigation();
+    const result = useSelector(state => state.surveyResult)
     useEffect(() => {
-        
         const finished = () => {
+            
             navigation.navigate(ROUTES.SurveyResultsScreen)
         }
-        const fetchData = async () => {
-            try {
-                const response = await fetch(localhost + '/api/preview/macros', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(userDetails),
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                else {
-                    const responseData = await response.json();
-                    dispatch(setResult(responseData));
-                    console.log(responseData)
-                    setTimeout(finished, 3000)
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-        fetchData();
+
+        const prev = new PreviewServices()
+        const calc = async () => {
+            const temp = prev.createMacroPlan(userDetails);
+            const serializableData = {
+                bmi: temp.bmi,
+                bmiClassificationType: temp.bmiClassificationType,
+                bodyFatPercentage: temp.bodyFatPercentage,
+                bfpType: temp.bfpType,
+                bodyFatMass: temp.bodyFatMass,
+                bodyFatMassClassificationType: temp.bodyFatMassClassificationType,
+                leanBodyMass: temp.leanBodyMass,
+                bmr: temp.bmr,
+                bmrType: temp.bmrType,
+            };
+            dispatch(setResult(serializableData));
+            await SecureStore.setItemAsync('SURVEYRESULT', JSON.stringify(temp));
+            setTimeout(finished,3000)
+        }
+        calc()
     }, []);
 
 

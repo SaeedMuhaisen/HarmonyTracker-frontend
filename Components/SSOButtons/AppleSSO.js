@@ -44,12 +44,7 @@ export default function () {
             store.dispatch(updateUserTokens(userData));
             store.dispatch(setSignedIn(true));
             console.log(responseData)
-            // if (!responseData.initialized) {
-            //     navigation.navigate(ROUTES.SurveyScreen)
-            // }
-            // else {
-            //     navigation.navigate(ROUTES.InnerApp)
-            // }
+
         } else {
             console.log('different response: not okay:', response);
         }
