@@ -7,11 +7,11 @@ import NextQuestion from "../../../Components/Buttons/NextQuestion"
 import { useDispatch, useSelector } from "react-redux"
 
 import { convertCmToInches, convertInchesToCm } from "../../../utils/converters"
-import { updatePreferedUnit } from "../../../redux/userDetailsSlice"
+import { updatePreferedUnit } from "../../../redux/bodyDetailsSlice"
 const CONVERSION_FACTOR = 1.0;
 export default function ({ handleNextQuestion, comp }) {
-    const userDetails = useSelector(state => state.userDetails)
-    const preferredUnit = useSelector(state => state.userDetails.preferredUnit)
+    const bodyDetails = useSelector(state => state.bodyDetails)
+    const preferredUnit = useSelector(state => state.bodyDetails.preferredUnit)
 
     const [initial, setInitial] = useState(preferredUnit === 'cm' ? Math.floor(comp.state) : Math.floor(convertCmToInches(comp.state)));
     const [final, setFinal] = useState(preferredUnit === 'cm' ? 10 * (comp.state - Math.floor(comp.state)).toFixed(1)
@@ -37,7 +37,7 @@ export default function ({ handleNextQuestion, comp }) {
     return (
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 6, alignItems: 'center', justifyContent: 'center' }}>
-                <Image source={userDetails.gender === 'male' ? comp.imgSourceMale : comp.imgSourceFemale} resizeMode='contain' style={{ height: '100%' }} />
+                <Image source={bodyDetails.gender === 'male' ? comp.imgSourceMale : comp.imgSourceFemale} resizeMode='contain' style={{ height: '100%' }} />
             </View>
 
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>

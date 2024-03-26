@@ -10,7 +10,7 @@ export default function () {
    
     const [tokens, setToken] = useState(null);
     const user=useSelector(state=>state.user)
-    const userDetails=useSelector(state=>state.userDetails)
+    const bodyDetails=useSelector(state=>state.bodyDetails)
     const macro=useSelector(state=>state.macros)
     const foodLog=useSelector(state=>state.foodLog)
     const dailyIntake=useSelector(state=>state.dailyIntake)
@@ -20,11 +20,11 @@ export default function () {
             console.log('Secure tokens:', await SecureStore.getItemAsync('TOKENS'))
             console.log('Secure macros:', await SecureStore.getItemAsync('MACROS'))
             console.log('Secure surveyResult:', await SecureStore.getItemAsync('SURVEYRESULT'))
-            console.log('Secure userDetails:', await SecureStore.getItemAsync('USERDETAILS'))
+            console.log('Secure bodyDetails:', await SecureStore.getItemAsync('BODYDETAILS'))
             console.log('Secure user:', await SecureStore.getItemAsync('USER'))
 
             console.log('user:',user)
-            console.log('userDetails:',userDetails)
+            console.log('bodyDetails:',bodyDetails)
             console.log('macro:',macro)
             console.log('foodLog:',foodLog)
             console.log('dailyIntake:',dailyIntake)
@@ -36,11 +36,9 @@ export default function () {
     const navigation = useNavigation()
     const dispatch = useDispatch()
     const deleteSecureStorage = async () => {
-        await SecureStore.deleteItemAsync('TOKENS', {})
         await SecureStore.deleteItemAsync('MACROS',  {})
         await SecureStore.deleteItemAsync('SURVEYRESULT',  {})
-        await SecureStore.deleteItemAsync('SURVEYRESULT',  {})
-        await SecureStore.deleteItemAsync('USERDETAILS',  {})
+        await SecureStore.deleteItemAsync('BODYDETAILS',  {})
         await SecureStore.deleteItemAsync('USER',  {})
     }
     const handleLogout = async() => {

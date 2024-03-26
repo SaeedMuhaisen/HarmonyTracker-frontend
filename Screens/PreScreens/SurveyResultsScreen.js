@@ -22,7 +22,7 @@ import DietPlanScreen from "./DietPlanScreen";
 import * as SecureStore from 'expo-secure-store';
 export default function () {
     const result = useSelector(state => state.surveyResult)
-    const userDetails = useSelector(state => state.userDetails)
+    const bodyDetails = useSelector(state => state.bodyDetails)
     const navigation = useNavigation();
     const macros = useSelector(state => state.macros);
     const next = async () => {
@@ -53,7 +53,7 @@ export default function () {
                     <View style={{ ...globalStyles.showdedCard, gap: 15 }}>
                         <CardHeader title={'The Goal'} titleHeader={'STEP 2'} icon={<MaterialCommunityIcons name="bullseye-arrow" size={40} color="black" />} />
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
-                        <BmiGoal bmi={result.bmi} weight={userDetails.weight} height={userDetails.height} />
+                        <BmiGoal bmi={result.bmi} weight={bodyDetails.weight} height={bodyDetails.height} />
                         <View style={{ borderBottomColor: 'gray', borderBottomWidth: StyleSheet.hairlineWidth }} />
                         <FatGoal />
                     </View>

@@ -1,7 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import userReducer from "./userSlice";
 import macroSlice from './macroSlice';
-import userDetailsSlice from './userDetailsSlice';
+import bodyDetailsSlice from './bodyDetailsSlice';
 import surveyResultSlice from './surveyResultSlice';
 import dailyIntakeSlice from './dailyIntakeSlice';
 import foodLogSlice from './foodLogSlice';
@@ -13,7 +13,7 @@ import foodLogSlice from './foodLogSlice';
 const rootReducer = combineReducers({
     user: userReducer,
     macros: macroSlice,
-    userDetails: userDetailsSlice,
+    bodyDetails: bodyDetailsSlice,
     surveyResult: surveyResultSlice,
     dailyIntake: dailyIntakeSlice,
     foodLog: foodLogSlice,

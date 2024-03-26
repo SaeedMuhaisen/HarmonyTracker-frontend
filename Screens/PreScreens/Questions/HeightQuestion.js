@@ -5,12 +5,12 @@ import { globalStyles } from "../../../GlobalStyles"
 import { Picker } from 'react-native-wheel-pick'
 import NextQuestion from "../../../Components/Buttons/NextQuestion"
 import { useSelector, useDispatch } from "react-redux"
-import { updateHeight, updatePreferedUnit, } from "../../../redux/userDetailsSlice"
+import { updateHeight, updatePreferedUnit, } from "../../../redux/bodyDetailsSlice"
 import { convertFtToCm, convertInchesToCm } from "../../../utils/converters"
 
 export default function ({ handleNextQuestion }) {
 
-    const userDetails = useSelector(state => state.userDetails);
+    const bodyDetails = useSelector(state => state.bodyDetails);
     const dispatch = useDispatch();
     const [initial, setInitial] = useState(5);
     const [final, setFinal] = useState(7);
@@ -23,7 +23,7 @@ export default function ({ handleNextQuestion }) {
             dispatch(updateHeight(value));
         };
         const calculateAndUpdateState = () => {
-            if (userDetails.preferredUnit === 'inch') {
+            if (bodyDetails.preferredUnit === 'inch') {
                 const newValue = Math.round(convertFtToCm(initial) + convertInchesToCm(final));
 
                 updateState(newValue);
@@ -34,17 +34,17 @@ export default function ({ handleNextQuestion }) {
 
     useEffect(() => {
         
-    }, [userDetails.height])
+    }, [bodyDetails.height])
     return (
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', }}>
 
-                {userDetails.preferredUnit === 'cm' ?
+                {bodyDetails.preferredUnit === 'cm' ?
                     <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'black' }}>
-                        {userDetails.height} {userDetails.preferredUnit}
+                        {bodyDetails.height} {bodyDetails.preferredUnit}
                     </Text>
                     : <Text style={{ ...globalStyles.title, borderBottomWidth: 1, borderBottomColor: 'black' }}>
-                        {initial}" {final}' {userDetails.preferredUnit}es
+                        {initial}" {final}' {bodyDetails.preferredUnit}es
                     </Text>
                 }
 
@@ -52,7 +52,7 @@ export default function ({ handleNextQuestion }) {
             <NextQuestion goNext={handleNextQuestion} noRadius={true} disabled={false} />
             <View style={{ flexDirection: 'row' }}>
                 {
-                    userDetails.preferredUnit === 'cm' ?
+                    bodyDetails.preferredUnit === 'cm' ?
                         <View style={{ flex: 3 }}>
                             <Picker
                                 key={1}
@@ -64,7 +64,7 @@ export default function ({ handleNextQuestion }) {
                                 isShowSelectLine={false}
                                 selectLineSize={9}
                                 pickerData={cmArray}
-                                selectedValue={userDetails.height}
+                                selectedValue={bodyDetails.height}
                                 onValueChange={value => dispatch(updateHeight(value))}
                             />
                         </View>
@@ -107,7 +107,7 @@ export default function ({ handleNextQuestion }) {
                     isShowSelectLine={false}
                     selectLineSize={9}
                     pickerData={['cm', 'inch']}
-                    selectedValue={userDetails.preferredUnit}
+                    selectedValue={bodyDetails.preferredUnit}
                     onValueChange={value => {
                         dispatch(updatePreferedUnit(value))
                     }

@@ -13,14 +13,14 @@ import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/dat
 import store from "../../../redux/store"
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux"
-import { updatePreferedWeightUnit, updateWeight, } from "../../../redux/userDetailsSlice"
+import { updatePreferedWeightUnit, updateWeight, } from "../../../redux/bodyDetailsSlice"
 import { convertKgtoLb, convertLbtoKg } from "../../../utils/converters"
 export default function ({ handleNextQuestion }) {
     const dispatch = useDispatch();
     const CONVERSION_FACTOR = 1.0;
-    const preferredWeightUnit = useSelector(state => state.userDetails.preferredWeightUnit)
+    const preferredWeightUnit = useSelector(state => state.bodyDetails.preferredWeightUnit)
     
-    const weight = useSelector(state => state.userDetails.weight);
+    const weight = useSelector(state => state.bodyDetails.weight);
     const [initial, setInitial] = useState(preferredWeightUnit === 'kg' ? Math.floor(weight) : Math.floor(convertKgtoLb((weight))));
     const [final, setFinal] = useState(preferredWeightUnit === 'kg'
         ? 10 * (weight - Math.floor(weight)).toFixed(1)

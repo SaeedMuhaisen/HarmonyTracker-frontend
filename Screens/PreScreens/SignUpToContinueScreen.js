@@ -42,12 +42,14 @@ export default function () {
         }
     })
     const user = useSelector(state => state.user)
+    const bodyDetails = useSelector(state => state.bodyDetails)
     const signedIn = useSelector(state => state.user.signedIn)
     useEffect(() => {
         const saveTokens = async () => {
             if (signedIn === true) {
                 console.log('signed IN!')
                 await SecureStore.setItemAsync('USER', JSON.stringify(user));
+                await SecureStore.setItemAsync('BODYDETAILS', JSON.stringify(bodyDetails));
                 navigation.navigate(ROUTES.InnerApp)
             }
         }

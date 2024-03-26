@@ -12,7 +12,7 @@ import { AppColors } from "../../../Styles/AppColors";
 export default function () {
     const [width, setWidth] = useState(null)
     const result = useSelector(state => state.surveyResult)
-    const weight = useSelector(state => state.userDetails.weight)
+    const weight = useSelector(state => state.bodyDetails.weight)
     return (
         <View style={{ gap: 15 }}>
             <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-between' }}>

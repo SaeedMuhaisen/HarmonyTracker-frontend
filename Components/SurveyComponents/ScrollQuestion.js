@@ -20,7 +20,7 @@ const ScrollQuestion = React.memo(({ element, handleAnswerSelection, pressedItem
     const [scroll, setScroll] = useState(0);
     const dispatch = useDispatch();
     const answers = element.answers
-    const userDetails = useSelector(state => state.userDetails);
+    const bodyDetails = useSelector(state => state.bodyDetails);
     const pictures = element.pictures
     useEffect(() => {
 

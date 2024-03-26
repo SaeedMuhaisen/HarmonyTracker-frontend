@@ -15,8 +15,8 @@ import UserMacrosPie from "./UserMacrosPie";
 export default function () {
     const [width, setWidth] = useState(null)
     const result = useSelector(state => state.surveyResult)
-    const bodyDetails = useSelector(state => state.userDetails)
-    const weight = useSelector(state => state.userDetails.weight)
+    const bodyDetails = useSelector(state => state.bodyDetails)
+    const weight = useSelector(state => state.bodyDetails.weight)
     return (
         <View style={{ gap: 15 }}>
             <Text style={{ ...globalStyles.body, }}>Your total daily energy expenditure based on your input is:</Text>

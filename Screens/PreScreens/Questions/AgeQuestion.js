@@ -5,13 +5,13 @@ import { DatePicker } from 'react-native-wheel-pick';
 import NextQuestion from "../../../Components/Buttons/NextQuestion"
 import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import { useSelector, useDispatch } from "react-redux"
-import { updateBirthDate } from "../../../redux/userDetailsSlice"
+import { updateBirthDate } from "../../../redux/bodyDetailsSlice"
 import { monthNames } from "../../../Consts/MonthNames"
 
 export default function ({ handleNextQuestion }) {
     const dispatch = useDispatch();
-    const userDetails = useSelector(state => state.userDetails);
-    const birthDate = new Date(userDetails.birthDate);
+    const bodyDetails = useSelector(state => state.bodyDetails);
+    const birthDate = new Date(bodyDetails.birthDate);
 
     return (
         <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'flex-end' }}>
@@ -26,7 +26,7 @@ export default function ({ handleNextQuestion }) {
                     <View style={{ padding: 0, marginLeft: 0, }}>
                         <DateTimePicker
                             display={'spinner'}
-                            value={new Date(userDetails.birthDate)}
+                            value={new Date(bodyDetails.birthDate)}
                             dateFormat='day month year'
                             onChange={(date) => {
                                 const selectedDate = new Date(date.nativeEvent.timestamp);

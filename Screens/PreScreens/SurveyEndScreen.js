@@ -18,7 +18,7 @@ import LoadingText from "../../Components/Loading/LoadingText";
 import { PreviewServices } from "../../utils/Functions/PreviewServices";
 import * as SecureStore from 'expo-secure-store';
 export default function () {
-    const userDetails = useSelector(state => state.userDetails)
+    const bodyDetails = useSelector(state => state.bodyDetails)
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const result = useSelector(state => state.surveyResult)
@@ -28,7 +28,7 @@ export default function () {
         }
         const prev = new PreviewServices()
         const calc = async () => {
-            const temp = prev.createMacroPlan(userDetails)
+            const temp = prev.createMacroPlan(bodyDetails)
             const serializableData = {
                 bmi: temp.bmi,
                 bmiClassificationType: temp.bmiClassificationType,

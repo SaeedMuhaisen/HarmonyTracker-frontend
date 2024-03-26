@@ -1,19 +1,16 @@
 import React, { useState } from "react"
-import { KeyboardAvoidingView, TouchableWithoutFeedback, SafeAreaView, View, Keyboard, TextInput, Platform, Text, TouchableHighlight, TouchableOpacity, SafeAreaViewBase, StatusBar } from "react-native"
+import { View, Text,} from "react-native"
 import { AppColors } from "../../Styles/AppColors"
-import Ionicons from '@expo/vector-icons/Ionicons'
 import { globalStyles } from "../../GlobalStyles"
-import { ProgressBar, Colors } from 'react-native-paper';
 import NextQuestion from "../../Components/Buttons/NextQuestion"
 import MultipleQuestions from "../../Components/MultipleQuestions"
 import WeightQuestion from "./Questions/WeightQuestion"
 import AgeQuestion from "./Questions/AgeQuestion"
-import { updateActivityLevel, updateBicepsWidest, updateExtraData, updateForearmWidest, updateGender, updateGoal, updateHipWidest, updateNeckNarrowest, updateThighWidest, updateWaistNarrowest, updateWaistNarrowestUnit, updateWaistNavel, updateWristNarrowest } from "../../redux/userDetailsSlice"
+import { updateActivityLevel, updateExtraData, updateGender, updateGoal, updateHipWidest, updateNeckNarrowest,updateWaistNavel, } from "../../redux/bodyDetailsSlice"
 import HeightQuestion from "./Questions/HeightQuestion"
 import ExtraQuestions from "./Questions/ExtraQuestions"
 import { useSelector, useStore } from "react-redux"
 import store from "../../redux/store"
-import body from "../../assets/body.png"
 import male_waist from "../../assets/Measurements/male_waist.png"
 import male_neck from "../../assets/Measurements/male_neck.png"
 import female_waist from "../../assets/Measurements/female_waist.png"
@@ -21,11 +18,9 @@ import female_neck from "../../assets/Measurements/female_neck.png"
 import female_hip from "../../assets/Measurements/female_hip.png"
 import { useNavigation } from "@react-navigation/native"
 import ROUTES from "../../Navigation/ROUTES"
-import ContainerView from "../../Components/Views/OuterContainer"
 import OuterContainer from "../../Components/Views/OuterContainer"
 import TopBar from "../../Components/SurveyComponents/TopBar"
 import ScrollQuestion from "../../Components/SurveyComponents/ScrollQuestion"
-
 import constricted_activity from '../../assets/activityLevels/constricted_activity.png'
 import extremelyActive_activity from '../../assets/activityLevels/extremelyActive_activity.png'
 import home_activity from '../../assets/activityLevels/home_activity.png'
@@ -46,7 +41,7 @@ type 10:extra questions with picture and custom keyboard
 
 export default function Quiz() {
     const navigation = useNavigation();
-    const userDetails = useSelector(state => state.userDetails)
+    const bodyDetails = useSelector(state => state.bodyDetails)
     const questionsArray = [
         {
             key: 0,
@@ -91,7 +86,7 @@ export default function Quiz() {
             type: 10,
             question: 'Neck at Narrowest point?',
             updateState: updateNeckNarrowest,
-            state: useSelector(state => state.userDetails.neckNarrowest),
+            state: useSelector(state => state.bodyDetails.neckNarrowest),
             imgSourceMale:male_neck,
             imgSourceFemale:female_neck,
         },
@@ -100,7 +95,7 @@ export default function Quiz() {
             type: 10,
             question: 'Waist at navel?',
             updateState: updateWaistNavel,
-            state: useSelector(state => state.userDetails.waistNavel),
+            state: useSelector(state => state.bodyDetails.waistNavel),
             imgSourceMale:male_waist ,
             imgSourceFemale: female_waist,
         },
@@ -109,7 +104,7 @@ export default function Quiz() {
             type: 10,
             question: 'Hip at widest point',
             updateState: updateHipWidest,
-            state: useSelector(state => state.userDetails.hipWidest),
+            state: useSelector(state => state.bodyDetails.hipWidest),
             imgSourceMale: null,
             imgSourceFemale: female_hip,
         },
@@ -170,8 +165,8 @@ export default function Quiz() {
         console.log(currentQuestionIndex)
         if (currentQuestionIndex < questionsArray.length - 1) {
             if (currentQuestionIndex === 6) {
-                console.log(userDetails.gender)
-                if (userDetails.gender === 'male') {
+                console.log(bodyDetails.gender)
+                if (bodyDetails.gender === 'male') {
                     console.log('+2')
                     setCurrentQuestionIndex((prevIndex) => prevIndex + 2);
                     setSelectedAnswer(null);
@@ -182,7 +177,7 @@ export default function Quiz() {
                 }
             }
             else {
-                if (currentQuestionIndex === 4 && !store.getState().userDetails.extraData) {
+                if (currentQuestionIndex === 4 && !store.getState().bodyDetails.extraData) {
                     setCurrentQuestionIndex(8)
                     setSelectedAnswer(null);
                 }
@@ -199,8 +194,8 @@ export default function Quiz() {
     const handlePreviousQuestion = () => {
         if (currentQuestionIndex > 0) {
             if (currentQuestionIndex === 8) {
-                if (userDetails.extraData) {
-                    if (userDetails.gender === 'male') {
+                if (bodyDetails.extraData) {
+                    if (bodyDetails.gender === 'male') {
                         console.log('-2')
                         setCurrentQuestionIndex((prevIndex) => prevIndex - 2);
                         setSelectedAnswer(null);

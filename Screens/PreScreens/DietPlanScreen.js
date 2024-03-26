@@ -16,10 +16,10 @@ import { setMacros } from "../../redux/macroSlice";
 import store from "../../redux/store";
 export default function () {
     const result = useSelector(state => state.surveyResult)
-    const userDetails = useSelector(state => state.userDetails)
+    const bodyDetails = useSelector(state => state.bodyDetails)
     const macros = useSelector(state => state.macros)
 
-    const initialTdee = result.bmr * userDetails.activityLevel
+    const initialTdee = result.bmr * bodyDetails.activityLevel
     const carbs = initialTdee * 0.05 / 4
     const protein = result.leanBodyMass * 1.763696
     const carbsAndProteinCal = protein * 4 + carbs * 4;
@@ -117,7 +117,7 @@ export default function () {
 
             </View>
             <View>
-                <Graph deficit={updatedDeficit} initialWeight={userDetails.weight} bmi={result.bmi} height={userDetails.height} bodyFat={result.bodyFatMass} />
+                <Graph deficit={updatedDeficit} initialWeight={bodyDetails.weight} bmi={result.bmi} height={bodyDetails.height} bodyFat={result.bodyFatMass} />
             </View>
         </View>
 
