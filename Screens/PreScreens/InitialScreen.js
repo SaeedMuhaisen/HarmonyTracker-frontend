@@ -1,5 +1,5 @@
-import React ,{useState,useEffect} from 'react';
-import { View,  } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import ROUTES from '../../Navigation/ROUTES';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,22 +8,34 @@ import NextQuestion from '../../Components/Buttons/NextQuestion';
 import navigation from '../../utils/navigation';
 import useCustomNavigation from '../../utils/navigation';
 import * as SecureStore from 'expo-secure-store';
-import {Test} from '../../utils/Functions/Test'
+import { Test } from '../../utils/Functions/Test'
+import { useSelector } from 'react-redux';
 export default function () {
-    const navigation=useNavigation()
-    const testInstance = new Test();
+    const navigation = useNavigation()
     const [tokens, setToken] = useState(null);
+    const user=useSelector(state=>state.user)
+    const userDetails=useSelector(state=>state.userDetails)
+    const macro=useSelector(state=>state.macros)
+    const foodLog=useSelector(state=>state.foodLog)
+    const dailyIntake=useSelector(state=>state.dailyIntake)
     useEffect(() => {
-      const getTokens = async () => {
-        
-        console.log('tokens:',await SecureStore.getItemAsync('TOKENS'))
-        console.log('macros:',await SecureStore.getItemAsync('MACROS'))
-        console.log('surveyResult:',await SecureStore.getItemAsync('SURVEYRESULT'))
-        console.log('userDetails:',await SecureStore.getItemAsync('USERDETAILS'))
-        console.log('user:',await SecureStore.getItemAsync('USER'))
-        return result;
-      }
-      setToken(getTokens)
+        const getTokens = async () => {
+            let result = await SecureStore.getItemAsync('TOKENS')
+            console.log('Secure tokens:', await SecureStore.getItemAsync('TOKENS'))
+            console.log('Secure macros:', await SecureStore.getItemAsync('MACROS'))
+            console.log('Secure surveyResult:', await SecureStore.getItemAsync('SURVEYRESULT'))
+            console.log('Secure userDetails:', await SecureStore.getItemAsync('USERDETAILS'))
+            console.log('Secure user:', await SecureStore.getItemAsync('USER'))
+
+            console.log('user:',user)
+            console.log('userDetails:',userDetails)
+            console.log('macro:',macro)
+            console.log('foodLog:',foodLog)
+            console.log('dailyIntake:',dailyIntake)
+            return result;
+        }
+
+        setToken(getTokens)
     }, [])
     // useEffect(()=>{
     //     console.log(tokens,'updated!!!!! and available')

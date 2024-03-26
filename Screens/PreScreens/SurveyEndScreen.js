@@ -24,13 +24,11 @@ export default function () {
     const result = useSelector(state => state.surveyResult)
     useEffect(() => {
         const finished = () => {
-            
             navigation.navigate(ROUTES.SurveyResultsScreen)
         }
-
         const prev = new PreviewServices()
         const calc = async () => {
-            const temp = prev.createMacroPlan(userDetails);
+            const temp = prev.createMacroPlan(userDetails)
             const serializableData = {
                 bmi: temp.bmi,
                 bmiClassificationType: temp.bmiClassificationType,
@@ -41,10 +39,10 @@ export default function () {
                 leanBodyMass: temp.leanBodyMass,
                 bmr: temp.bmr,
                 bmrType: temp.bmrType,
-            };
-            dispatch(setResult(serializableData));
-            await SecureStore.setItemAsync('SURVEYRESULT', JSON.stringify(temp));
-            setTimeout(finished,3000)
+            }
+            dispatch(setResult(serializableData))
+            await SecureStore.setItemAsync('SURVEYRESULT', JSON.stringify(temp))
+            setTimeout(finished, 3000)
         }
         calc()
     }, []);

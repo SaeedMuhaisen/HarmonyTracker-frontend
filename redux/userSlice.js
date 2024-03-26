@@ -24,6 +24,7 @@ export const userSlice = createSlice({
         setSignedIn: (state, action) => {
             state.signedIn = action.payload;
         },
+        
     }
 })
 
