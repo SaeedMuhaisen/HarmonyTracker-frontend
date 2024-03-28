@@ -99,7 +99,7 @@ export default function () {
                             {
                                 Platform.OS === 'ios' ? (
                                     <>
-                                        <AppleSSO />
+                                        <AppleSSO typeRegister={true} />
                                         <GoogleSSO />
                                         <FacebookSSO />
                                     </>

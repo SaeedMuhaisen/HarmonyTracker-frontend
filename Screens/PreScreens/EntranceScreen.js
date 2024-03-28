@@ -17,39 +17,9 @@ import { AccessToken, LoginButton, LoginManager, Settings } from "react-native-f
 import { updateUserTokens } from '../../redux/userSlice';
 import { AppColors } from '../../Styles/AppColors';
 
+import * as SecureStore from 'expo-secure-store';
 export default function () {
-    Settings.setAppID('402103549044920');
-    Settings.initializeSDK();
 
-    const handleLogin = async () => {
-        try {
-            await LoginManager.logInWithPermissions()
-            const fbt = await AccessToken.getCurrentAccessToken();
-            getTrt(fbt);
-        } catch (error) {
-            console.log('caught error', error);
-        }
-    };
-    const getTrt = async (fbtoken) => {
-        const response = await fetch('http://192.168.1.102:8080/api/register/2', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(fbtoken),
-        });
-
-        if (response.ok) {
-            const responseData = await response.json();
-            const userData = {
-                refreshToken: responseData.access_token,
-                token: responseData.refresh_token,
-            };
-            store.dispatch(updateUserTokens(userData));
-        } else {
-            console.log('different response: not okay:', response);
-        }
-    };
 
     const Icons = Platform.select({
         ios: {
@@ -64,8 +34,20 @@ export default function () {
     })
     const [menuVisible, setMenuVisible] = useState(false);
     const navigation = useNavigation();
-    const userState = useSelector((state) => state.user);
-    console.log(userState.access_token)
+    const user= useSelector((state) => state.user);
+    const bodyDetails= useSelector((state) => state.bodyDetails);
+    const signedIn=useSelector(state=>state.user.signedIn)
+    useEffect(() => {
+        const saveTokens = async () => {
+            if (signedIn === true) {
+                console.log('signed IN!')
+                await SecureStore.setItemAsync('USER', JSON.stringify(user));
+                await SecureStore.setItemAsync('BODYDETAILS', JSON.stringify(bodyDetails));
+                navigation.navigate(ROUTES.InnerApp)
+            }
+        }
+        saveTokens()
+    }, [signedIn])
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -110,7 +92,7 @@ export default function () {
                                     {
                                         Platform.OS === 'ios' ? (
                                             <>
-                                                <AppleSSO />
+                                                <AppleSSO typeRegister={false} />
                                                 <GoogleSSO />
                                                 <FacebookSSO />
                                             </>

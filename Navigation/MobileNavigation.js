@@ -26,7 +26,7 @@ import SignUpToContinueScreen from '../Screens/PreScreens/SignUpToContinueScreen
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const MobileNavigation = () => {
-    
+
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName={ROUTES.InitialScreen} >
